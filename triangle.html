@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>三角形</title>
+    <style>
+      div {
+        position: relative;
+        width: 248px;
+        height: 33px;
+        background-color: #fff;
+        border: 1px solid #000;
+      }
+      div::after {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        content: "";
+        width: 10px;
+        height: 10px;
+        border-right: 2px solid #111;
+        border-bottom: 2px solid #111;
+        /* 顺时针旋转45度 */
+        transform: rotate(45deg);
+      }
+    </style>
+  </head>
+  <body>
+    <p>利用旋转制作下拉框的小三角形</p>
+    <div></div>
+  </body>
+</html>
