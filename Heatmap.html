@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>热点图</title>
+    <style>
+      body {
+        background-color: #333333;
+      }
+      .map {
+        position: relative;
+        height: 600px;
+        width: 850px;
+        margin: 200px auto;
+        background: url("upload/map.png") no-repeat;
+      }
+      .city {
+        position: absolute;
+        top: 228px;
+        right: 295px;
+        color: white;
+      }
+      .dotted {
+        width: 8px;
+        height: 8px;
+        background-color: #09f;
+        border-radius: 50%;
+      }
+      .city div[class^="pulse"] {
+        /* 关键点，定位到重叠 */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 8px;
+        height: 8px;
+        box-shadow: 0 0 12px #09d;
+        border-radius: 50%;
+        animation: pulse 2s linear infinite;
+      }
+      .city div.pulse2 {
+        animation-delay: 0.4s;
+      }
+      .city div.pulse3 {
+        animation-delay: 0.8s;
+      }
+      @keyframes pulse {
+        0% {
+        }
+        40% {
+          /* 不要用scale，效果不好看 */
+          /* transform: scale(2); */
+          width: 20px;
+          height: 20px;
+          opacity: 1;
+        }
+        70% {
+          width: 40px;
+          height: 40px;
+          opacity: 1;
+        }
+        100% {
+          width: 60px;
+          height: 60px;
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="map">
+      <div class="city">
+        <div class="dotted"></div>
+        <div class="pulse1"></div>
+        <div class="pulse2"></div>
+        <div class="pulse3"></div>
+      </div>
+    </div>
+  </body>
+</html>
