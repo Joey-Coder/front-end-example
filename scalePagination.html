@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>分页缩放</title>
+    <style>
+      ul {
+        margin: 100px 500px;
+      }
+      li {
+        float: left;
+        margin-right: 20px;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: skyblue;
+        /* 去除li的默认小点 */
+        list-style: none;
+        text-align: center;
+        line-height: 30px;
+        color: white;
+        /* 过渡 */
+        transition: all 0.4s;
+        /* 鼠标焦点变为小手 */
+        cursor: pointer;
+      }
+
+      li:hover {
+        /* 放大 */
+        transform: scale(1.2);
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+      <li>7</li>
+    </ul>
+  </body>
+</html>
