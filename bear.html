@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>动画小熊的奔跑</title>
+    <style>
+      body {
+        background-color: #aaa;
+      }
+      .bear {
+        position: absolute;
+        width: 200px;
+        height: 100px;
+        margin-top: 200px;
+        background: url("upload/bear.png") no-repeat;
+        /* 多个动画用，隔开 */
+        animation: move 1s steps(8) infinite, p 5s linear forwards;
+      }
+      /* 定义动画 */
+      @keyframes p {
+        0% {
+          left: 0;
+        }
+        100% {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+
+      @keyframes move {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: -1600px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bear"></div>
+  </body>
+</html>
