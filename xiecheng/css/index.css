@@ -21,6 +21,12 @@ ul {
 a {
   text-decoration: none;
   color: #222;
+  cursor: pointer;
+}
+
+h2 {
+  margin: 0;
+  padding: 0;
 }
 
 /* 搜索栏 */
@@ -98,7 +104,7 @@ a {
   right: 0;
   height: 60px;
   display: block;
-  z-index: 10;  
+  z-index: 10;
   /* 设置颜色渐变 */
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
 }
@@ -134,10 +140,208 @@ a {
   justify-content: center;
 }
 
-.local-nav-icon {
+.local-nav li [class^="local-nav-icon"] {
   width: 32px;
   height: 32px;
   margin: 8px 0 5px;
-  background: url(../uploads/navicon.png) no-repeat;
-  background-size: 32px 32px;
+  background: url(../images/localnav_bg.png) no-repeat;
+  /* 这里需要填写精灵图的size */
+  background-size: 32px 160px;
+}
+
+.local-nav li .local-nav-icon1 {
+  background-position: 0 0;
+}
+.local-nav li .local-nav-icon2 {
+  background-position: 0 -32px;
+}
+.local-nav li .local-nav-icon3 {
+  background-position: 0 -64px;
+}
+.local-nav li .local-nav-icon4 {
+  background-position: 0 -96px;
+}
+.local-nav li .local-nav-icon1 {
+  background-position: 0 -108px;
+}
+
+/* 主导航栏 */
+nav {
+  overflow: hidden;
+  margin: 0 12px;
+  border-radius: 8px;
+}
+
+.nav-common {
+  display: flex;
+  height: 66px;
+  background-color: #ccc;
+}
+
+.nav-common:nth-child(2) {
+  margin: 1px 0;
+}
+
+.nav-items {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.nav-common:first-child {
+  background: linear-gradient(to right, #ff4944, #ff7f36);
+}
+
+.nav-common:nth-child(2) {
+  background: linear-gradient(to right, #4188f4, #28bbf4);
+}
+
+.nav-common:last-child {
+  background: linear-gradient(to right, #00c8aa, #2fde48);
+}
+
+/* 这是一段令人厌恶的背景过渡颜色代码 */
+/* .nav-common:first-child .nav-items:nth-child(1) {
+  background: linear-gradient(to right, #ff4944, #f3967f);
+}
+
+.nav-common:first-child .nav-items:nth-child(2) {
+  background: linear-gradient(to right, #ff6a3c, #f7a085);
+}
+
+.nav-common:first-child .nav-items:last-child {
+  background: linear-gradient(to right, #ffbe12, #f3de88);
+}
+
+.nav-common:nth-child(2) .nav-items:first-child {
+  background: linear-gradient(to right, #4188f4, #80b7ee);
+}
+
+.nav-common:nth-child(2) .nav-items:nth-child(2) {
+  background: linear-gradient(to right, #3997f4, #7dc3f5);
+}
+
+.nav-common:nth-child(2) .nav-items:last-child {
+  background: linear-gradient(to right, #32a4f3, #8ed8f3);
+}
+
+.nav-common:last-child .nav-items:first-child {
+  background: linear-gradient(to bottom right, #00c8ab, rgba(0,207,143,.2));
+}
+.nav-common:last-child .nav-items:nth-child(2) {
+  background: linear-gradient(to right, #00cf8c, #aeeed1);
+}
+.nav-common:last-child .nav-items:last-child {
+  background: linear-gradient(to right, #00d475, #b5f1bd);
+} */
+/* -n+2代表前两个 n+2代表从第二个到最后一个 */
+.nav-items:nth-child(-n + 2) {
+  border-right: 1px solid #fff;
+}
+
+.nav-items a {
+  flex: 1;
+  padding-left: 12px;
+  border-bottom: 1px solid #fff;
+  line-height: 32px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.nav-common .nav-items:nth-child(1) a {
+  line-height: 64px;
+  background: url(../images/hotel.png) no-repeat bottom right;
+  background-size: 73px auto;
+}
+
+/* 侧导航栏 */
+
+.subnav-entry {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 5px 12px;
+  border-radius: 8px;
+  background-color: #fafafc;
+}
+
+.subnav-entry li {
+  flex: 20%;
+}
+
+.subnav-entry li [class^="subnav-entry-icon"] {
+  width: 28px;
+  height: 28px;
+  margin: 5px 0;
+  background-image: url(../images/subnav_icon.png);
+  background-repeat: no-repeat;
+  background-size: 28px auto;
+  /* background-color: skyblue; */
+}
+
+.subnav-entry-icon1 {
+  background-position: 0 0;
+}
+.subnav-entry-icon2 {
+  background-position: 0px -28px;
+}
+.subnav-entry-icon3 {
+  background-position: 0px -56px;
+}
+.subnav-entry-icon4 {
+  background-position: 0px -84px;
+}
+.subnav-entry-icon5 {
+  background-position: 0px -112px;
+}
+.subnav-entry-icon6 {
+  background-position: 0px -140px;
+}
+.subnav-entry-icon7 {
+  background-position: 0px -168px;
+}
+.subnav-entry-icon8 {
+  background-position: 0px -196px;
+}
+.subnav-entry-icon9 {
+  background-position: 0px -224px;
+}
+.subnav-entry-icon10 {
+  background-position: 0px -252px;
+}
+.subnav-entry a {
+  display: flex;
+  font-size: 12px;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 热门活动 */
+.sales-box {
+  height: 156px;
+  border-top: 1px solid #ccc;
+  margin: 10px 0;
+  background-color: skyblue;
+}
+
+.sales-hd {
+  height: 44px;
+  background-color: #ccc;
+}
+
+.sales-hd h2 {
+  position: relative;
+  text-indent: -999px;
+  overflow: hidden;
+}
+
+.sales-hd h2::after {
+  position: absolute;
+  content: "";
+  top: 13px;
+  left: 10px;
+  width: 79px;
+  height: 15px;
+  background: url(../images/hot_activity.png) no-repeat;
+  background-size: 79px auto;
+  background-position: 0 -19px;
 }

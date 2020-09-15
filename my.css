@@ -1,0 +1,15 @@
+body {
+  background-color: pink;
+}
+div {
+  font-size: 14px;
+}
+div p {
+  background-color: pink;
+}
+div {
+  background-color: pink;
+}
+div a:hover {
+  font-size: 4.66666667px;
+}

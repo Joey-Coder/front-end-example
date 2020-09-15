@@ -1,0 +1,21 @@
+@color: pink;
+@fs: 14px;
+body {
+  background-color: @color;
+}
+
+div {
+  font-size: @fs;
+  p {
+    background-color: @color;
+  }
+}
+
+div {
+  background-color: @color;
+  a {
+    &:hover {
+      font-size: @fs / 3;
+    }
+  }
+}
