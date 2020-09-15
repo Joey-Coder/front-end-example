@@ -1,0 +1,97 @@
+body {
+  width: 100%;
+  min-width: 320px;
+  max-width: 640px;
+  margin: 0 auto;
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: -apple-system, "Helvetica Neue", sans-serif;
+  color: #666;
+}
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  height: 45px;
+}
+
+.app ul li {
+  float: left;
+  height: 45px;
+  background-color: #333333;
+  list-style: none;
+  text-align: center;
+  line-height: 45px;
+  color: #ffffff;
+}
+
+.app ul li:nth-child(1) {
+  width: 8%;
+}
+
+.app ul li:nth-child(1) img {
+  width: 10px;
+  height: 10px;
+  vertical-align: middle;
+}
+
+.app ul li:nth-child(2) {
+  width: 10%;
+}
+
+.app ul li:nth-child(2) img {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+.app ul li:nth-child(3) {
+  width: 57%;
+}
+
+.app ul li:last-child {
+  width: 25%;
+  background-color: #f63515;
+  color: #ffffff;
+}
+
+.app ul li:nth-child(n + 3) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-wrap {
+    position: relative;
+    overflow: hidden;
+    height: 44px;
+}
+
+.search-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 44px;
+    background-color: skyblue;
+}
+
+.search-login {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 44px;
+    background-color: skyblue;
+}
+
+.search {
+    height: 30px;
+    background-color: skyblue;
+    margin: 0 50px;
+    border-radius: 15px;
+    margin-top: 7px;
+
+}
