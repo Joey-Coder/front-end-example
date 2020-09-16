@@ -52,3 +52,90 @@ header {
   vertical-align: middle;
   margin-right: 5px;
 }
+
+.news li {
+  float: left;
+  width: 25%;
+  height: 128px;
+  margin-bottom: 10px;
+  padding-right: 10px;
+}
+
+.news li a {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.news li:first-child {
+  width: 50%;
+  height: 266px;
+}
+
+.news li a img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.news li a p {
+  position: absolute;
+  width: 100%;
+  height: 41px;
+  left: 0;
+  bottom: 0;
+  margin-bottom: 0;
+  padding: 5px 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  font-size: 12px;
+}
+
+.news li:first-child a p {
+  padding: 0 10px;
+  line-height: 41px;
+  font-size: 20px;
+}
+
+/* public */
+
+.public {
+  border-top: 1px solid #ccc;
+}
+
+.public .row {
+  border-bottom: 1px solid #ccc;
+  padding: 10px 5px 10px 0;
+}
+.pic {
+  margin-top: 10px;
+}
+
+.pic img {
+  display: block;
+  /* height: 100%; */
+  width: 100%;
+}
+
+/* aside */
+
+.banner img {
+  width: 100%;
+}
+
+.hot {
+  display: block;
+  margin-top: 20px;
+  padding: 0 20px 20px;
+  border: 1px solid #ccc;
+}
+
+.hot .btn {
+  margin-bottom: 20px;
+  border-radius: 0;
+}
+
+.hot p {
+  font-size: 12px;
+}
