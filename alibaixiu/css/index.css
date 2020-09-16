@@ -1,0 +1,54 @@
+@media screen and (min-width: 1280px) {
+  .container {
+    width: 1280px;
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: #666;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+header {
+  padding-left: 0 !important;
+}
+.logo {
+  background-color: #2497df;
+}
+.logo img {
+  display: block;
+  width: 100%;
+}
+
+/* nav */
+.nav {
+  background-color: #eee;
+  border-bottom: 1px solid #ccc;
+}
+
+.nav a {
+  display: block;
+  height: 50px;
+  padding-left: 30px;
+  line-height: 50px;
+  font-size: 16px;
+}
+.nav a:hover {
+  background-color: #fff;
+  color: #666;
+}
+
+.nav a::before {
+  vertical-align: middle;
+  margin-right: 5px;
+}
