@@ -4,6 +4,14 @@
   }
 }
 
+body {
+  background-color: #fafafa;
+}
+
+.container {
+  background-color: #fff;
+}
+
 ul {
   margin: 0;
   padding: 0;
@@ -27,7 +35,17 @@ header {
 }
 .logo img {
   display: block;
-  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.logo span {
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-size: 18px;
+  color: #fff;
 }
 
 /* nav */
