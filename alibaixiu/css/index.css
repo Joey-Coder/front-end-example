@@ -4,6 +4,35 @@
   }
 }
 
+@media screen and (max-width: 991px) {
+  .nav li {
+    float: left;
+    width: 20%;
+  }
+  article {
+    margin-top: 10px;
+  }
+}
+@media screen and (max-width: 767px) {
+  /* 超小屏幕导航栏字体缩小 */
+  .nav li a {
+    font-size: 14px;
+  }
+  /* 第一个li占100%，其余占50% */
+  .news li:first-child {
+    width: 100% !important;
+  }
+  .news li {
+    width: 50% !important;
+  }
+  .public h3 {
+    font-size: 14px;
+  }
+  aside .banner {
+    display: block;
+    margin-top: 10px;
+  }
+}
 body {
   background-color: #fafafa;
 }
