@@ -12,6 +12,15 @@
   article {
     margin-top: 10px;
   }
+  .navbar-right {
+    display: flex;
+    margin-top: -50px !important;
+    /* color: blue !important; */
+  }
+  .navbar-right li {
+    /* width: 10%; */
+    flex: 1;
+  }
 }
 @media screen and (max-width: 767px) {
   /* 超小屏幕导航栏字体缩小 */
