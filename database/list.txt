@@ -1,0 +1,2 @@
+01.js 使用mongoose连接到mongo
+02.js 使用mongoose创建集合
