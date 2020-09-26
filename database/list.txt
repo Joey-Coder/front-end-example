@@ -1,2 +1,17 @@
 01.js 使用mongoose连接到mongo
-02.js 使用mongoose创建集合
+
+02.js 使用mongoose创建集合以及如何插入文档
+
+03.js create方法插入数据到集合
+
+04.sh 向mongodb导入现成数据  user.json 现成的json数据，用于导入到mongodb中 
+
+05.js 使用find查找文档
+
+06.js 使用findOneAndDelete和findAndDelete删除文档
+
+07.js updateOne更新文档
+
+08.js mongoose字段验证
+
+09.js 关联查询
