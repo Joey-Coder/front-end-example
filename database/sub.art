@@ -1,0 +1,4 @@
+<!-- 标准语法 -->
+<!-- {{ include './index.art'}} -->
+<!-- 原始语法 -->
+<% include('./index.art') %>

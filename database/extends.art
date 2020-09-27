@@ -1,0 +1,7 @@
+<!-- 先继承整体模版 -->
+{{ extend "./common.art" }}
+
+<!-- 往位置填充内容 -->
+{{ block "content"}}
+<p>I am {{ msg }} of extends.art</p>
+{{ /block }}

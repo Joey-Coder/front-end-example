@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 标准语法 -->
+    <p>{{ name }}</p>
+    <p>{{ age }}</p>
+
+    <!-- 简单数字判断 -->
+    <p>{{ 1 + 1 }}</p>
+    <p>{{ 1 + 1 == 2 ? "equal" : "unequal" }}</p>
+
+    <!-- 转义输出 -->
+    {{ content }}
+
+    <!-- 原文输出 -->
+    {{@ content}}
+
+    <!-- 条件判断if -->
+    {{if age > 18}}
+    age > 18
+    {{else if age > 15}}
+    age <ul 15
+    {{ else }}
+    unknow age...
+    {{/if}}
+
+    <!-- 循环语法 -->
+    <ul>
+      {{each array}}
+      <li>{{ $index }} -> {{ $value }}</li>
+      {{/each}}
+    </ul>
+
+    <!-- ----------------------------------- -->
+
+    <!-- 原始语法 -->
+    <p><%= name %></p>
+    <p><%= age %></p>
+    <p><%= 1+1 %></p>
+    <p><%= 1+1 == 2 ? "equal" : "unequal" %></p>
+    <!-- 转义输出 -->
+    <%= content %>
+    <!-- 原文输出 -->
+    <%- content %>
+    <!-- 条件判断 -->
+    <% if (age > 18) { %> age > 18 <% } else if (age > 15) { %> age > 15 <% }
+    else { %> unkonw age <% } %>
+
+    <!-- 循环语句 -->
+    <ul>
+      <% for (var i=0; i < array.length; i++) { %>
+      <li><%= i %> -> <%= array[i] %></li>
+      <% } %>
+    </ul>
+  </body>
+</html>
