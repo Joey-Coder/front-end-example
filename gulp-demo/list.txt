@@ -1,0 +1,5 @@
+src 项目源代码
+
+gulpfile.js 任务编写文件
+
+dist 压缩后的文件
