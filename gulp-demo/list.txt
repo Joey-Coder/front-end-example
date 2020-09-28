@@ -3,3 +3,5 @@ src 项目源代码
 gulpfile.js 任务编写文件
 
 dist 压缩后的文件
+
+package.json 项目描述以及依赖模块 可以使用npm init -y
