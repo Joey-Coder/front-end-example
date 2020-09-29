@@ -25,3 +25,7 @@
 12.html 搜索框内容自动提示
 
 13.html 省市区三级联动
+
+14.html FormData表单对象
+
+15.html FormData实现二进制文件上传

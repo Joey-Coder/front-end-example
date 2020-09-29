@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 1. 创建普通的html表单 -->
+    <form id="form">
+      <input type="text" name="username" />
+      <input type="password" name="password" />
+      <input type="button" id="btn" value="提交" />
+    </form>
+    <script type="text/javascript">
+      var btn = document.getElementById("btn");
+      var form = document.getElementById("form");
+      btn.onclick = function () {
+        // 2. 构造FormData对象
+        var formData = new FormData(form);
+
+        //.get 获取表单属性
+        console.log(formData.get("username"));
+        //.set 设置表单属性值
+        formData.set("username", "Ross");
+        formData.set("age", 24);
+        // .delete 删除表单属性
+        formData.delete("age");
+        // .append 添加表单属性, 与set不一样的是，append不会覆盖已有的属性
+        formData.append("age", 25);
+        // console.log(formData);
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "http://localhost:3000/formData");
+        // 3. 发送formData对象
+        xhr.send(formData);
+        xhr.onload = () => {
+          if (xhr.status == 200) {
+            console.log("返回内容: " + xhr.responseText);
+          }
+        };
+      };
+    </script>
+  </body>
+</html>

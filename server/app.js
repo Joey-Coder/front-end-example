@@ -2,11 +2,12 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const fs = require("fs");
+const formidable = require("formidable");
 
 const app = express();
 
 // parse application/json
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 // urlencoded类型
 // app.use(bodyParser.urlencoded())
 
@@ -200,6 +201,30 @@ app.get("/area", (req, res) => {
       },
     ]);
   }
+});
+
+app.post("/formData", (req, res) => {
+  console.log("/formData");
+  // 使用第三方formdata模块解析formdata对象
+  const form = new formidable.IncomingForm();
+  form.parse(req, (err, fields, files) => {
+    res.send(fields);
+  });
+});
+
+app.post("/upload", (req, res) => {
+  console.log("/upload");
+  const form = new formidable.IncomingForm();
+  // 设置用户上传的文件的存储路径
+  form.uploadDir = path.join(__dirname, "public", "upload");
+  form.keepExtensions = true;
+  console.log(req);
+  form.parse(req, (err, fields, files) => {
+    // console.log(files.attrName);
+    res.send({
+      path: files.attrName.path.split("public")[1],
+    });
+  });
 });
 
 app.listen(3000);

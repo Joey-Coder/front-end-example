@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .progress {
+        margin-top: 20px;
+        width: 800px;
+        height: 30px;
+        background-color: #fff;
+        border: 2px #ccc solid;
+      }
+      .progress-bar {
+        width: 0%;
+        height: 100%;
+        background-color: orange;
+        line-height: 30px;
+        color: #fff;
+        font-size: 16px;
+        text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-group">
+        <label>请选择文件</label>
+        <input type="file" id="file" />
+
+        <div class="progress">
+          <div class="progress-bar" id="bar">0%</div>
+        </div>
+        <br />
+        <div class="padding" id="box">
+          <!-- <img src="" class="img-rounded" /> -->
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var file = document.getElementById("file");
+      var box = document.getElementById("box");
+
+      file.onchange = function () {
+        //创建空的FormData对象
+        var formData = new FormData();
+        // 获取上传文件后缀
+        var fileExt = this.value.split(".")[1];
+        // .append追加用户上传文件
+        // var newFile = new File(
+        //   [this.files[0]],
+        //   new Date().getTime() + "." + fileExt,
+        //   { type: "image/jpeg" }
+        // );
+        // console.log(this.files[0].name)
+        formData.append("attrName", this.files[0], "sfsdfsd.jpeg");
+        // console.log(this.files[0])
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("post", "http://localhost:3000/upload");
+
+        // 实现上传进度显示
+        // 一定要写在send方法前面
+        xhr.upload.onprogress = (ev) => {
+          console.log("progress");
+          // ev.loaded代表文件已经上传的量
+          // ev.total 代表文件总量
+          var bar = document.getElementById("bar");
+          // 设置进度条宽度
+          var barLength = Math.round((ev.loaded / ev.total) * 100) + "%";
+          bar.style.width = barLength;
+          bar.innerHTML = barLength;
+        };
+
+        xhr.send(formData);
+
+        xhr.onload = () => {
+          if (xhr.status == 200) {
+            console.log(xhr.responseText);
+            var result = JSON.parse(xhr.responseText);
+            var img = document.createElement("img");
+            img.src = "http://localhost:3000" + result.path;
+            img.onload = function () {
+              box.appendChild(img);
+            };
+          }
+        };
+      };
+    </script>
+  </body>
+</html>
