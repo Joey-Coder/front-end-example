@@ -1,0 +1,64 @@
+function ajax(options) {
+  // 默认值，等待覆盖
+  var defaults = {
+    type: "get",
+    url: "",
+    data: {},
+    header: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    success: function () {},
+    error: function () {},
+  };
+  // options覆盖默认值
+  Object.assign(defaults, options);
+  // 创建ajax对象
+  var xhr = new XMLHttpRequest();
+  // 循环拼接参数
+  var params = "";
+  for (var attr in defaults.data) {
+    params += attr + "=" + defaults.data[attr] + "&";
+  }
+  // 去掉最后一饿&符号
+  params = params.substr(0, params.length - 1);
+  console.log(params);
+
+  if (defaults.type == "get") {
+    defaults.url = defaults.url + "?" + params;
+  }
+
+  // 配置ajax对象
+  xhr.open(defaults.type, defaults.url);
+  // 发送请求
+  if (defaults.type == "post") {
+    var contentType = defaults.header["Content-Type"];
+    xhr.setRequestHeader("Content-Type", contentType);
+    if (contentType == "application/json") {
+      // 传递JSON
+      xhr.send(JSON.stringify(defaults.data));
+    } else {
+      // 传递字符串
+      xhr.send(params);
+    }
+  } else {
+    xhr.send();
+  }
+  // 获取服务端返回数据
+  xhr.onload = () => {
+    //获取响应头的数据类型
+    var responseText = xhr.responseText;
+    var contentType = xhr.getResponseHeader("Content-Type");
+    // 如果服务端返回值是json字符串，则要转换为json
+    if (contentType.includes("application/json")) {
+      console.log("包含json");
+      // console.log(responseText);
+      responseText = JSON.parse(responseText);
+      // console.log(responseText);
+    }
+    if (xhr.status == 200) {
+      defaults.success(responseText);
+    } else {
+      defaults.error(responseText);
+    }
+  };
+}

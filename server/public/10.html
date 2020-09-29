@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 1. 将模版引擎引入当前page -->
+    <script src="./js/template-web.js"></script>
+  </head>
+  <body>
+    <div id="container"></div>
+    <!-- 2. 定义模版 -->
+    <script type="text/html" id="tpl">
+      <h1>{{ name}} - {{age}}</h1>
+    </script>
+    <!-- 3. 进行渲染 -->
+    <script type="text/javascript">
+      var xhr = new XMLHttpRequest();
+      xhr.open("get", "http://localhost:3000/first");
+      xhr.send();
+      xhr.onload = () => {
+        // console.log(typeof JSON.parse(xhr.responseText));
+        var html = template("tpl", JSON.parse(xhr.responseText));
+        console.log(html);
+        document.getElementById("container").innerHTML = html;
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .bg-danger {
+        color: brown;
+      }
+      .bg-success {
+        color: chartreuse;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-group">
+        <label>邮箱地址</label>
+        <input type="email" placeholder="请输入邮箱地址" id="email" />
+      </div>
+      <p id="info"></p>
+    </div>
+    <script src="./js/ajax.js"></script>
+    <script>
+      var emailInp = document.getElementById("email");
+      var info = document.getElementById("info");
+
+      emailInp.onblur = function () {
+        var email = this.value;
+        var reg = /^[A-Za-z0-9]+([-_.][A-A-Za-z0-9]+)*@([A-A-Za-z0-9]+[-.])+[A-A-Za-z0-9]{2,4}$/;
+        if (!reg.test(email)) {
+          info.innerHTML = "请输入符合规则的邮箱地址";
+          info.className = "bg-danger";
+          // 阻止程序向下运行
+          return;
+        }
+        ajax({
+          type: "get",
+          url: "http://localhost:3000/verifyEmailAdress",
+          data: {
+            email: email,
+          },
+          success: function (res) {
+            console.log(res);
+            info.innerHTML = res.message;
+            info.className = "bg-success";
+          },
+          error: function (res) {
+            console.log(res);
+            info.innerHTML = res.message;
+            info.className = "bg-danger";
+          },
+        });
+      };
+    </script>
+  </body>
+</html>

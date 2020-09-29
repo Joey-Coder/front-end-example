@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style></style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-grounp">
+        <input type="text" placeholder="请输入搜索关键字" id="search" />
+        <ul class="list-group" id="list-box">
+          <li class="list-group-item">提示文字显示的地方</li>
+        </ul>
+      </div>
+    </div>
+    <script src="./js/ajax.js"></script>
+    <script src="./js/template-web.js"></script>
+    <script type="text/html" id="tpl">
+      {{each res}}
+      <li class="list-group-item">{{$value}}</li>
+      {{/each}}
+    </script>
+    <script>
+      // 获取搜索框
+      var searchInp = document.getElementById("search");
+      // 获取提示内容
+      var listBox = document.getElementById("list-box");
+      // 设置定时器
+      var timer = null;
+      searchInp.oninput = function () {
+        // 清除上一次开启的延时器
+        clearTimeout(timer);
+        // 获取用户输入内容
+        var key = this.value;
+        // 用户未输入时则不发送请求
+        if (key.trim().length == 0) {
+          listBox.style.display = "none";
+          return;
+        }
+        // 设置延时器，防止每输入一次就发一次ajax请求
+        timer = setTimeout(function () {
+          ajax({
+            type: "get",
+            url: "http://localhost:3000/searchAutoPrompt",
+            data: {
+              key: key,
+            },
+            success: function (res) {
+              console.log(res);
+              var html = template("tpl", { res: res });
+              listBox.innerHTML = html;
+              listBox.style.display = "block";
+            },
+          });
+        }, 800);
+      };
+    </script>
+  </body>
+</html>

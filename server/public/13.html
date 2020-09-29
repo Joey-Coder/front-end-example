@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .form-group {
+        float: left;
+        margin: 100px 15px;
+      }
+      select {
+        width: 100px;
+        height: 30px;
+        background-color: #ffffff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-inline">
+        <div class="form-group">
+          <select class="form-control" id="province">
+            <option>请选择省份</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select class="form-control" id="city">
+            <option>请选择城市</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <select class="form-control" id="area">
+            <option>请选择县城</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <script src="./js/template-web.js"></script>
+    <script src="./js/ajax.js"></script>
+    <!-- 省份模版 -->
+    <script type="text/html" id="provinceTpl">
+      <option>请选择省份</option>
+      {{ each province}}
+      <option value="{{$value.id}}">{{$value.name}}</option>
+      {{/each}}
+    </script>
+    <!-- 城市模版 -->
+    <script type="text/html" id="cityTpl">
+      <option>请选择城市</option>
+      {{ each cities}}
+      <option value="{{$value.id}}">{{$value.name}}</option>
+      {{/each}}
+    </script>
+    <!-- 县城模版 -->
+    <script type="text/html" id="areaTpl">
+      <option>请选择县城</option>
+      {{ each area}}
+      <option value="{{$value.id}}">{{$value.name}}</option>
+      {{/each}}
+    </script>
+
+    <script>
+      var province = document.getElementById("province");
+      var city = document.getElementById("city");
+      var area = document.getElementById("area");
+      // 查询省份信息
+      ajax({
+        type: "get",
+        url: "http://localhost:3000/province",
+        success: function (res) {
+          //   console.log(res);
+          var html = template("provinceTpl", { province: res });
+          province.innerHTML = html;
+        },
+        error: function (res) {
+          console.log(res);
+        },
+      });
+
+      // 一旦省市改动，则对应城市改动
+      province.onchange = function () {
+        // pid = 当前省份id
+        var pid = this.value;
+        // 清空县城
+        var html = template("areaTpl", { area: [] });
+        area.innerHTML = html;
+        // 获取城市信息
+        ajax({
+          type: "get",
+          url: "http://localhost:3000/cities",
+          data: {
+            id: pid,
+          },
+          success: function (res) {
+            var html = template("cityTpl", { cities: res });
+            city.innerHTML = html;
+          },
+        });
+      };
+
+      // 一旦城市改动，则对应县区改动
+      city.onchange = function () {
+        // pid = 当前省份id
+        var cid = this.value;
+        //
+        ajax({
+          type: "get",
+          url: "http://localhost:3000/area",
+          data: {
+            id: cid,
+          },
+          success: function (res) {
+            var html = template("areaTpl", { area: res });
+            area.innerHTML = html;
+          },
+        });
+      };
+    </script>
+  </body>
+</html>
