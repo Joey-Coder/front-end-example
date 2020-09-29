@@ -16,6 +16,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.get("/first", (req, res) => {
   //   res.send("Hello Ajax");
   res.send({ name: "Joey" });
+  // res.status(400).send("something error...")
 });
 
 app.get("/get", (req, res) => {

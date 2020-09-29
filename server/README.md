@@ -12,4 +12,8 @@
 
 06.html Ajax 错误处理
 
-07.html Ajax 缓存 
+07.html Ajax 缓存
+
+08.html Ajax 异步代码
+
+09.html Ajax 函数封装
