@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <meta http-equiv="Access-Control-Allow-Origin" content="*" /> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // 1.创建ajax对象
+      var xhr = new XMLHttpRequest();
+      // 2.告诉ajax对象向哪发送请求，以什么方式发送请求
+      xhr.open("get", "http://localhost:3000/first");
+      //   xhr.open("get", "http://www.baidu.com");
+      // 3. 发送请求
+      //   xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+      xhr.send();
+      // 4. 接收服务端的响应信息
+      xhr.onload = function () {
+        // 将js中的字符串还原为JSON对象
+        var responseText = JSON.parse(xhr.responseText);
+        console.log(responseText);
+        // 字符串拼接显示
+        var str = "<h2>" + responseText.name + "</h2>";
+        document.body.innerHTML = str;
+      };
+    </script>
+  </body>
+</html>

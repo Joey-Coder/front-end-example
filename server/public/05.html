@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var xhr = new XMLHttpRequest();
+      // 0 已创建ajax但是未配置
+      console.log(xhr.readyState);
+      xhr.open("get", "http://localhost:3000/readystate");
+      // 1 已配置，但未发送
+      console.log(xhr.readyState);
+      xhr.send();
+      xhr.onreadystatechange = () => {
+        // 2 请求已发送
+        // 3 已经收到服务端的部分数据
+        // 4 服务端的数据已经发送完
+        console.log(xhr.readyState);
+        if (xhr.readyState == 4) {
+          console.log(xhr.responseText);
+        }
+      };
+    </script>
+  </body>
+</html>

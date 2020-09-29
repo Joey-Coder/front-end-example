@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn">发送Ajax请求</button>
+    <script>
+      var btn = document.getElementById("btn");
+
+      btn.onclick = function () {
+        var xhr = new XMLHttpRequest();
+        xhr.open("get", "http://localhost:3000/error");
+        xhr.send();
+        xhr.onload = () => {
+          // xhr.status获取http状态码
+          if (xhr.status == 400) {
+              // 服务器未收到格式正确的客户端数据
+            alert(xhr.responseText);
+          } else if (xhr.status == 404) {
+              // 请求地址错误
+            alert("404");
+          } else if (xhr.status == 500) {
+              // 5XX 服务端错误
+              alert("500 服务端出现错误")
+          } 
+        };
+        // 网络中断时，会触发.onerror方法
+        xhr.onerror = () => {
+            alert("断网了")
+        }
+      };
+    </script>
+  </body>
+</html>

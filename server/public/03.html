@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <p>
+      <input type="text" id="username" />
+    </p>
+    <p>
+      <input type="text" id="age" />
+    </p>
+    <p>
+      <input type="button" value="提交" id="btn" />
+    </p>
+    <script type="text/javascript">
+      var btn = document.getElementById("btn");
+      var user = document.getElementById("username");
+      var age = document.getElementById("age");
+
+      btn.onclick = function () {
+        //
+        var xhr = new XMLHttpRequest();
+        //
+        var nameValue = username.value;
+        var ageValue = age.value;
+
+        var params = `username=${nameValue}&age=${ageValue}`;
+        // 设置连接地址和方式
+        xhr.open("post", "http://localhost:3000/post");
+        // 设置请求参数格式类型
+        xhr.setRequestHeader(
+          "Content-Type",
+          "application/x-www-form-urlencoded"
+        );
+        // 发送请求
+        xhr.send(params);
+        // 接收返回数据
+        xhr.onload = function () {
+          alert(xhr.responseText);
+          console.log(xhr.responseText);
+        };
+      };
+    </script>
+  </body>
+</html>
