@@ -47,13 +47,7 @@
         var formData = new FormData();
         // 获取上传文件后缀
         var fileExt = this.value.split(".")[1];
-        // .append追加用户上传文件
-        // var newFile = new File(
-        //   [this.files[0]],
-        //   new Date().getTime() + "." + fileExt,
-        //   { type: "image/jpeg" }
-        // );
-        // console.log(this.files[0].name)
+
         formData.append("attrName", this.files[0], "sfsdfsd.jpeg");
         // console.log(this.files[0])
 

@@ -218,7 +218,6 @@ app.post("/upload", (req, res) => {
   // 设置用户上传的文件的存储路径
   form.uploadDir = path.join(__dirname, "public", "upload");
   form.keepExtensions = true;
-  console.log(req);
   form.parse(req, (err, fields, files) => {
     // console.log(files.attrName);
     res.send({

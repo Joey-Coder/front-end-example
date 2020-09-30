@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="h1"></h1>
+    <script src="./js/ajax.js"></script>
+
+    <script type="text/javascript">
+      // 该文件如果由http://localhost:3002/16.html打开，
+      // 则无法正常运行，浏览器会拦截ajax非同源请求
+      const h1 = document.getElementById("h1");
+      ajax({
+        type: "get",
+        url: "http://localhost:3001/test",
+        success: function (res) {
+          h1.innerHTML = res;
+          console.log(res);
+        },
+        error: function (res) {
+          h1.innerHTML = "Something Error..";
+        },
+      });
+    </script>
+  </body>
+</html>

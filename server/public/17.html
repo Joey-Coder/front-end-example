@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 文件需要通过http://localhost:3001/17.html打开 -->
+
+    <button id="btn">点我发送请求</button>
+
+    <!-- 1. 先定义函数 -->
+    <script>
+      function fn1(data) {
+        console.log("客户端的函数fn被调用");
+        console.log(data);
+      }
+    </script>
+    <!-- 2. 将非同源服务器的请求地址写在script的src中 -->
+    <!-- <script src="http://localhost:3002/test"></script> -->
+    <script type="text/javascript">
+      var btn = document.getElementById("btn");
+      // btn.onclick = function () {
+      //   // 新建script标签
+      //   var script = document.createElement("script");
+      //   // script.src = "http://localhost:3002/test"
+      //   // 请求加上函数名，这样修改函数名字就不用修改服务端了
+      //   script.src = "http://localhost:3002/better?callback=fn1";
+      //   // 追加script到最后
+      //   document.body.appendChild(script);
+      //   // 为script标签添加onload
+      //   // 每次成功发送请求后删除script标签
+      //   script.onload = function () {
+      //     document.body.removeChild(script);
+      //   };
+      // };
+
+      // jsonp函数封装
+      function jsonp(options) {
+        var script = document.createElement("script");
+        ///Math.random产生0～1中的小数
+        // 产生一个随机函数名
+        var fnName = "myJsonp" + Math.random().toString().replace(".", "");
+        // 使success变成全局函数
+        window[fnName] = options.success;
+        //获取data，并拼接成get参数形式
+        var params = "";
+        for (var attr in options.data) {
+          params += "&" + attr + "=" + options.data[attr];
+        }
+        // console.log(params)
+
+        script.src = options.url + `?callback=${fnName}` + params;
+        document.body.appendChild(script);
+
+        // script加载完后删除，避免每次点击产生额外的script
+        script.onload = function () {
+          document.body.removeChild(script);
+        };
+      }
+      btn.onclick = function () {
+        jsonp({
+          url: "http://localhost:3002/better",
+          data: {
+            name: "Ross",
+            age: 32,
+          },
+          success: function (data) {
+            console.log("客户端的函数被调用");
+            console.log(data);
+          },
+        });
+      };
+    </script>
+  </body>
+</html>
