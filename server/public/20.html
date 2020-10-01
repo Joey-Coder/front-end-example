@@ -52,7 +52,7 @@
         var xhr = new XMLHttpRequest();
         //
         xhr.open("post", "http://localhost:3003/login");
-        //
+        //设置允许跨域请求携带cookies
         xhr.withCredentials = true;
         //
         xhr.send(formData);
@@ -67,7 +67,7 @@
         var xhr = new XMLHttpRequest();
         //
         xhr.open("get", "http://localhost:3003/checkLogin");
-        //
+        //设置允许跨域请求携带cookies
         xhr.withCredentials = true;
         //
         xhr.send();
