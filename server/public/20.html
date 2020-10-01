@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+  </head>
+  <body>
+    <div class="container">
+      <form id="loginForm">
+        <div class="form-group">
+          <label>用户名</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="请输入用户名"
+            name="username"
+          />
+        </div>
+        <div class="form-group">
+          <label>密码</label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="请输入密码"
+            name="password"
+          />
+        </div>
+        <input
+          type="button"
+          class="btn btn-default"
+          value="登陆"
+          id="loginBtn"
+        />
+        <input
+          type="button"
+          class="btn btn-default"
+          value="检测用户登陆状态"
+          id="checkLogin"
+        />
+      </form>
+    </div>
+    <script>
+      var loginBtn = document.getElementById("loginBtn");
+      var checkLogin = document.getElementById("checkLogin");
+      var loginForm = document.getElementById("loginForm");
+      loginBtn.onclick = function () {
+        // 封装Form对象
+        var formData = new FormData(loginForm);
+        //
+        var xhr = new XMLHttpRequest();
+        //
+        xhr.open("post", "http://localhost:3003/login");
+        //
+        xhr.withCredentials = true;
+        //
+        xhr.send(formData);
+        // 监听服务器端的响应内容
+        xhr.onload = function () {
+          console.log(xhr.responseText);
+        };
+      };
+
+      checkLogin.onclick = function () {
+        //
+        var xhr = new XMLHttpRequest();
+        //
+        xhr.open("get", "http://localhost:3003/checkLogin");
+        //
+        xhr.withCredentials = true;
+        //
+        xhr.send();
+        //
+        xhr.onload = function () {
+          console.log(xhr.responseText);
+        };
+      };
+    </script>
+  </body>
+</html>

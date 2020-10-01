@@ -37,3 +37,5 @@
 18.html 案例 使用 jsonp 获取腾讯天气
 
 19.html s1.js 3.js 跨域 ajax 请求
+
+20.html s3.js 跨域携带 cookie
