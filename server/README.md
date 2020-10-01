@@ -33,3 +33,5 @@
 16.html s1.js s2.js 同源限制问题
 
 17.html 使用 jsonp 解决同源限制问题
+
+18.html 案例 使用 jsonp 获取腾讯天气
