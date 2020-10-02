@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      input {
+        display: block;
+        margin: 10px 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="form">
+      <input type="text" name="username" />
+      <input type="password" name="password" />
+      <input type="submit" value="提交" />
+    </form>
+    <script src="js/jquery.min.js"></script>
+    <script>
+      $("#form").on("submit", function () {
+        // 将表单内容拼接成字符串并返回
+        // var params = $("#form").serialize();
+        // console.log(params);
+
+        serializeObject($(this));
+        return false;
+      });
+      // 将表单转换为对象类型
+      function serializeObject(obj) {
+        // [{name: "username", value:"Joey"}, {name: "password", value: "1234"}]
+        // 将字符串转换为数组
+        var params = obj.serializeArray();
+        var result = {};
+        // 将数组转换为对象
+        $.each(params, function (index, value) {
+          result[value.name] = value.value;
+        });
+
+        console.log(result);
+      }
+    </script>
+  </body>
+</html>

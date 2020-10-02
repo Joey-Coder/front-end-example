@@ -22,6 +22,8 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "get, post");
   // 允许客户端发送跨域请求时发送cookie
   res.header("Access-Control-Allow-Credentials", true);
+  // 如果ajax方法设置了contentType则需要设置
+  res.header("Access-Control-Allow-Headers", "content-type");
   // 放权
   next();
 });
@@ -29,7 +31,18 @@ app.use((req, res, next) => {
 app.get("/cross", (req, res) => {
   console.log("3003:/cross");
 
-  res.send(":3003 CORS");
+  res.status(200).send(":3003 CORS");
+});
+
+app.post("/cross", (req, res) => {
+  console.log("3003:/cross");
+  var form = new formidable.IncomingForm();
+  form.parse(req, (err, fields, files) => {
+    console.log(fields);
+    res.status(200).send(":3003 CORS");
+  });
+
+  // res.status(200).send(":3003 CORS");
 });
 
 app.post("/login", (req, res) => {
@@ -58,6 +71,20 @@ app.get("/checkLogin", (req, res) => {
   } else {
     res.send({ message: "unlogin" });
   }
+});
+
+app.get("/jsonp", (req, res) => {
+  // 调用客户端定义哥函数，{name:"joey", age: 32}为函数的参数
+  // res.jsonp({
+  //   name: "joey",
+  //   age: 32,
+  // });
+
+  // cb里面存储函数名
+  const cb = req.query.cb;
+  // 返回客户端调用fnName({name:"zhaoliu"})
+  const data = cb + "({name:'zhaoliu'})";
+  res.send(data);
 });
 
 app.listen(3003);

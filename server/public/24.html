@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn">发送请求</button>
+    <script src="js/jquery.min.js"></script>
+    <script>
+      $("#btn").on("click", function () {
+        // $.ajax get 的快捷函数
+        // $.get("http://localhost:3003/cross", "name=Joey&age=32", function (
+        //   response
+        // ) {
+        //   console.log(response);
+        // });
+        // $.ajax post 的快捷函数
+        $.post(
+          "http://localhost:3003/cross",
+          { name: "Joey", age: 32 },
+          function (response) {
+            console.log(response);
+          }
+        );
+      });
+    </script>
+  </body>
+</html>

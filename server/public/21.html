@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn">发送请求</button>
+    <script src="js/jquery.min.js"></script>
+    <script>
+      var params = { name: "Joey", age: 32 };
+      $("#btn").on("click", function () {
+        // $.ajax为jquery已经封装好的ajax数据
+        $.ajax({
+          type: "post",
+          url: "http://localhost:3003/cross",
+
+          //   data: {
+          //     name: "Zhangsan",
+          //     age: 100,
+          //   },
+          //   data: "name=Joey&age=32",
+          // JSON.stringify将js对象转换成一个JSON字符串
+          data: JSON.stringify(params),
+            // data: params,
+          //以json传递
+          contentType: "application/json",
+
+          // 请求发送之前调用
+          beforeSend: function () {
+              alert("请求发送之前调用该函数")
+          },
+          success: function (response) {
+            //response为服务端返回数据
+            // 方法内部会自动将json字符串转换为json对象
+            console.log(response);
+          },
+          error: function (xhr) {
+            console.log(xhr);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

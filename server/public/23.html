@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn">发送请求</button>
+    <script src="js/jquery.min.js"></script>
+    <script>
+      $("#btn").on("click", function () {
+        $.ajax({
+          url: "http://localhost:3003/jsonp",
+          dataType: "jsonp",
+          // 修改默认的callback为cb
+          jsonp: "cb",
+          // 制定cb后面的随机函数名
+          jsonpCallback: "fnName",
+          success: function (response) {
+            console.log("sddsf" + response);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

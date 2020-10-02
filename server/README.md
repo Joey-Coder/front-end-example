@@ -39,3 +39,13 @@
 19.html s1.js 3.js 跨域 ajax 请求
 
 20.html s3.js 跨域携带 cookie
+
+21.html \$ajax 使用
+
+22.html serialize 将表单中的数据自动拼接成字符串
+
+23.html \$.ajax 发送 jsonp
+
+24.html $.get $.post 方法
+
+25.html todo.js todolist 案例
