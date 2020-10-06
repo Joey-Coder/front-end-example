@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="css/base.css" />
+    <link rel="stylesheet" href="css/index.css" />
   </head>
   <body>
     <section class="todoapp">
@@ -16,6 +18,39 @@
           autofocus
         />
       </header>
+      <section class="main">
+        <input class="toggle-all" type="checkbox" />
+        <ul class="todo-list"></ul>
+      </section>
+      <footer class="footer">
+        <span class="todo-count"><strong>0</strong> item left </span>
+        <ul class="filters">
+          <li>
+            <a class="selected" href="javascript:;">All</a>
+          </li>
+          <li>
+            <a href="javascript:;">Active</a>
+          </li>
+          <li>
+            <a href="javascript:;">Completed</a>
+          </li>
+        </ul>
+        <button class="clear-completed">Clear completed</button>
+      </footer>
     </section>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/template-web.js"></script>
+    <script type="text/javascript">
+      //  用于存放任务列表的数组
+      var taskAry = [];
+
+      $.ajax({
+        url: "/todo/task",
+        type: "get",
+        success: function (response) {
+          console.log(response);
+        },
+      });
+    </script>
   </body>
 </html>

@@ -20,6 +20,26 @@ mongoose
     console.log(err);
   });
 
+const taskSchema = new mongoose.Schema({
+  complete: Boolean,
+  title: String,
+});
+
+const taskModel = mongoose.model("task", taskSchema);
+
+// taskModel
+//   .create({ title: "睡觉", complete: true })
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+taskModel.find((err, res) => {
+  !err && console.log(res);
+});
+
+app.get("/todo/task", (req, res) => {});
 app.listen(3000);
 
 console.log("todo服务器启动，端口3000");
