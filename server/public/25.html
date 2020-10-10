@@ -6,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/base.css" />
     <link rel="stylesheet" href="css/index.css" />
+    <!-- 进度条模块css -->
     <link rel="stylesheet" href="css/nprogress.css" />
   </head>
   <body>
@@ -42,6 +43,7 @@
     </section>
     <script src="js/jquery.min.js"></script>
     <script src="js/template-web.js"></script>
+    <!-- 进度条模块 -->
     <script src="js/nprogress.js"></script>
     <!-- 模版 -->
     <script type="text/html" id="taskTpl">
@@ -67,6 +69,18 @@
       var taskInp = $("#task");
       // 用于存储未完成任务的数量
       var strong = $("#count");
+      // ajaxStart绑定document，在ajax请求前触发
+      $(document).on("ajaxStart", function () {
+        console.log("ajax start");
+        // 进度条开始
+        NProgress.start();
+      });
+      // ajaxStart绑定document，在ajax请求结束触发
+      $(document).on("ajaxComplete", function () {
+        console.log("ajax complete");
+        // 进度条结束
+        NProgress.done();
+      });
 
       $.ajax({
         url: "/todo/task",
