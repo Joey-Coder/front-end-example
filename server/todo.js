@@ -105,13 +105,21 @@ app.post("/todo/modifyTask", async (req, res) => {
   console.log("/todo/modifyTask");
   const task = await taskModel.findOneAndUpdate(
     { _id: req.body._id },
-    _.pick(req.body, ["title","complete"]),
+    _.pick(req.body, ["title", "complete"]),
     { new: true }
   );
   // 响应
   res.send(task);
 });
 
+// 清除已完成任务
+app.get("/todo/clearTask", async (req, res) => {
+  console.log("/todo/clearTask");
+  // 执行清空操作
+  const result = await taskModel.deleteMany({ complete: true });
+  // 返回清空数据
+  res.send(result);
+});
 app.listen(3000);
 
 console.log("todo服务器启动，端口3000");

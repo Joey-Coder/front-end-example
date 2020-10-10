@@ -28,16 +28,16 @@
         <span class="todo-count"><strong id="count">0</strong> item left </span>
         <ul class="filters">
           <li>
-            <a class="selected" href="javascript:;">All</a>
+            <a class="selected" href="javascript:;" id="all">All</a>
           </li>
           <li>
-            <a href="javascript:;">Active</a>
+            <a href="javascript:;" id="active">Active</a>
           </li>
           <li>
-            <a href="javascript:;">Completed</a>
+            <a href="javascript:;" id="completed">Completed</a>
           </li>
         </ul>
-        <button class="clear-completed">Clear completed</button>
+        <button class="clear-completed" id="clear-btn">Clear completed</button>
       </footer>
     </section>
     <script src="js/jquery.min.js"></script>
@@ -219,6 +219,40 @@
         // 将未完成的数量显示在页面中
         strong.text(count);
       }
+
+      // 只显示未完成任务
+      $("#active").on("click", function () {
+        $(this).parent().parent().find("a").removeClass("selected");
+        $(this).addClass("selected");
+        var activeAry = taskAry.filter((value) => value.complete == false);
+        render(activeAry);
+      });
+      // 只显示已完成任务
+      $("#completed").on("click", function () {
+        $(this).parent().parent().find("a").removeClass("selected");
+        $(this).addClass("selected");
+        var activeAry = taskAry.filter((value) => value.complete == true);
+        render(activeAry);
+      });
+      // 显示所有任务
+      $("#all").on("click", function () {
+        $(this).parent().parent().find("a").removeClass("selected");
+        $(this).addClass("selected");
+        render(taskAry);
+      });
+
+      // 清除已经完成的任务
+      $("#clear-btn").on("click", function () {
+        $.ajax({
+          type: "get",
+          url: "/todo/clearTask",
+          success: function (response) {
+            console.log(response);
+            var activeAry = taskAry.filter((value) => value.complete == false);
+            render(activeAry);
+          },
+        });
+      });
     </script>
   </body>
 </html>
