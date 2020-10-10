@@ -13,6 +13,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "formidable": "^1.2.2",
+    "joi": "^17.2.1",
     "jquery": "^3.5.1",
     "request": "^2.88.2"
   }
