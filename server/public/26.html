@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="js/jquery.min.js"></script>
+  </head>
+  <body>
+    <script>
+      $.ajax({
+        type: "get",
+        url: "/users",
+        success: function (response) {
+          console.log(response);
+        },
+      });
+
+      $.ajax({
+        type: "get",
+        url: "/users/3",
+        success: function (response) {
+          console.log(response);
+        },
+      });
+
+      $.ajax({
+        type: "post",
+        url: "/users/3",
+        success: function (response) {
+          console.log(response);
+        },
+      });
+
+      $.ajax({
+        type: "put",
+        url: "/users/3",
+        success: function (response) {
+          console.log(response);
+        },
+      });
+
+      $.ajax({
+        type: "delete",
+        url: "/users/3",
+        success: function (response) {
+          console.log(response);
+        },
+      });
+    </script>
+  </body>
+</html>
