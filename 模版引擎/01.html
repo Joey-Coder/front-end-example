@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>模版渲染</title>
+  </head>
+  <body>
+    <div id="container">123</div>
+    <!-- 引入模版 -->
+    <script src="js/template-web.js"></script>
+    <!-- 定义模版 -->
+    <script type="text/html" id="tpl">
+      <div>
+        <span>name: {{name}}</span>
+        <span>age: {{age}}</span>
+      </div>
+    </script>
+    <!-- 渲染 -->
+    <script>
+      // 定义数据
+      var data = {
+        name: "Joey",
+        age: 23,
+      };
+      //   渲染
+      var html = template("tpl", data);
+      console.log(html);
+      document.getElementById("container").innerHTML = html;
+    </script>
+  </body>
+</html>

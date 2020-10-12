@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>循环</title>
+  </head>
+  <body>
+    <div id="container"></div>
+    <!-- 引入模版 -->
+    <script src="js/template-web.js"></script>
+    <!-- 定义模版 -->
+    <script type="text/html" id="tpl">
+      <ul>
+        {{each data}}
+          <li>
+            <span>name: {{$value.name}}</span>
+            <span>age: {{$value.age}}</span>
+          </li>
+        {{/each}}
+      </ul>
+    </script>
+    <!-- 渲染 -->
+    <script>
+      // 定义数据
+      //   var data = {
+      //     target: [
+      //       {
+      //         name: "<b>Joey</b>",
+      //         age: 23,
+      //       },
+      //       {
+      //         name: "Ross",
+      //         age: 25,
+      //       },
+      //       {
+      //         name: "Monica",
+      //         age: 26,
+      //       },
+      //     ],
+      //   };
+      //   渲染
+      //   var html = template("tpl", data);
+      var html = template("tpl", {
+        data: [
+          {
+            name: "张三",
+            age: 15,
+          },
+          {
+            name: "李四",
+            age: 20,
+          },
+          {
+            name: "王五",
+            age: 10,
+          },
+        ],
+      });
+      //   console.log(html);
+      document.getElementById("container").innerHTML = html;
+    </script>
+  </body>
+</html>
