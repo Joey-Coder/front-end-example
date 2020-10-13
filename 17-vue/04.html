@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>{{num}}</div>
+      <div>
+        <!-- v-on:click绑定监听事件click -->
+        <!-- <button v-on:click="num++">点击</button> -->
+        <!-- 简写 -->
+        <button @click="num++">点击1</button>
+        <!-- 使用函数形式 -->
+        <button v-on:click="handle1">点击2</button>
+        <!-- 函数添加参数 -->
+        <button v-on:click="handle2(2)">点击3</button>
+        <!-- 事件参数 -->
+        <button v-on:click="handle3($event)">点击4</button>
+      </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          num: 0,
+        },
+        // 定义绑定事件处理函数
+        methods: {
+          handle1: function () {
+            // this 指向vm
+            console.log(this == vm);
+            this.num++;
+          },
+          handle2: function (n) {
+            this.num += n;
+          },
+          handle3: function (event) {
+            console.log(event);
+            console.log(event.target);
+            console.log(event.target.tagName);
+            console.log(event.target.innerHTML);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
