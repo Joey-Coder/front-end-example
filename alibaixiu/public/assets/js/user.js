@@ -96,6 +96,66 @@ $("#modifyBox").on("submit", "#modifyForm", function () {
 
 $("#userBox").on("click", ".delete", function () {
   if (confirm("是否真的要删除用户？")) {
+  }
+});
 
+// 获取全选按钮
+var selectAll = $("#selectAll");
+
+// 批量删除删除
+var deleteMany = $("#deleteMany");
+
+// 当全选按钮发生改变时
+selectAll.on("change", function () {
+  // 获取check值
+  var status = $(this).prop("checked");
+  if (status) {
+    deleteMany.show();
+  } else {
+    deleteMany.hide();
+  }
+  // 获取到所有的用户, 让全选与所有用户的状态保持一致
+  $("#userBox").find("input").prop("checked", status);
+  //
+});
+
+// 当用户前面的复选框发生改变时
+$("#userBox").on("change", ".userStatus", function () {
+  // 获取所有用户，在所有用户中过滤初选中的用户
+  // 判断选中用户的数量与所有用户数量
+  var inputs = $("#userBox").find("input");
+
+  if (inputs.length == inputs.filter(":checked").length) {
+    // alert("所有用户都被选中");
+    selectAll.prop("checked", true);
+  } else {
+    // alert("不是所有用户都被选中");
+    selectAll.prop("checked", false);
+  }
+  if (inputs.filter(":checked").length == 0) {
+    deleteMany.hide();
+  } else {
+    deleteMany.show();
+  }
+});
+
+// 为批量删除按钮添加点击事件
+deleteMany.on("click", function () {
+  var ids = [];
+  // 获取选中用户
+  var checkUser = $("#userBox").find("input").filter(":checked");
+  //
+  checkUser.each(function (index, element) {
+    ids.push($(element).attr("data-id"));
+  });
+  //
+  if (confirm("您真的确定要进行批量删除操作么？")) {
+    $.ajax({
+      type: "delete",
+      url: "/users/" + ids.join("-"),
+      success: function () {
+        location.reload();
+      },
+    });
   }
 });
