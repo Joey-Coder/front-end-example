@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 模版 -->
+    <div id="app">
+      <p>{{msg}}</p>
+      <p>{{1+3}}</p>
+      <p>{{msg+"---"+(1+3)}}</p>
+    </div>
+    <!-- 引入 -->
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+      var vm = new Vue({
+        // 标签选择
+        el: "#app",
+        // 数据
+        data: {
+          msg: "Hello World",
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    /* 1、通过属性选择器 选择到 带有属性 v-cloak的标签  让他隐藏 */
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+  <body>
+    <!-- 模版 -->
+    <!-- 2、 让带有插值 语法的   添加 v-cloak 属性
+         在 数据渲染完场之后，v-cloak 属性会被自动去除，
+         v-cloak一旦移除也就是没有这个属性了  属性选择器就选择不到该标签
+		 也就是对应的标签会变为可见 -->
+    <div id="app" v-cloak>
+      <p>{{msg}}</p>
+      <p>{{1+3}}</p>
+      <p>{{msg+"---"+(1+3)}}</p>
+      <!-- 注意:在指令中不要写插值语法  直接写对应的变量名称 
+        在 v-text 中 赋值的时候不要在写 插值语法
+		一般属性中不加 {{}}  直接写 对应 的数据名  -->
+      <p v-text="msg"></p>
+      <p v-html="msg1"></p>
+    </div>
+    <!-- 引入 -->
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+      var vm = new Vue({
+        // 标签选择
+        el: "#app",
+        // 数据
+        data: {
+          msg: "Hello World",
+          msg1: "<h1>Hello World</h1>",
+        },
+      });
+    </script>
+  </body>
+</html>
