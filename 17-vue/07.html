@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-on:keydown="handle" v-model="info" />
+      <p>{{kc}}</p>
+      <!-- <input type="text" v-on:keyup.72="handle1" /> -->
+      <input type="text" v-on:keyup.h="handle1" />
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      // 自定义按键修饰符
+      Vue.config.keyCodes.h = 72;
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          info: "",
+          kc: "",
+        },
+        methods: {
+          handle: function (event) {
+            this.info = "";
+            // 获取按键的ascii值
+            this.kc = event.keyCode;
+          },
+          handle1: function () {
+            alert("you press key H");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
