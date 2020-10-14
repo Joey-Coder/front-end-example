@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <li v-for="(item, index) in fruits">{{index}} - {{item}}</li>
+      <!-- key可以加快for遍历速度 -->
+      <li v-for="(item, index) in myFruits" :key="index">
+        {{item.ename}} - {{item.cname}}
+      </li>
+      <li v-if="index<2" v-for="(value, key, index) in obj" :key="index">
+        {{value}} - {{key}} - {{index}}
+      </li>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          fruits: ["apple", "orange", "banana"],
+          myFruits: [
+            {
+              ename: "apple",
+              cname: "苹果",
+            },
+            {
+              ename: "orange",
+              cname: "梨",
+            },
+          ],
+          obj: {
+            uname: "Joey",
+            uage: 26,
+            gender: "male",
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <a href="http://www.baidu.com">链接</a> -->
+      <!-- v-bind:后面加属性名 -->
+      <a v-bind:href="url">链接</a>
+      <!-- 简写 -->
+      <a :href="url">链接</a>
+      <button v-on:click="handle">点击</button>
+      <div>
+        <p>{{msg}}</p>
+        <input type="text" v-bind:value="msg" v-on:input="handle1" />
+        <!-- 另一种写法 -->
+        <input
+          type="text"
+          v-bind:value="msg"
+          v-on:input="msg=$event.target.value"
+        />
+        <!-- v-model等于v-bind加上v-on：input -->
+        <input type="text" v-model="msg" />
+      </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          url: "http://www.baidu.com",
+          msg: "Hello",
+        },
+        methods: {
+          handle: function () {
+            this.url = "http://www.google.com";
+          },
+          handle1: function (event) {
+            // 使用输入域中的更新msg
+            this.msg = event.target.value;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

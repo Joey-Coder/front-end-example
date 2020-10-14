@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .active {
+        border: 1px solid skyblue;
+        width: 200px;
+        height: 200px;
+        margin: 100px auto;
+      }
+      .error {
+        background-color: orange;
+      }
+      .text {
+        color: springgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <div class="active"></div> -->
+      <!-- 样式绑定 添加类名-->
+      <!-- 方式1 -->
+      <div v-bind:class="{active: isActive, error: isError}">123</div>
+      <button v-on:click="handle">切换</button>
+      <!-- 方式2 -->
+      <div v-bind:class="[activeClass, errorClass, {text: isText}]">456</div>
+      <button v-on:click="handle1">切换1</button>
+      <div v-bind:class="arrClass">789</div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          isActive: true,
+          isError: true,
+          activeClass: "active",
+          errorClass: "error",
+          isText: true,
+          arrClass: ["active", "error", "text"],
+        },
+        methods: {
+          handle: function () {
+            // 控制isActive在true和false切换
+            this.isActive = !this.isActive;
+            this.isError = !this.isError;
+          },
+          handle1: function () {
+            (this.activeClass = this.activeClass ? "" : "active"),
+              (this.errorClass = this.errorClass ? "" : "error");
+            this.isText = !this.isText;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
