@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .tab ul {
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+      }
+      .tab ul li {
+        box-sizing: border-box;
+        padding: 0;
+        float: left;
+        width: 100px;
+        height: 45px;
+        line-height: 45px;
+        list-style: none;
+        text-align: center;
+        border-top: 1px solid blue;
+        border-right: 1px solid blue;
+        cursor: pointer;
+      }
+      .tab ul li:first-child {
+        border-left: 1px solid blue;
+      }
+      .tab ul li.active {
+        background-color: orange;
+      }
+
+      .tab div {
+        width: 500px;
+        height: 300px;
+        display: none;
+        text-align: center;
+        /* font-size: 30px; */
+        line-height: 300px;
+        border: 1px solid blue;
+        border-top: 0px;
+      }
+      .tab div.current {
+        display: block;
+      }
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <div class="tab">
+        <ul>
+          <!-- 将index与currentIndex进行判断，进而进行current类的设定 -->
+          <li
+            :class="currentIndex==index?'active':''"
+            v-for="(item, index) in list"
+            :key="item.id"
+            v-on:click="handle(index)"
+          >
+            {{item.title}}
+          </li>
+        </ul>
+        <div
+          :class="currentIndex==index?'current':''"
+          v-for="(item, index) in list"
+          :key="item.id"
+        >
+          <img :src="item.path" />
+        </div>
+      </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          currentIndex: 0,
+          list: [
+            {
+              id: 1,
+              title: "apple",
+              path: "img/apple.png",
+            },
+            {
+              id: 2,
+              title: "orange",
+              path: "img/orange.png",
+            },
+            {
+              id: 3,
+              title: "lemon",
+              path: "img/lemon.png",
+            },
+          ],
+        },
+        methods: {
+          handle: function (index) {
+            this.currentIndex = index;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
