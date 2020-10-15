@@ -30,4 +30,8 @@
 
 15.html vue 表单操作
 
-16.html v-model表单修饰符
+16.html v-model 表单修饰符
+
+17.html 自定义指令
+
+18.html 计算属性

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>{{msg}}</div>
+      <div>{{reversedMessage}}</div>
+      <div>{{reversedMessage}}</div>
+      <div>{{reversedMethod()}}</div>
+      <div>{{reversedMethod()}}</div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "Hello Joey",
+        },
+        methods: {
+          reversedMethod: function () {
+            console.log("Method...");
+            return this.msg.split("").reverse().join("");
+          },
+        },
+        // 定义计算属性
+        // 计算属性具有缓存功能，可以提升效率
+        computed: {
+          reversedMessage: function () {
+            console.log("computed...");
+            return this.msg.split("").reverse().join("");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-focus />
+      <input type="text" v-color="{color: 'green'}" />
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      // 自定义全局指令focus
+      Vue.directive("focus", {
+        inserted: function (el) {
+          // el表示指令绑定的元素
+          el.focus();
+        },
+      });
+      // 带等号的自定义全局指令
+      //   Vue.directive("color", {
+      //     inserted: function (el, binding) {
+      //       //   console.log(binding.value.color);
+      //       el.style.backgroundColor = binding.value.color;
+      //     },
+      //   });
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          msg: { color: "skyblue" },
+        },
+        methods: {
+          handle: function () {},
+        },
+        // 局部指令
+        directives: {
+          color: {
+            inserted: function (el, binding) {
+              //   console.log(binding.value.color);
+              el.style.backgroundColor = binding.value.color;
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
