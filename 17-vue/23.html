@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+      h1 {
+        text-align: center;
+        width: 200px;
+        margin: 100px auto 0;
+      }
+      .book {
+        width: 500px;
+        margin: 0 auto;
+      }
+      table {
+        margin: 0 auto;
+      }
+      th,
+      td {
+        padding: 10px 20px;
+        font-size: 20px;
+        text-align: center;
+        border: 1px solid #cccccc;
+      }
+      thead {
+        background-color: orange;
+      }
+      .grid .total {
+        height: 30px;
+        line-height: 30px;
+        width: 100px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" v-cloak>
+      <div class="grid">
+        <div>
+          <h1>图书管理</h1>
+          <div class="book">
+            <div>
+              <label for="id">编号：</label>
+              <input
+                type="text"
+                id="id"
+                v-model="id"
+                :disabled="flag"
+                v-focus
+              />
+              <label for="name">名称：</label>
+              <input type="text" id="name" v-model="name" />
+              <button @click="handle" :disabled="submitFlag">提交</button>
+            </div>
+          </div>
+        </div>
+        <div class="total">
+          <span>图书总数:</span>
+          <span>{{total}}</span>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>编号</th>
+              <th>名称</th>
+              <th>时间</th>
+              <th>操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(item, index) in books" :key="item.id">
+              <td>{{item.id}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.date | format("yyyy-MM-dd")}}</td>
+              <td>
+                <!-- 阻止默认跳转 -->
+                <a href="" @click.prevent="toEdit(item.id)">修改</a>
+                <span>|</span>
+                <a href="" @click.prevent="deleteBook(item.id)">删除</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      // 时间过滤器
+      Vue.filter("format", function (value, arg) {
+        if ((arg = "yyyy-MM-dd")) {
+          var ret = "";
+          ret +=
+            value.getFullYear() +
+            "-" +
+            (value.getMonth() + 1) +
+            "-" +
+            value.getDate();
+          return ret;
+        }
+        return value;
+      });
+      // 自定义指令
+      Vue.directive("focus", {
+        inserted: function (el) {
+          el.focus();
+        },
+      });
+
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          id: "",
+          name: "",
+          flag: false,
+          submitFlag: false,
+          books: [],
+        },
+        methods: {
+          handle: function () {
+            if (this.flag) {
+              //some为数组循环
+              this.books.some((item) => {
+                if (item.id == this.id) {
+                  item.name = this.name;
+                  // 完成更新操作后终止循环
+                  this.flag = false;
+                }
+              });
+            } else {
+              // 新建
+              var book = {};
+              book.id = this.id;
+              book.name = this.name;
+              book.date = new Date();
+              this.books.push(book);
+            }
+            this.id = "";
+            this.name = "";
+          },
+          toEdit: function (id) {
+            var book = this.books.filter(function (item) {
+              return item.id == id;
+            });
+
+            this.id = book[0].id;
+            this.flag = true;
+            this.name = book[0].name;
+          },
+          deleteBook: function (id) {
+            // 删除图书
+            // 根据id从数组查找元素索引
+            // findIndex 返回下标
+            var index = this.books.findIndex(function (item) {
+              return item.id == id;
+            });
+            // 根据索引删除数组
+            //index删除元素起点，1代表个数
+            this.books.splice(index, 1);
+
+            // 方法二
+            // this.books = this.books.filter(function (item) {
+            //   return item.id != id;
+            // });
+          },
+        },
+        // 计算属性
+        computed: {
+          total: function () {
+            return this.books.length;
+          },
+        },
+
+        // 监听id和name是否重复
+        watch: {
+          id: function (val) {
+            //
+            var flag = this.books.some(function (item) {
+              return item.id == val;
+            });
+            if (flag) {
+              //
+              this.submitFlag = true;
+            } else {
+              this.submitFlag = false;
+            }
+          },
+          name: function (val) {
+            //
+            var flag = this.books.some(function (item) {
+              return item.name == val;
+            });
+            if (flag) {
+              //
+              this.submitFlag = true;
+            } else {
+              this.submitFlag = false;
+            }
+          },
+        },
+        // 生命周期，Vue初始化完成调用mounted
+        // 从后台开始拿数据渲染
+        mounted() {
+          var data = [
+            {
+              id: 1,
+              name: "三国演义",
+              date: new Date(),
+            },
+            {
+              id: 2,
+              name: "水浒传",
+              date: new Date(),
+            },
+            {
+              id: 3,
+              name: "红楼梦",
+              date: new Date(),
+            },
+            {
+              id: 4,
+              name: "西游记",
+              date: new Date(),
+            },
+          ];
+          this.books = data;
+        },
+      });
+    </script>
+  </body>
+</html>
