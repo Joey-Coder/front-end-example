@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div>
+        <span>名：</span>
+        <span>
+          <input type="text" v-model="firstName" />
+        </span>
+      </div>
+      <div>
+        <span>姓：</span>
+        <span>
+          <input type="text" v-model="lastName" />
+        </span>
+      </div>
+      <!-- v-model对div不起作用 -->
+      <div>{{fullName}}</div>
+
+      <div>
+        <span>用户名：</span>
+        <span>
+          <input type="text" v-model="checkName" />
+        </span>
+      </div>
+      <div>{{tip}}</div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          firstName: "Joey",
+          lastName: "Tribbeany",
+          fullName: "Jeoy Tribbeany",
+          checkName: "",
+          tip: "",
+        },
+        methods: {
+          check: function (uname) {
+            var that = this;
+            setTimeout(() => {
+              if (uname == "admin") {
+                that.tip = "用户名已经存在";
+              } else {
+                that.tip = "用户名可以使用";
+              }
+            }, 2000);
+          },
+        },
+        // computed: {
+        //   fullName: function () {
+        //     return this.firstName + " " + this.lastName;
+        //   },
+        // },
+        watch: {
+          // 监听firstName
+          // val代表修改值
+          firstName: function (val) {
+            this.fullName = val + " " + this.lastName;
+          },
+          // 监听lastName
+          lastName: function (val) {
+            this.lastName = this.firstName + " " + val;
+          },
+          checkName: function (val) {
+            this.check(val);
+            this.tip = "正在检查。。。";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" v-model="msg" />
+      <!-- 过滤器使用 -->
+      <div>{{msg | upper}}</div>
+      <div>{{msg | lower}}</div>
+      <div>{{msg | upper | lower}}</div>
+      <div :abc="msg | upper">abc</div>
+      <div>{{date | format("yyyy-MM-dd")}}</div>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      // 全局指令
+      // 首字母大写过滤器
+      Vue.filter("upper", function (value) {
+        return value.charAt(0).toUpperCase() + value.slice(1);
+      });
+      //   Vue.filter("lower", function (value) {
+      //     return value.charAt(0).toLowerCase() + value.slice(1);
+      //   });
+
+      // 格式化日期
+      Vue.filter("format", function (value, arg) {
+        if ((arg = "yyyy-MM-dd")) {
+          var ret = "";
+          ret +=
+            value.getFullYear() +
+            "-" +
+            (value.getMonth() + 1) +
+            "-" +
+            value.getDate();
+          return ret;
+        }
+        return value;
+      });
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          msg: "",
+          date: new Date(),
+        },
+        // 局部过滤器定义
+        filters: {
+          lower: function (value) {
+            return value.charAt(0).toLowerCase() + value.slice(1);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
