@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <hello-world></hello-world>
+      <hello-joey></hello-joey>
+      <hello-ross></hello-ross>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      Vue.component("hello-ross", {
+        data: function () {
+          return {
+            msg: "Hello Ross.",
+          };
+        },
+        template: `<div>{{msg}}</div>`,
+      });
+      // 局部注册组件
+      var HelloWorld = {
+        data: function () {
+          return {
+            msg: "Hello World.",
+          };
+        },
+        template: `<div>{{msg}}</div>`,
+      };
+
+      var HelloJoey = {
+        data: function () {
+          return {
+            msg: "Hello Joey.",
+          };
+        },
+        // 局部注册组件无法相互调用
+        // template: `<div>{{msg}}<hello-joey></hello-joey></div>`,
+        template: `<div>{{msg}}<hello-ross></hello-ross></div>`,
+      };
+      var vm = new Vue({
+        el: "#app",
+        data: {},
+        components: {
+          "hello-world": HelloWorld,
+          "hello-joey": HelloJoey,
+        },
+      });
+    </script>
+  </body>
+</html>

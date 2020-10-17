@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+      <button-counter></button-counter>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      // 全局注册组件
+      // 短横线命名
+      Vue.component("button-counter", {
+        data: function () {
+          // 确保每个组件的count都是新的
+          return {
+            count: 0,
+          };
+        },
+        // 保证模版只有一个根元素
+        // template: '<button @click="handle">点击了{{count}}次</button>',
+        // 模版字符串
+        template: `
+            <div>
+              <button @click="handle">点击了{{count}}次</button>
+              <HelloWorld></HelloWorld>
+            </div>
+        `,
+        methods: {
+          handle: function () {
+            this.count += 2;
+          },
+        },
+      });
+
+      // ----------------------------------
+
+      //全局注册
+      // 驼峰命名，只能用在其他模版里
+      Vue.component("HelloWorld", {
+        data: function () {
+          // 确保每个组件的count都是新的
+          return {
+            msg: "Hello World",
+          };
+        },
+        // 保证模版只有一个根元素
+        // template: '<button @click="handle">点击了{{count}}次</button>',
+        // 模版字符串
+        template: `
+            <div>{{msg}}</div>
+        `,
+      });
+
+      var vm = new Vue({
+        el: "#app",
+        data: {},
+      });
+    </script>
+  </body>
+</html>
