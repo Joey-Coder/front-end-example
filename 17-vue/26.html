@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <menu-item
+        :title="pmsg"
+        :content="content"
+        :menu-title="menuTitle"
+      ></menu-item>
+      <!-- <second-item test-Title="test-Title"></second-item> -->
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      Vue.component("menu-item", {
+        // props会自动将驼峰命名的属性值转换为-命名
+        // 例如 menuTitle -> menu-title
+        props: ["title", "content", "menuTitle"],
+        data: function () {
+          return {
+            msg: "子组件数据本身",
+          };
+        },
+        template:
+          "<div>{{ msg + '---' + title + '---' + content + '---' + menuTitle}}</div>",
+      });
+
+    //   Vue.component("second-item", {
+    //     props: ["testTitle"],
+    //     data: function () {
+    //       return {
+    //         msg: "Hello",
+    //       };
+    //     },
+    //     template:
+    //       '<div>{{msg + testTitle}}<menu-item :title="pmsg" :content="content" :menuTitle="menuTitle"></menu-item></div>',
+    //   });
+      // 父组件
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          pmsg: "父组件中的内容",
+          content: "这里是父组件的内容",
+          menuTitle: "驼峰命名",
+        },
+      });
+    </script>
+  </body>
+</html>

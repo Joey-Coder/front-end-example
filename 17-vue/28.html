@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <div :style="{fontSize: fontSize+'px'}">{{pmsg}}</div>
+      <!-- 监听enlarge-text事件 -->
+      <!-- $event用来接收事件参数 -->
+      <menu-item :parr="parr" @enlarge-text="handle($event)"></menu-item>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      // 子组件
+      // 虽然子组件可以向父组件中传递数据
+      // 但是一般规定只允许父组件向子组件传递信息
+      // 所以一般使用触发，监听事件的形式向父组件传递数据
+      Vue.component("menu-item", {
+        props: ["parr"],
+        template: `
+                <div>
+                    <ul>
+                        <li :key="index" v-for="(item, index) in parr">{{item}}</li>
+                    </ul>
+                    <button @click="parr.push('lemon')">点击</button>
+                    <button @click='$emit("enlarge-text", 5)'>扩大父组件中字体大小</button>
+                    <button @click='$emit("enlarge-text", 10)'>扩大父组件中字体大小</button>
+                </div>
+            `,
+      });
+      // 父组件
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          pmsg: "父组件的内容",
+          parr: ["apple", "orange", "banana"],
+          fontSize: 10,
+        },
+        methods: {
+          handle: function (val) {
+            // 扩大字体大小
+            this.fontSize += val;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .current {
+        font-size: 20px;
+        font-weight: bolder;
+        color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <fruit-list :list="list">
+        <!-- 这里使用slot-scope来接收info -->
+        <template slot-scope="slotProps">
+          <strong v-if="slotProps.info.id==2" class="current">
+            {{slotProps.info.name}}
+          </strong>
+          <span v-else> {{slotProps.info.name}} </span>
+        </template>
+      </fruit-list>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      Vue.component("fruit-list", {
+        props: ["list"],
+        // 设置info存储item
+        template: `
+                <div>
+                    <li v-for="item in list" :key="item.id">
+                        <slot :info="item">{{item.name}}</slot>
+                    </li>
+                </div>
+            `,
+      });
+
+      var vm = new Vue({
+        el: "#app",
+        data: {
+          list: [
+            {
+              id: 1,
+              name: "apple",
+            },
+            { id: 2, name: "orange" },
+            {
+              id: 3,
+              name: "skyblue",
+            },
+          ],
+        },
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <alert-box>
+        someThing error happend
+        <!-- slot="xxx"可以直接和模版中slot name="xxx"配对 -->
+        <p slot="main">this main slot</p>
+        <template slot="t">
+          <div>
+            <p>Hello1</p>
+            <p>Hello2</p>
+          </div>
+        </template>
+      </alert-box>
+    </div>
+    <script src="js/vue.js"></script>
+    <script>
+      Vue.component("alert-box", {
+        data: function () {
+          return {
+            num: 0,
+          };
+        },
+        // slot相当于占位符
+        template: `
+                <div>
+                   <strong>ERROR:</strong> 
+                   <slot name="main"></slot>
+                   <slot>占位符</slot>
+                   <slot name="t">template</slot>
+                </div>
+            `,
+      });
+
+      var vm = new Vue({
+        el: "#app",
+        data: {},
+      });
+    </script>
+  </body>
+</html>
