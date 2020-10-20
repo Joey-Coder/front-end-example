@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Document</title>
+    <style type="text/css">
+      .container {
+      }
+      .container .cart {
+        width: 300px;
+        margin: auto;
+      }
+      .container .title {
+        background-color: lightblue;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        /*color: #fff;*/
+      }
+      .container .total {
+        background-color: #ffce46;
+        height: 50px;
+        line-height: 50px;
+        text-align: right;
+      }
+      .container .total button {
+        margin: 0 10px;
+        background-color: #dc4c40;
+        height: 35px;
+        width: 80px;
+        border: 0;
+      }
+      .container .total span {
+        color: red;
+        font-weight: bold;
+      }
+      .container .item {
+        height: 55px;
+        line-height: 55px;
+        position: relative;
+        border-top: 1px solid #add8e6;
+      }
+      .container .item img {
+        width: 45px;
+        height: 45px;
+        margin: 5px;
+      }
+      .container .item .name {
+        position: absolute;
+        width: 90px;
+        top: 0;
+        left: 55px;
+        font-size: 16px;
+      }
+
+      .container .item .change {
+        width: 100px;
+        position: absolute;
+        top: 0;
+        right: 50px;
+      }
+      .container .item .change a {
+        font-size: 20px;
+        width: 30px;
+        text-decoration: none;
+        background-color: lightgray;
+        vertical-align: middle;
+      }
+      .container .item .change .num {
+        width: 40px;
+        height: 25px;
+      }
+      .container .item .del {
+        position: absolute;
+        top: 0;
+        right: 0px;
+        width: 40px;
+        text-align: center;
+        font-size: 40px;
+        cursor: pointer;
+        color: red;
+      }
+      .container .item .del:hover {
+        background-color: orange;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <div class="container">
+        <my-cart></my-cart>
+      </div>
+    </div>
+    <script type="text/javascript" src="js/vue.js"></script>
+    <script type="text/javascript">
+      var CartTitle = {
+        props: ["uname"],
+        template: `
+          <div class="title">{{uname}}的商品</div>       
+        `,
+      };
+      var CartList = {
+        props: ["list"],
+        template: `
+        <div>
+          <div class="item" :key="item.id" v-for="item in list" >
+            <img :src="item.img"/>
+            <div class="name">{{item.name}}</div>
+            <div class="change">
+              <a href="" @click.prevent="sub(item.id)">－</a>
+              <input type="text" class="num" :value="item.num" @blur="changeNum(item.id, $event)"/>
+              <a href="" @click.prevent="add(item.id)">＋</a>
+            </div>
+            <div class="del" @click="del(item.id)">×</div>
+          </div>
+        </div>
+        `,
+        methods: {
+          del: function (id) {
+            // console.log(id);
+            this.$emit("cart-del", id);
+          },
+          changeNum: function (id, event) {
+            this.$emit("change-num", {
+              id: id,
+              type: "change",
+              num: event.target.value,
+            });
+          },
+          sub: function (id) {
+            this.$emit("change-num", {
+              id: id,
+              type: "sub",
+            });
+          },
+          add: function (id) {
+            this.$emit("change-num", {
+              id: id,
+              type: "add",
+            });
+          },
+        },
+      };
+      var CartTotal = {
+        props: ["list"],
+        template: `
+          <div class="total">
+            <span>总价: {{total}}</span>
+            <button>结算</button>
+          </div>
+        `,
+        computed: {
+          total: function () {
+            var t = 0;
+            this.list.forEach((element) => {
+              t += element.price * element.num;
+            });
+            return t;
+          },
+        },
+      };
+      // 父组件
+      Vue.component("my-cart", {
+        data: function () {
+          return {
+            uname: "Joey",
+            list: [
+              {
+                id: 1,
+                name: "TCL彩电",
+                price: 1000,
+                num: 1,
+                img: "img/a.jpg",
+              },
+              {
+                id: 2,
+                name: "机顶盒",
+                price: 1000,
+                num: 1,
+                img: "img/b.jpg",
+              },
+              {
+                id: 3,
+                name: "海尔冰箱",
+                price: 1000,
+                num: 1,
+                img: "img/c.jpg",
+              },
+              {
+                id: 4,
+                name: "小米手机",
+                price: 1000,
+                num: 1,
+                img: "img/d.jpg",
+              },
+              {
+                id: 5,
+                name: "PPTV电视",
+                price: 1000,
+                num: 2,
+                img: "img/e.jpg",
+              },
+            ],
+          };
+        },
+        template: `
+          <div class='cart'>
+            <cart-title :uname="uname"></cart-title>
+            <cart-list :list="list" @cart-del='delCart($event)' @change-num="changeNum($event)"></cart-list>
+            <cart-total :list="list"></cart-total>
+          </div>
+        `,
+        components: {
+          "cart-title": CartTitle,
+          "cart-list": CartList,
+          "cart-total": CartTotal,
+        },
+        methods: {
+          delCart: function (id) {
+            // 找到id所对应数据的索引
+            var index = this.list.findIndex((item) => {
+              return item.id == id;
+            });
+            // 删除
+            this.list.splice(index, 1);
+          },
+
+          changeNum: function (event) {
+            // 遍历
+            this.list.some((item) => {
+              if (item.id == event.id) {
+                if (event.type == "change") {
+                  item.num = event.num;
+                } else if (event.type == "sub" && item.num != 0) {
+                  item.num -= 1;
+                } else if (event.type == "add") {
+                  item.num += 1;
+                }
+                return true;
+              }
+            });
+          },
+        },
+      });
+      var vm = new Vue({
+        el: "#app",
+        data: {},
+      });
+    </script>
+  </body>
+</html>
