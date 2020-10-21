@@ -50,7 +50,7 @@
                 type="text"
                 id="id"
                 v-model="id"
-                :disabled="flag"
+                disabled="false"
                 v-focus
               />
               <label for="name">名称：</label>
@@ -89,26 +89,63 @@
       </div>
     </div>
     <script src="js/vue.js"></script>
+    <script src="js/axios.js"></script>
     <script>
-      // 时间过滤器
-      Vue.filter("format", function (value, arg) {
-        if ((arg = "yyyy-MM-dd")) {
-          var ret = "";
-          ret +=
-            value.getFullYear() +
-            "-" +
-            (value.getMonth() + 1) +
-            "-" +
-            value.getDate();
-          return ret;
+      axios.defaults.baseURL = "http://localhost:3000/";
+      axios.interceptors.response.use(
+        function (res) {
+          return res.data;
+        },
+        function (err) {
+          console.log(err);
         }
-        return value;
-      });
+      );
+
       // 自定义指令
       Vue.directive("focus", {
         inserted: function (el) {
           el.focus();
         },
+      });
+
+      // 日期格式化
+      Vue.filter("format", function (value, arg) {
+        function dateFormat(date, format) {
+          if (typeof date === "string") {
+            var mts = date.match(/(\/Date\((\d+)\)\/)/);
+            if (mts && mts.length >= 3) {
+              date = parseInt(mts[2]);
+            }
+          }
+          date = new Date(date);
+          if (!date || date.toUTCString() == "Invalid Date") {
+            return "";
+          }
+          var map = {
+            M: date.getMonth() + 1, //月份
+            d: date.getDate(), //日
+            h: date.getHours(), //小时
+            m: date.getMinutes(), //分
+            s: date.getSeconds(), //秒
+            q: Math.floor((date.getMonth() + 3) / 3), //季度
+            S: date.getMilliseconds(), //毫秒
+          };
+          format = format.replace(/([yMdhmsqS])+/g, function (all, t) {
+            var v = map[t];
+            if (v !== undefined) {
+              if (all.length > 1) {
+                v = "0" + v;
+                v = v.substr(v.length - 2);
+              }
+              return v;
+            } else if (t === "y") {
+              return (date.getFullYear() + "").substr(4 - all.length);
+            }
+            return all;
+          });
+          return format;
+        }
+        return dateFormat(value, arg);
       });
 
       var vm = new Vue({
@@ -121,51 +158,48 @@
           books: [],
         },
         methods: {
-          handle: function () {
+          // 新建书籍
+          handle: async function () {
             if (this.flag) {
-              //some为数组循环
-              this.books.some((item) => {
-                if (item.id == this.id) {
-                  item.name = this.name;
-                  // 完成更新操作后终止循环
-                  this.flag = false;
-                }
+              var ret = await axios.put("books/" + this.id, {
+                name: this.name,
               });
+              if (ret.status == 200) {
+                // 修改成功 重写加载数据
+                this.queryData();
+              }
+              this.flag = false;
             } else {
               // 新建
-              var book = {};
-              book.id = this.id;
-              book.name = this.name;
-              book.date = new Date();
-              this.books.push(book);
+              var ret = await axios.post("books", {
+                name: this.name,
+              });
+              if (ret.status == 200) {
+                this.queryData();
+              }
             }
+            // 清空表单
             this.id = "";
             this.name = "";
           },
-          toEdit: function (id) {
-            var book = this.books.filter(function (item) {
-              return item.id == id;
-            });
-
-            this.id = book[0].id;
+          toEdit: async function (id) {
+            // flag 用于区别修改和添加
             this.flag = true;
-            this.name = book[0].name;
+            // 根据id查询对应的图书信息
+            var ret = await axios.get("books/" + id);
+            this.id = ret.id;
+            this.name = ret.name;
           },
-          deleteBook: function (id) {
-            // 删除图书
-            // 根据id从数组查找元素索引
-            // findIndex 返回下标
-            var index = this.books.findIndex(function (item) {
-              return item.id == id;
-            });
-            // 根据索引删除数组
-            //index删除元素起点，1代表个数
-            this.books.splice(index, 1);
+          deleteBook: async function (id) {
+            var ret = await axios.delete("books/" + id);
+            if (ret.status == 200) {
+              this.queryData();
+            }
+          },
 
-            // 方法二
-            // this.books = this.books.filter(function (item) {
-            //   return item.id != id;
-            // });
+          // 获取图书列表数据
+          queryData: async function () {
+            this.books = await axios.get("books");
           },
         },
         // 计算属性
@@ -177,24 +211,10 @@
 
         // 监听id和name是否重复
         watch: {
-          id: function (val) {
+          name: async function (val) {
             //
-            var flag = this.books.some(function (item) {
-              return item.id == val;
-            });
-            if (flag) {
-              //
-              this.submitFlag = true;
-            } else {
-              this.submitFlag = false;
-            }
-          },
-          name: function (val) {
-            //
-            var flag = this.books.some(function (item) {
-              return item.name == val;
-            });
-            if (flag) {
+            var ret = await axios.get("books/book/" + this.name);
+            if (ret.status == 1) {
               //
               this.submitFlag = true;
             } else {
@@ -205,29 +225,7 @@
         // 生命周期，Vue初始化完成调用mounted
         // 从后台开始拿数据渲染
         mounted() {
-          var data = [
-            {
-              id: 1,
-              name: "三国演义",
-              date: new Date(),
-            },
-            {
-              id: 2,
-              name: "水浒传",
-              date: new Date(),
-            },
-            {
-              id: 3,
-              name: "红楼梦",
-              date: new Date(),
-            },
-            {
-              id: 4,
-              name: "西游记",
-              date: new Date(),
-            },
-          ];
-          this.books = data;
+          this.queryData();
         },
       });
     </script>
