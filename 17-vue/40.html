@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 获取返回的json
+      fetch("http://localhost:3000/json")
+        .then(function (data) {
+          return data.json();
+        })
+        .then(function (data) {
+          console.log(data.uname);
+        });
+
+      // 方式2
+      // 通过JSON.parse转换
+      fetch("http://localhost:3000/json")
+        .then(function (data) {
+          return data.text();
+        })
+        .then(function (data) {
+          console.log(JSON.parse(data).uname);
+        });
+    </script>
+  </body>
+</html>

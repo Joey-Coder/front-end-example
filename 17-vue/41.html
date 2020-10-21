@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="js/axios.js"></script>
+    <script>
+      axios.get("http://localhost:3000/adata").then(function (ret) {
+        console.log(ret);
+        // data 属性保存返回内容
+        console.log(ret.data);
+      });
+
+      //  传统get
+      axios.get("http://localhost:3000/axios?id=123").then(function (ret) {
+        console.log("传统get: " + ret.data);
+      });
+
+      // 另一种传统 get
+      axios
+        .get("http://localhost:3000/axios", {
+          params: {
+            id: "123",
+          },
+        })
+        .then(function (res) {
+          console.log(res.data);
+        });
+
+      // restful get
+      axios.get("http://localhost:3000/axios/123").then(function (ret) {
+        console.log("restful get: " + ret.data);
+      });
+
+      axios
+        .delete("http://localhost:3000/axios", {
+          params: {
+            id: "789",
+          },
+        })
+        .then(function (res) {
+          console.log("delete方法：" + res.data);
+        });
+    </script>
+  </body>
+</html>

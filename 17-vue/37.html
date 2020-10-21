@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 常见的Promise Api使用
+      function foo() {
+        return new Promise(function (resolve, reject) {
+          setTimeout(function () {
+            // resolve("123");
+            reject("somethind error!");
+          }, 1000);
+        });
+      }
+      foo()
+        // then用于接收resolve信息
+        .then(function (data) {
+          console.log(data);
+        })
+        // catch用于处理reject信息
+        .catch(function (data) {
+          console.log(data);
+        })
+        // finally最后一定会执行
+        .finally(function () {
+          console.log("finished");
+        });
+    </script>
+  </body>
+</html>

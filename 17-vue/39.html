@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      fetch("http://localhost:3000/fdata")
+        .then(function (data) {
+          // 打印状态
+          console.log(data.status);
+          // data.text方法返回一个Promise对象
+          return data.text();
+        })
+        .then(function (data) {
+          console.log(data);
+        });
+
+      // 带参数的get传统请求
+      fetch("http://localhost:3000/books?id=123", {
+        method: "get",
+      })
+        .then(function (data) {
+          // 打印状态
+          console.log(data.status);
+          return data.text();
+        })
+        .then(function (data) {
+          console.log(data);
+        });
+
+      // 带参数的get restful请求
+      fetch("http://localhost:3000/books/456", {
+        method: "get",
+      })
+        .then(function (data) {
+          // 打印状态
+          console.log(data.status);
+          return data.text();
+        })
+        .then(function (data) {
+          console.log(data);
+        });
+
+      // delete 传参方式
+      fetch("http://localhost:3000/books/789", {
+        method: "delete",
+      })
+        .then(function (data) {
+          // 打印状态
+          console.log(data.status);
+          return data.text();
+        })
+        .then(function (data) {
+          console.log(data);
+        });
+
+      // post 传参方式
+      // string参数格式
+      fetch("http://localhost:3000/books", {
+        method: "post",
+        body: "uname=Joey&pwd=123",
+        // headers必须要填
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+        .then(function (data) {
+          // 打印状态
+          console.log(data.status);
+          return data.text();
+        })
+        .then(function (data) {
+          console.log(data);
+        });
+
+      // post 传参方式
+      // json格式
+      fetch("http://localhost:3000/books", {
+        method: "post",
+        body: JSON.stringify({
+          uname: "Ross",
+          pwd: 23,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then(function (data) {
+          // 打印状态
+          console.log(data.status);
+          return data.text();
+        })
+        .then(function (data) {
+          console.log(data);
+        });
+    </script>
+  </body>
+</html>

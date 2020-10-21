@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var p = new Promise(function (resolve, reject) {
+        // resolve 代表成功时调用
+        // reject 代表失败时调用
+        setTimeout(function () {
+          var flag = true;
+          if (flag) {
+            // 正常情况
+            resolve("hello");
+          } else {
+            // 异常情况
+            reject("something error...");
+          }
+        }, 100);
+      });
+      p.then(
+        // 成功情况
+        function (data) {
+          console.log(data);
+        },
+        // 失败情况
+        function (info) {
+          console.log(info);
+        }
+      );
+    </script>
+  </body>
+</html>

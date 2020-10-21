@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var correctUrl = "http://localhost:3000/data";
+      var errorUrl = "http://localhost:3000/error";
+      function queryData(url) {
+        var p = new Promise(function (resolve, reject) {
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState != 4) return;
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              resolve(xhr.responseText);
+            } else {
+              reject("服务器错误");
+            }
+          };
+          xhr.open("get", url);
+          xhr.send(null);
+        });
+        return p;
+      }
+
+      // 正常请求
+      queryData(correctUrl).then(
+        // 对应resolve
+        function (data) {
+          console.log(data);
+        },
+        // 对应reject
+        function (info) {
+          console.log(info);
+        }
+      );
+
+      // 错误请求
+      queryData(errorUrl).then(
+        function (data) {
+          console.log(data);
+        },
+        function (info) {
+          console.log(info);
+        }
+      );
+
+      //
+      queryData(correctUrl)
+        .then(function (data) {
+          // 第一次调用
+          console.log(data + " " + "first");
+          return queryData(correctUrl);
+        })
+        .then(function (data) {
+          // 第二次调用
+          console.log(data + " " + "second");
+          return queryData(correctUrl);
+        })
+        .then(function (data) {
+          // 第三次调用
+          console.log(data + " " + "third");
+        });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function queryData(url) {
+        var p = new Promise(function (resolve, reject) {
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState != 4) return;
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              resolve(xhr.responseText);
+            } else {
+              reject("服务器错误");
+            }
+          };
+          xhr.open("get", url);
+          xhr.send(null);
+        });
+        return p;
+      }
+
+      var p1 = queryData("http://localhost:3000/a1");
+      var p2 = queryData("http://localhost:3000/a2");
+      var p3 = queryData("http://localhost:3000/a3");
+
+      // all 为对象方法，区别于实例方法
+      // all 要等待p1, p2, p3全部执行完成，才会打印结果
+      Promise.all([p1, p2, p3]).then(function (result) {
+        console.log(result);
+      });
+      // race 也是对象方法
+      // race 只要p1,p2,p3有一个完成就停止
+      // 其实另外两个请求也成功发出了
+      Promise.race([p1, p2, p3]).then(function (result) {
+        console.log(result);
+      });
+    </script>
+  </body>
+</html>

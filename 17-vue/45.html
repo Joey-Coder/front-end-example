@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- ES7新引入的特性 -->
+    <script src="js/axios.js"></script>
+    <script>
+      // 回调函数形式
+      axios.defaults.baseURL = "http://localhost:3000";
+      axios.get("adata").then(function (ret) {
+        console.log(ret.data);
+      });
+
+      // 使用异步重写上面方法
+      // async 作用在函数定义前
+      // await 作用在函数定义后
+
+      async function queryData() {
+        var ret = await axios.get("adata");
+        console.log(ret.data);
+        return ret.data;
+      }
+      queryData().then(function (data) {
+        console.log(data);
+      });
+
+      // await后面接Promise对象都可以
+      async function newData() {
+        var ret = await new Promise(function (resolve, reject) {
+          setTimeout(function () {
+            resolve("nihao");
+          }, 1000);
+        });
+        return ret;
+      }
+
+      newData().then(function (data) {
+        console.log(data);
+      });
+    </script>
+  </body>
+</html>

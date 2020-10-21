@@ -62,4 +62,34 @@
 
 31.html 作用域插条
 
-32.html 购物车
+32.html 购物车 \*\*\*
+
+------------ day 04 -------------
+
+33.html 异步编程和 ajax 的区别
+
+34.html Promise 基本使用
+
+35.html Promise 处理 ajax
+
+36.html Promise 的 then 函数
+
+37.html Promise 常用 api then catch finally
+
+38.html Promise 对象方法 all race
+
+39.html fetch 方法 ajax 的升级版本 get post delete
+
+40.html fetch 方法响应结果处理
+
+41.html 第三方接口调用库 axios get delete 请求
+
+42.html axios 的 post put 请求
+
+43.html axios 的 全局配置 axios.defaults
+
+44.html axios 请求/响应拦截器 interceptors
+
+45.html async/await 用法
+
+46.html async/await 处理多个函数

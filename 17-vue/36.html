@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var correctUrl = "http://localhost:3000/data";
+      var errorUrl = "http://localhost:3000/error";
+      function queryData(url) {
+        return new Promise(function (resolve, reject) {
+          var xhr = new XMLHttpRequest();
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState != 4) return;
+            if (xhr.readyState == 4 && xhr.status == 200) {
+              resolve(xhr.responseText);
+            } else {
+              reject("服务器错误");
+            }
+          };
+          xhr.open("get", url);
+          xhr.send(null);
+        });
+      }
+
+      queryData(correctUrl)
+        .then(function (data) {
+          return queryData(correctUrl);
+        })
+        .then(function (data) {
+          return new Promise(function (resolve, reject) {
+            setTimeout(function () {
+              resolve(123);
+            }, 1000);
+          });
+        })
+        .then(function (data) {
+          // 接收resolve
+          console.log(data);
+        })
+        .then(function (data) {
+          // 返回普通对象
+          return "Hello";
+        })
+        .then(function (data) {
+          // 打印Hello
+          console.log(data);
+        });
+    </script>
+  </body>
+</html>
