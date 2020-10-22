@@ -93,3 +93,17 @@
 45.html async/await 用法
 
 46.html async/await 处理多个函数
+
+------------ day 05 ------------
+
+47.html 实现简易的前端路由
+
+48.html Vue-router 基本使用 `<router-link>`, `<router-view>`
+
+49.html 嵌套路由
+
+50.html 路由传参 props 传参 , 对象传参， 函数传参
+
+51.html 命名路由 name
+
+52.html 编程式导航 `this.$router.push` `this.$router.go`
