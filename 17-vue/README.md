@@ -107,3 +107,5 @@
 51.html 命名路由 name
 
 52.html 编程式导航 `this.$router.push` `this.$router.go`
+
+53.html 后台管理路由案例 [案例]
