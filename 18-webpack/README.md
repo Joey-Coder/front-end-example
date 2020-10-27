@@ -19,3 +19,9 @@ webpack-demo/package.json webpack-dev-server 自动打包模块
 webpack-demo/package.json html-webpack-plugin 主页模块
 
 webpack-demo/babel.config.js babel 打包 js 高级语法
+
+vue_proj_01 vue-cli 命令行创建项目
+
+vue_proj_02 vue-cli 图形化创建项目
+
+vue_proj_03 vue-cli 图形使用预设创建项目
