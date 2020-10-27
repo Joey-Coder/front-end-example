@@ -17,3 +17,5 @@ webpack-demo webpack 的基本使用 webpack.config.js 配置 webpack
 webpack-demo/package.json webpack-dev-server 自动打包模块
 
 webpack-demo/package.json html-webpack-plugin 主页模块
+
+webpack-demo/babel.config.js babel 打包 js 高级语法
