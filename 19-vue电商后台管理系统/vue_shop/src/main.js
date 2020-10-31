@@ -5,9 +5,16 @@ import './plugins/element.js'
 import './assets/css/global.css'
 import axios from 'axios'
 
+axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
+// 使用拦截器设置header登陆token凭证
+axios.interceptors.request.use(config => {
+  config.headers.Authorization = window.sessionStorage.getItem('token')
+  // 必须return config
+  return config
+})
+
 // 挂载属性
 Vue.prototype.$http = axios
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
 
 Vue.config.productionTip = false
 
