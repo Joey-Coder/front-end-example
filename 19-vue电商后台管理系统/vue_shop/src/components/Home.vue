@@ -23,6 +23,7 @@
           :collapse="isCollapse"
           :collapse-transition="false"
           :router="true"
+          :default-active="activePath"
         >
           <!-- 一级菜单 -->
           <el-submenu
@@ -39,6 +40,7 @@
               :index="'/' + subItem.path"
               v-for="subItem in item.children"
               :key="subItem.id"
+              @click="saveNavState('/' + subItem.path)"
             >
               <template slot="title">
                 <i :class="iconsObj[subItem.id]"></i>
@@ -72,11 +74,14 @@ export default {
         146: 'el-icon-data-line',
         107: 'el-icon-tickets'
       },
-      isCollapse: false
+      isCollapse: false,
+      // 存储当前被选择的二级高亮菜单
+      activePath: ''
     }
   },
   created() {
     this.getMenuList()
+    this.activePath = window.sessionStorage.getItem('activePath')
   },
   methods: {
     logout() {
@@ -92,6 +97,11 @@ export default {
     //
     toggleCollapse() {
       this.isCollapse = !this.isCollapse
+    },
+    // 存储当前被选择的二级高亮菜单
+    saveNavState(activePath) {
+      window.sessionStorage.setItem('activePath', activePath)
+      this.activePath = activePath
     }
   }
 }
