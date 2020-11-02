@@ -4,7 +4,7 @@
     <el-header>
       <div>
         <!-- logo -->
-        <img src="../assets/heima.png" alt="" />
+        <img src="../assets/vue_logo.png" alt="" />
         <span>后台管理系统</span>
       </div>
       <el-button type="warning" round @click="logout">退出</el-button>
@@ -120,6 +120,10 @@ export default {
     align-items: center;
     span {
       margin-left: 15px;
+    }
+    img {
+      width: 50px;
+      height: 50px;
     }
   }
 }
