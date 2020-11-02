@@ -94,7 +94,7 @@ export default {
       this.menulist = res.data
       // console.log(this.menulist)
     },
-    //
+    // 折叠功能
     toggleCollapse() {
       this.isCollapse = !this.isCollapse
     },
