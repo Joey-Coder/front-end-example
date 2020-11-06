@@ -72,7 +72,12 @@
               content="编辑"
               placement="top-start"
             >
-              <el-button type="primary" icon="el-icon-edit" circle></el-button>
+              <el-button
+                type="primary"
+                icon="el-icon-edit"
+                circle
+                @click="editRoleName(scope.row)"
+              ></el-button>
             </el-tooltip>
             <el-tooltip
               class="item"
@@ -80,7 +85,12 @@
               content="删除"
               placement="top-start"
             >
-              <el-button type="danger" icon="el-icon-delete" circle></el-button>
+              <el-button
+                type="danger"
+                icon="el-icon-delete"
+                circle
+                @click="showDeleteRoleDialog(scope.row.id)"
+              ></el-button>
             </el-tooltip>
             <el-tooltip
               class="item"
@@ -120,6 +130,35 @@
         <el-button type="primary" @click="allotRights">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 修改角色名称对话框 -->
+    <el-dialog
+      title="修改角色名称"
+      :visible.sync="editRoleNamedialogVisible"
+      width="50%"
+    >
+      <el-form ref="form" :model="editRoleNameForm" label-width="80px">
+        <el-form-item label="角色名称">
+          <el-input v-model="editRoleNameForm.roleName"></el-input>
+        </el-form-item>
+        <el-form-item label="角色描述">
+          <el-input v-model="editRoleNameForm.roleDesc"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="editRoleNamedialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="sendEditRoleNameForm"
+          >确 定</el-button
+        >
+      </span>
+    </el-dialog>
+    <!-- 删除角色对话框 -->
+    <el-dialog title="提示" :visible.sync="deleteRoleDialogVisible" width="50%">
+      <span>是否删除该角色</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="deleteRoleDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="deleteRole">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -141,7 +180,19 @@ export default {
       // 默认选中节点
       defKeys: [],
       //
-      roleId: ''
+      roleId: '',
+      //
+      editRoleNamedialogVisible: false,
+      //
+      editRoleNameForm: {
+        roleName: '',
+        roleDesc: ''
+      },
+      editRoleNameId: '',
+      //
+      deleteRoleDialogVisible: false,
+      //
+      deleteRoleId: ''
     }
   },
   created() {
@@ -228,6 +279,43 @@ export default {
       }
       this.getRolesList()
       this.setRightDialogVisible = false
+    },
+    // 修改角色名称
+    editRoleName(role) {
+      console.log(role)
+      this.editRoleNameForm.roleName = role.roleName
+      this.editRoleNameForm.roleDesc = role.roleDesc
+      this.editRoleNameId = role.id
+      this.editRoleNamedialogVisible = true
+    },
+    // 发送修改用户名表格
+    async sendEditRoleNameForm() {
+      const { data: res } = await this.$http.put(
+        `/roles/${this.editRoleNameId}`,
+        this.editRoleNameForm
+      )
+      if (res.meta.status !== 200) {
+        return this.$message.error('修改角色信息失败')
+      }
+      this.$message.success('修改角色信息成功')
+      this.getRolesList()
+      this.editRoleNamedialogVisible = false
+    },
+    //
+    showDeleteRoleDialog(id) {
+      this.deleteRoleId = id
+      this.deleteRoleDialogVisible = true
+    },
+    async deleteRole() {
+      const { data: res } = await this.$http.delete(
+        `roles/${this.deleteRoleId}`
+      )
+      if (res.meta.status !== 200) {
+        return this.$message.error('删除角色失败')
+      }
+      this.$message.success('删除角色成功')
+      this.getRolesList()
+      this.deleteRoleDialogVisible = false
     }
   }
 }
