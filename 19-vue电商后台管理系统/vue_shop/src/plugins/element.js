@@ -28,7 +28,9 @@ import {
   Select,
   Option,
   Tag,
-  Tree
+  Tree,
+  Cascader,
+  CascaderPanel
 } from 'element-ui'
 
 Vue.use(Button)
@@ -58,6 +60,8 @@ Vue.use(Tag)
 Vue.use(Tree)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Cascader)
+Vue.use(CascaderPanel)
 
 Vue.use(Message)
 // 挂载消息提示

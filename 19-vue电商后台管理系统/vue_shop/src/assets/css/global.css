@@ -6,3 +6,8 @@ body,
   padding: 0;
   min-width: 1366px;
 }
+
+.el-cascader-panel {
+  max-height: 500px;
+  overflow: scroll;
+}
