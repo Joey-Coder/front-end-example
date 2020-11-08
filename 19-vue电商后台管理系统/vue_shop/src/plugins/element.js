@@ -33,7 +33,9 @@ import {
   CascaderPanel,
   Alert,
   TabPane,
-  Tabs
+  Tabs,
+  Step,
+  Steps
 } from 'element-ui'
 
 Vue.use(Button)
@@ -68,6 +70,8 @@ Vue.use(CascaderPanel)
 Vue.use(Alert)
 Vue.use(TabPane)
 Vue.use(Tabs)
+Vue.use(Step)
+Vue.use(Steps)
 
 Vue.use(Message)
 // 挂载消息提示

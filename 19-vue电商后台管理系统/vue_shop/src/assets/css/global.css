@@ -15,3 +15,20 @@ body,
 .el-breadcrumb {
   margin-bottom: 20px;
 }
+
+.el-tooltip {
+  margin: 0 5px;
+}
+
+.el-pagination {
+  margin-top: 20px;
+}
+
+.el-steps {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.el-tabs {
+  margin-top: 20px;
+}
