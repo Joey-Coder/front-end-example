@@ -8,7 +8,7 @@ body,
 }
 
 .el-cascader-panel {
-  max-height: 500px;
+  max-height: 400px;
   overflow: scroll;
 }
 
@@ -31,4 +31,9 @@ body,
 
 .el-tabs {
   margin-top: 20px;
+}
+
+/* 富文本编辑器高度设置 */
+.ql-editor {
+  min-height: 200px;
 }

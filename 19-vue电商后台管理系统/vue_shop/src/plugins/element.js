@@ -35,7 +35,10 @@ import {
   TabPane,
   Tabs,
   Step,
-  Steps
+  Steps,
+  CheckboxGroup,
+  Checkbox,
+  Upload
 } from 'element-ui'
 
 Vue.use(Button)
@@ -72,6 +75,9 @@ Vue.use(TabPane)
 Vue.use(Tabs)
 Vue.use(Step)
 Vue.use(Steps)
+Vue.use(CheckboxGroup)
+Vue.use(Checkbox)
+Vue.use(Upload)
 
 Vue.use(Message)
 // 挂载消息提示
