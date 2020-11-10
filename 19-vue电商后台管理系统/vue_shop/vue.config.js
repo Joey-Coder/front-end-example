@@ -20,8 +20,8 @@ module.exports = {
         lodash: '_',
         echarts: 'echarts',
         nprogress: 'NProgress',
-        'vue-quill-editor': 'VueQuillEditor',
-        'vue-table-with-tree-grid': 'TreeTable'
+        'vue-quill-editor': 'VueQuillEditor'
+        // 'vue-table-with-tree-grid': 'TreeTable'
       })
       // 根据发布模式渲染index
       config.plugin('html').tap(args => {
