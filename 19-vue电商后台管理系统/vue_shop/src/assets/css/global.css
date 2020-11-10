@@ -37,3 +37,7 @@ body,
 .ql-editor {
   min-height: 200px;
 }
+/* 修改加载进度条 */
+#nprogress .bar {
+  height: 3px !important;
+}
