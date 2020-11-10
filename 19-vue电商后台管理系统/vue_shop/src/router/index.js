@@ -11,6 +11,7 @@ import Params from '../components/goods/Params.vue'
 import List from '../components/goods/List.vue'
 import Add from '../components/goods/Add.vue'
 import Order from '../components/order/Order.vue'
+import Report from '../components/report/Report.vue'
 
 Vue.use(VueRouter)
 
@@ -39,7 +40,9 @@ const routes = [
       // 添加商品
       { path: '/goods/add', component: Add },
       // 订单列表
-      { path: '/orders', component: Order }
+      { path: '/orders', component: Order },
+      // 报表
+      { path: '/reports', component: Report }
     ]
   }
 ]
