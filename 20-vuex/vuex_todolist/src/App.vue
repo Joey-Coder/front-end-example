@@ -11,7 +11,15 @@
     <a-list bordered :dataSource="list" class="dt_list">
       <a-list-item slot="renderItem" slot-scope="item">
         <!-- 复选框 -->
-        <a-checkbox>{{ item.info }}</a-checkbox>
+        <a-checkbox
+          :checked="item.done"
+          @change="
+            e => {
+              checkBoxChange(e, item.id)
+            }
+          "
+          >{{ item.info }}</a-checkbox
+        >
         <!-- 删除链接 -->
         <a slot="actions" @click="removeById(item.id)">删除</a>
       </a-list-item>
@@ -60,6 +68,14 @@ export default {
     },
     removeById(id) {
       this.$store.commit('deleteItem', id)
+    },
+    //
+    checkBoxChange(e, id) {
+      const param = {
+        id: id,
+        done: e.target.checked
+      }
+      this.$store.commit('changeCheck', param)
     }
   }
 }

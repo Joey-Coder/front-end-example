@@ -8,7 +8,7 @@
   {
     "id": 2,
     "info": "Australian walks 100km after outback crash.",
-    "done": false
+    "done": true
   },
   { "id": 3, "info": "Man charged over missing wedding girl.", "done": false },
   { "id": 4, "info": "Los Angeles battles huge wildfires.", "done": false }

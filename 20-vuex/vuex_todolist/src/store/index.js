@@ -9,7 +9,7 @@ export default new Vuex.Store({
     // 所有任务列表
     list: [],
     //
-    inputValue: 'sdfsd',
+    inputValue: '',
     //
     maxId: 5
   },
@@ -33,6 +33,12 @@ export default new Vuex.Store({
     deleteItem(state, id) {
       const i = state.list.findIndex(item => item.id === id)
       state.list.splice(i, 1)
+    },
+    changeCheck(state, param) {
+      const i = state.list.findIndex(value => value.id === param.id)
+      if (i !== -1) {
+        state.list[i].done = param.done
+      }
     }
   },
   actions: {
