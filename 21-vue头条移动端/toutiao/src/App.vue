@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h3>Vue 头条</h3>
+    <!-- 路由出口 -->
     <router-view />
   </div>
 </template>
@@ -16,4 +16,10 @@ export default {
 }
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+.box {
+  width: 200px;
+  height: 100px;
+  background-color: #ecf9f2;
+}
+</style>
