@@ -11,12 +11,24 @@ export default new Vuex.Store({
     //
     inputValue: '',
     //
-    maxId: 5
+    maxId: 5,
+    //
+    viewKey: 'all'
   },
   getters: {
     // 统计未完成的任务数量
     unDoneLength(state) {
       return state.list.filter(item => item.done === false).length
+    },
+    // 只筛选，不修改原始数据
+    infoList(state) {
+      if (state.viewKey === 'done') {
+        return state.list.filter(item => item.done === true)
+      } else if (state.viewKey === 'undone') {
+        return state.list.filter(item => item.done === false)
+      } else if (state.viewKey === 'all') {
+        return state.list
+      }
     }
   },
   mutations: {
@@ -54,6 +66,10 @@ export default new Vuex.Store({
     // 清除已经完成的任务
     clearDone(state) {
       state.list = state.list.filter(item => item.done === false)
+    },
+    //
+    changeView(state, key) {
+      state.viewKey = key
     }
   },
   actions: {

@@ -8,7 +8,7 @@
     />
     <a-button type="primary" @click="addItemToList">添加事项</a-button>
 
-    <a-list bordered :dataSource="list" class="dt_list">
+    <a-list bordered :dataSource="infoList" class="dt_list">
       <a-list-item slot="renderItem" slot-scope="item">
         <!-- 复选框 -->
         <a-checkbox
@@ -30,9 +30,21 @@
         <span>{{ unDoneLength }}条剩余</span>
         <!-- 操作按钮 -->
         <a-button-group>
-          <a-button type="primary">全部</a-button>
-          <a-button>未完成</a-button>
-          <a-button>已完成</a-button>
+          <a-button
+            :type="viewKey === 'all' ? 'primary' : 'default'"
+            @click="changeList('all')"
+            >全部</a-button
+          >
+          <a-button
+            @click="changeList('undone')"
+            :type="viewKey === 'undone' ? 'primary' : 'default'"
+            >未完成</a-button
+          >
+          <a-button
+            @click="changeList('done')"
+            :type="viewKey === 'done' ? 'primary' : 'default'"
+            >已完成</a-button
+          >
         </a-button-group>
         <!-- 把已经完成的任务清空 -->
         <a @click="clear">清除已完成</a>
@@ -49,8 +61,8 @@ export default {
     return {}
   },
   computed: {
-    ...mapState(['list', 'inputValue']),
-    ...mapGetters(['unDoneLength'])
+    ...mapState(['list', 'inputValue', 'viewKey']),
+    ...mapGetters(['unDoneLength', 'infoList'])
   },
   created() {
     this.$store.dispatch('getList')
@@ -81,6 +93,10 @@ export default {
     // 清除已经完成的任务
     clear() {
       this.$store.commit('clearDone')
+    },
+    //
+    changeList(key) {
+      this.$store.commit('changeView', key)
     }
   }
 }
