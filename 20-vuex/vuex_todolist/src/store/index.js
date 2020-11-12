@@ -13,13 +13,22 @@ export default new Vuex.Store({
     //
     maxId: 5
   },
+  getters: {
+    // 统计未完成的任务数量
+    unDoneLength(state) {
+      return state.list.filter(item => item.done === false).length
+    }
+  },
   mutations: {
+    // 初始化任务列表
     initList(state, list) {
       state.list = list
     },
+    // 监听input输入框
     saveInputValue(state, newValue) {
       state.inputValue = newValue
     },
+    // 添加任务
     addItem(state) {
       const obj = {
         id: state.nextId,
@@ -30,10 +39,12 @@ export default new Vuex.Store({
       state.maxId++
       state.inputValue = ''
     },
+    // 删除任务
     deleteItem(state, id) {
       const i = state.list.findIndex(item => item.id === id)
       state.list.splice(i, 1)
     },
+    // 更改任务状态
     changeCheck(state, param) {
       const i = state.list.findIndex(value => value.id === param.id)
       if (i !== -1) {
@@ -42,6 +53,7 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    // 异步获取任务列表
     getList(context) {
       // public的文件可被直接访问
       axios

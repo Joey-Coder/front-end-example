@@ -27,7 +27,7 @@
       <!-- footer区域 -->
       <div slot="footer" class="footer">
         <!-- 未完成的任务个数 -->
-        <span>0条剩余</span>
+        <span>{{ unDoneLength }}条剩余</span>
         <!-- 操作按钮 -->
         <a-button-group>
           <a-button type="primary">全部</a-button>
@@ -42,14 +42,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'app',
   data() {
     return {}
   },
   computed: {
-    ...mapState(['list', 'inputValue'])
+    ...mapState(['list', 'inputValue']),
+    ...mapGetters(['unDoneLength'])
   },
   created() {
     this.$store.dispatch('getList')
