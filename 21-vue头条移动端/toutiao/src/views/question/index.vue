@@ -1,6 +1,6 @@
 <template>
   <div class="question-container">
-    question Page
+    Question Page
   </div>
 </template>
 
