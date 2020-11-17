@@ -17,7 +17,11 @@ import {
   Image,
   GridItem,
   Grid,
-  Dialog
+  Dialog,
+  Tab,
+  Tabs,
+  List,
+  PullRefresh
 } from 'vant'
 
 Vue.use(Button)
@@ -41,7 +45,10 @@ Vue.use(Image)
 Vue.use(Grid)
 Vue.use(GridItem)
 Vue.use(Dialog)
-
+Vue.use(Tabs)
+Vue.use(Tab)
+Vue.use(List)
+Vue.use(PullRefresh)
 // 属性挂载
 // Vue.prototype.$notify = Notify
 // Vue.prototype.$toast = Toast
