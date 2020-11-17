@@ -13,7 +13,10 @@ import {
   Slider,
   Tabbar,
   TabbarItem,
-  Toast
+  Toast,
+  Image,
+  GridItem,
+  Grid
 } from 'vant'
 
 Vue.use(Button)
@@ -31,6 +34,11 @@ Vue.use(CellGroup)
 Vue.use(Field)
 Vue.use(Form)
 Vue.use(CountDown)
+Vue.use(Cell)
+Vue.use(CellGroup)
+Vue.use(Image)
+Vue.use(Grid)
+Vue.use(GridItem)
 
 // 属性挂载
 // Vue.prototype.$notify = Notify
