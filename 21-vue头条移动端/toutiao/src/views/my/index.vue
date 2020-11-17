@@ -14,33 +14,33 @@
           fit="cover"
           class="avatar"
           round
-          src="https://img.yzcdn.cn/vant/cat.jpeg"
+          :src="currentUser.photo"
         ></van-image>
-        <div slot="title" class="name">昵称</div>
+        <div slot="title" class="name">{{ currentUser.name }}</div>
         <van-button size="small" round class="edit-btn">编辑资料</van-button>
       </van-cell>
       <van-grid :border="false" class="data-info" center>
         <van-grid-item class="data-info-item">
           <div slot="text" class="text-wrap">
-            <div class="count">123</div>
+            <div class="count">{{ currentUser.art_count }}</div>
             <div class="text">头条</div>
           </div>
         </van-grid-item>
         <van-grid-item class="data-info-item">
           <div slot="text" class="text-wrap">
-            <div class="count">123</div>
+            <div class="count">{{ currentUser.follow_count }}</div>
             <div class="text">关注</div>
           </div>
         </van-grid-item>
         <van-grid-item class="data-info-item">
           <div slot="text" class="text-wrap">
-            <div class="count">123</div>
+            <div class="count">{{ currentUser.fans_count }}</div>
             <div class="text">粉丝</div>
           </div>
         </van-grid-item>
         <van-grid-item class="data-info-item">
           <div slot="text" class="text-wrap">
-            <div class="count">123</div>
+            <div class="count">{{ currentUser.like_count }}</div>
             <div class="text">获赞</div>
           </div>
         </van-grid-item>
@@ -51,7 +51,7 @@
       <van-image
         class="not-login-avatar mb-4"
         round
-        src="https://cn.vuejs.org/images/logo.png"
+        :src="require('../../assets/logo.png')"
         fit="contain"
       ></van-image>
       <div class="not-login-text">登录/注册</div>
@@ -76,18 +76,24 @@
 
 <script>
 import { mapState } from 'vuex'
+import { getCurrentUser } from '@/api/user'
 export default {
   name: 'myIndex',
   components: {},
   props: {},
   data() {
-    return {}
+    return {
+      // 当前用户信息
+      currentUser: {}
+    }
   },
   computed: {
     ...mapState(['user'])
   },
   watch: {},
-  created() {},
+  created() {
+    this.loadCurrentUser()
+  },
   mounted() {},
   methods: {
     // 退出登录操作
@@ -101,6 +107,13 @@ export default {
           this.$store.commit('setUser', null)
         })
         .catch(() => {})
+    },
+    //
+    async loadCurrentUser() {
+      const { data } = await getCurrentUser()
+      this.currentUser = data.data
+      // console.log(data)
+      console.log(this.currentUser)
     }
   }
 }
