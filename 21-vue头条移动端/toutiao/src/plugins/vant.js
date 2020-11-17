@@ -16,7 +16,8 @@ import {
   Toast,
   Image,
   GridItem,
-  Grid
+  Grid,
+  Dialog
 } from 'vant'
 
 Vue.use(Button)
@@ -39,6 +40,7 @@ Vue.use(CellGroup)
 Vue.use(Image)
 Vue.use(Grid)
 Vue.use(GridItem)
+Vue.use(Dialog)
 
 // 属性挂载
 // Vue.prototype.$notify = Notify

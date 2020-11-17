@@ -68,7 +68,9 @@
     <van-cell title="消息通知" is-link to="/" />
     <van-cell title="小智同学" is-link to="/" class="mb-4" />
     <!-- <van-cell title="退出导航"></van-cell> -->
-    <van-button block class="logout-btn" v-if="user">退出登录</van-button>
+    <van-button block class="logout-btn" v-if="user" @click="onLogout"
+      >退出登录</van-button
+    >
   </div>
 </template>
 
@@ -87,7 +89,20 @@ export default {
   watch: {},
   created() {},
   mounted() {},
-  methods: {}
+  methods: {
+    // 退出登录操作
+    onLogout() {
+      this.$dialog
+        .confirm({
+          title: '退出提示',
+          message: '确认退出吗？'
+        })
+        .then(() => {
+          this.$store.commit('setUser', null)
+        })
+        .catch(() => {})
+    }
+  }
 }
 </script>
 
