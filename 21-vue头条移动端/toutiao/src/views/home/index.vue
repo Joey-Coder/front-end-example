@@ -22,7 +22,27 @@
       <van-tab v-for="item in channels" :key="item.id" :title="item.name"
         ><article-list :channel="item"
       /></van-tab>
+      <div slot="nav-right" class="wap-nav-placeholder"></div>
+      <div
+        class="wap-nav-wrap"
+        slot="nav-right"
+        @click="isChannelEditShow = true"
+      >
+        <van-icon name="wap-nav" class="wap-nav" />
+      </div>
     </van-tabs>
+    <!-- 编辑标签的弹出框 -->
+    <van-popup
+      v-model="isChannelEditShow"
+      round
+      position="bottom"
+      class="channel-edit-popup"
+      closeable
+      get-container="body"
+    >
+      123
+      <!-- 弹出标签栏组件 -->
+    </van-popup>
   </div>
 </template>
 
@@ -39,7 +59,9 @@ export default {
     return {
       active: 0,
       // 频道列表
-      channels: []
+      channels: [],
+      // 标签弹出层
+      isChannelEditShow: false
     }
   },
   computed: {},
@@ -59,6 +81,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.channel-edit-popup {
+  height: 90%;
+}
 .home-container {
   /deep/ .van-nav-bar__title {
     max-width: none;
@@ -76,6 +101,25 @@ export default {
       }
     }
   }
+  .wap-nav-placeholder {
+    flex-shrink: 0;
+    width: 33px;
+  }
+  .wap-nav-wrap {
+    position: fixed;
+    right: 0;
+    width: 33px;
+    height: 44px;
+    background-color: #ffffff;
+    opacity: 0.9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .van-icon {
+      font-size: 24px;
+    }
+  }
+
   // .channel-tabs {
   //   /deep/ .van-tab {
   //     border-right: 1px solid #eee;

@@ -21,7 +21,8 @@ import {
   Tab,
   Tabs,
   List,
-  PullRefresh
+  PullRefresh,
+  Popup
 } from 'vant'
 
 Vue.use(Button)
@@ -49,6 +50,7 @@ Vue.use(Tabs)
 Vue.use(Tab)
 Vue.use(List)
 Vue.use(PullRefresh)
+Vue.use(Popup)
 // 属性挂载
 // Vue.prototype.$notify = Notify
 // Vue.prototype.$toast = Toast
