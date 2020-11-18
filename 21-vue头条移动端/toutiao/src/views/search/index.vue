@@ -8,15 +8,19 @@
         placeholder="请输入搜索关键词"
         @search="onSearch"
         @cancel="onCancel"
+        @focus="isResultShow = false"
         clearable
+        shape="round"
+        background="#007f80"
+        autofocus
       />
     </form>
     <!-- 搜索结果 -->
-    <search-result />
+    <search-result v-if="isResultShow" />
     <!-- 搜索建议 -->
-    <search-suggestions />
+    <search-suggestions v-else-if="searchText" :search-text="searchText" />
     <!-- 搜索记录 -->
-    <search-history />
+    <search-history v-else />
   </div>
 </template>
 
@@ -35,7 +39,9 @@ export default {
   data() {
     return {
       // 关键词
-      searchText: ''
+      searchText: '',
+      // 是否显示搜索结果
+      isResultShow: false
     }
   },
   computed: {},
@@ -44,7 +50,7 @@ export default {
   mounted() {},
   methods: {
     onSearch() {
-      console.log('Searching...')
+      this.isResultShow = true
     },
     // 取消搜索
     onCancel() {
