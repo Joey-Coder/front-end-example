@@ -20,7 +20,7 @@
         :key="value.id"
         :text="value.name"
         :icon="isEdit && index !== 0 ? 'close' : ''"
-        @click="onUserChannelClick(index)"
+        @click="onUserChannelClick(index, value.id)"
       ></van-grid-item>
     </van-grid>
     <van-cell center :border="false">
@@ -38,7 +38,13 @@
 </template>
 
 <script>
-import { getAllChannels } from '@/api/channel'
+import {
+  getAllChannels,
+  addUserChannels,
+  deleteUserChannels
+} from '@/api/channel'
+import { mapState } from 'vuex'
+import { setItem } from '@/utils/storage'
 export default {
   name: 'ChannelEdit',
   components: {},
@@ -68,7 +74,9 @@ export default {
           return item.id === channel.id
         })
       })
-    }
+    },
+    // 用户登录凭证
+    ...mapState(['user'])
   },
   created() {
     this.loadAllChannels()
@@ -79,11 +87,20 @@ export default {
       const { data } = await getAllChannels()
       this.allChannels = data.data.channels
     },
-    onAddChannel(channel) {
+    async onAddChannel(channel) {
       // 添加到我的频道中
       this.userChannels.push(channel)
       //   console.log(channel)
       // todo 持久化
+      if (this.user) {
+        // 已经登录, 直接和服务器同步
+        console.log('上传频道')
+        await addUserChannels({
+          channels: [{ id: channel.id, seq: this.userChannels.length }]
+        })
+      } else {
+        setItem('user-channels', this.userChannels)
+      }
     },
     // 编辑频道
     editChannels() {
@@ -91,22 +108,29 @@ export default {
       this.isEdit = !this.isEdit
     },
     // 点击我的频道按钮
-    onUserChannelClick(index) {
+    onUserChannelClick(index, id) {
       if (this.isEdit && index !== 0) {
         // 编辑状态呢
-        this.deleteChannel(index)
+        this.deleteChannel(index, id)
       } else {
         // 非编辑状态
         this.switchChannel(index)
       }
     },
     // 删除频道
-    deleteChannel(index) {
+    async deleteChannel(index, id) {
       // 删除active之前的标签需要更新索引
       if (index <= this.active) {
         this.$emit('update-active', this.active - 1)
       }
       this.userChannels.splice(index, 1)
+      if (this.user) {
+        console.log('delete..')
+        await deleteUserChannels(id)
+      } else {
+        // 未登录
+        setItem('user-channels', this.userChannels)
+      }
     },
     // 切换频道
     switchChannel(index) {

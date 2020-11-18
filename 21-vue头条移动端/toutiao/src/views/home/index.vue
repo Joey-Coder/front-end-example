@@ -56,6 +56,8 @@
 import { getUserChannels } from '@/api/user'
 import ArticleList from './components/article-list'
 import ChannelEdit from './components/channel-edit'
+import { mapState } from 'vuex'
+import { getItem } from '@/utils/storage'
 // import
 export default {
   name: 'homeIndex',
@@ -73,7 +75,9 @@ export default {
       isChannelEditShow: true
     }
   },
-  computed: {},
+  computed: {
+    ...mapState(['user'])
+  },
   watch: {},
   created() {
     this.loadChannels()
@@ -81,9 +85,13 @@ export default {
   mounted() {},
   methods: {
     async loadChannels() {
-      const { data } = await getUserChannels()
-      this.channels = data.data.channels
-      console.log(this.channels)
+      // console.log('get from webserve')
+      if (!this.user && getItem('user-channels')) {
+        this.channels = getItem('user-channels')
+      } else {
+        const { data } = await getUserChannels()
+        this.channels = data.data.channels
+      }
     }
     // onUpdateActive(index) {
     //   // console.log(index)
