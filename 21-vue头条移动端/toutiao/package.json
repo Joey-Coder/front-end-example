@@ -10,6 +10,7 @@
   "dependencies": {
     "core-js": "^3.6.5",
     "dayjs": "^1.9.6",
+    "lodash": "^4.17.20",
     "vant": "^2.10.13",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",

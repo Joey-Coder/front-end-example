@@ -9,6 +9,7 @@
         round
         class="search-btn"
         color="#ecf9f2"
+        to="/search"
         >搜索</van-button
       >
     </van-nav-bar>
@@ -72,7 +73,7 @@ export default {
       // 频道列表
       channels: [],
       // 标签弹出层
-      isChannelEditShow: true
+      isChannelEditShow: false
     }
   },
   computed: {

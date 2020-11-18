@@ -22,14 +22,15 @@ import {
   Tabs,
   List,
   PullRefresh,
-  Popup
+  Popup,
+  Search
 } from 'vant'
 
 Vue.use(Button)
 Vue.use(Notify)
 Vue.use(Toast)
 Vue.use(Slider)
-
+Vue.use(Search)
 Vue.use(Cell)
 Vue.use(CellGroup)
 Vue.use(Icon)
