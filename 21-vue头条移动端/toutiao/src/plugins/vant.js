@@ -51,6 +51,8 @@ Vue.use(Tab)
 Vue.use(List)
 Vue.use(PullRefresh)
 Vue.use(Popup)
+Vue.use(Grid)
+Vue.use(GridItem)
 // 属性挂载
 // Vue.prototype.$notify = Notify
 // Vue.prototype.$toast = Toast

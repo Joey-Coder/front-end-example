@@ -40,7 +40,13 @@
       closeable
       get-container="body"
     >
-      123
+      <!-- $event表示事件参数 -->
+      <channel-edit
+        :user-channels="channels"
+        @close="isChannelEditShow = false"
+        @update-active="active = $event"
+        :active="active"
+      />
       <!-- 弹出标签栏组件 -->
     </van-popup>
   </div>
@@ -49,10 +55,13 @@
 <script>
 import { getUserChannels } from '@/api/user'
 import ArticleList from './components/article-list'
+import ChannelEdit from './components/channel-edit'
+// import
 export default {
   name: 'homeIndex',
   components: {
-    ArticleList
+    ArticleList,
+    ChannelEdit
   },
   props: {},
   data() {
@@ -61,7 +70,7 @@ export default {
       // 频道列表
       channels: [],
       // 标签弹出层
-      isChannelEditShow: false
+      isChannelEditShow: true
     }
   },
   computed: {},
@@ -76,6 +85,10 @@ export default {
       this.channels = data.data.channels
       console.log(this.channels)
     }
+    // onUpdateActive(index) {
+    //   // console.log(index)
+    //   this.active = index
+    // }
   }
 }
 </script>
