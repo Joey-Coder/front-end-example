@@ -24,7 +24,12 @@
       @search="onSearch"
     />
     <!-- 搜索记录组件 -->
-    <search-history v-else :histories="histories" />
+    <search-history
+      v-else
+      :histories="histories"
+      @search="onSearch"
+      @delete-all-histories="histories = $event"
+    />
   </div>
 </template>
 
@@ -57,9 +62,14 @@ export default {
   computed: {
     ...mapState(['user'])
   },
-  watch: {},
+  watch: {
+    histories() {
+      // 监听历史数据，一旦发送变化就存储到本地
+      setItem('search-histories', this.histories)
+    }
+  },
   created() {
-    this.loadHistories()
+    // this.loadHistories()
   },
   mounted() {},
   methods: {
@@ -74,7 +84,7 @@ export default {
       // 记录搜索历史, 置顶
       this.histories.unshift(searchText)
       // 历史记录存储到本地
-      setItem('search-histories', this.histories)
+      // setItem('search-histories', this.histories)
 
       this.isResultShow = true
     },
@@ -94,7 +104,7 @@ export default {
       // console.log(localHistories)
       // ES6 利用Set进行数组去重
       this.histories = [...new Set([...localHistories])]
-      console.log(this.histories)
+      // console.log(this.histories)
     }
   }
 }
