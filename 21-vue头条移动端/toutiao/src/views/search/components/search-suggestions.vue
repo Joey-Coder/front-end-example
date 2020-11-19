@@ -1,22 +1,22 @@
 <template>
   <div class="search-suggestions-container">
-    <van-cell
-      v-for="(item, index) in suggestions"
-      :key="index"
-      icon="search"
-      :title="item"
-    ></van-cell>
+    <van-cell v-for="(item, index) in suggestions" :key="index" icon="search">
+      <div slot="title" v-html="highlight(item)"></div>
+    </van-cell>
   </div>
 </template>
 
 <script>
 import { getSuggestions } from '@/api/search'
+// 引入防抖函数，从loadsh
+import { debounce } from 'lodash'
 export default {
   name: 'SearchSuggestions',
   created() {},
   mounted() {},
   data() {
     return {
+      // 联想词
       suggestions: []
     }
   },
@@ -29,24 +29,34 @@ export default {
   computed: {},
   watch: {
     // 监听searchText，用来发送请求
-    // searchText() {
-    //   console.log(123)
-    // }
     // watch的另一种写法
     searchText: {
-      async handler() {
+      // debounce 防抖函数，在1秒内只发送一次请求
+      handler: debounce(async function() {
         // 1.发送请求获取数据
         const { data } = await getSuggestions(this.searchText)
-        console.log(data)
+        // console.log(data)
         // 2.数据绑定
         this.suggestions = data.data.options
         // 3.渲染
-      },
+      }, 1000),
       // 立即监听, 监听第一次变化在内
       immediate: true
     }
   },
-  methods: {}
+  methods: {
+    /**
+     * prama {String} str 联想词
+     */
+    highlight(str) {
+      // 创建一个正则表达对象
+      const reg = new RegExp(this.searchText, 'gi')
+      return str.replace(
+        reg,
+        `<span style="color:#007f80">${this.searchText}</span>`
+      )
+    }
+  }
 }
 </script>
 

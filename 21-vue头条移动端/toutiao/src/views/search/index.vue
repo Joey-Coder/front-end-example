@@ -15,11 +15,11 @@
         autofocus
       />
     </form>
-    <!-- 搜索结果 -->
+    <!-- 搜索结果组件 -->
     <search-result v-if="isResultShow" />
-    <!-- 搜索建议 -->
+    <!-- 搜索建议组件 -->
     <search-suggestions v-else-if="searchText" :search-text="searchText" />
-    <!-- 搜索记录 -->
+    <!-- 搜索记录组件 -->
     <search-history v-else />
   </div>
 </template>
