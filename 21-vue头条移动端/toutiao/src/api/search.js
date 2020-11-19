@@ -24,3 +24,13 @@ export const getResults = params => {
     params
   })
 }
+
+/**
+ * 获取历史记录
+ */
+export const getHistories = () => {
+  return request({
+    method: 'GET',
+    url: '/app/v1_0/search/histories'
+  })
+}
