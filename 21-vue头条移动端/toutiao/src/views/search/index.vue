@@ -6,7 +6,7 @@
         v-model="searchText"
         show-action
         placeholder="请输入搜索关键词"
-        @search="onSearch"
+        @search="onSearch(searchText)"
         @cancel="onCancel"
         @focus="isResultShow = false"
         clearable
@@ -16,9 +16,13 @@
       />
     </form>
     <!-- 搜索结果组件 -->
-    <search-result v-if="isResultShow" />
+    <search-result v-if="isResultShow" :search-text="searchText" />
     <!-- 搜索建议组件 -->
-    <search-suggestions v-else-if="searchText" :search-text="searchText" />
+    <search-suggestions
+      v-else-if="searchText"
+      :search-text="searchText"
+      @search="onSearch"
+    />
     <!-- 搜索记录组件 -->
     <search-history v-else />
   </div>
@@ -49,7 +53,8 @@ export default {
   created() {},
   mounted() {},
   methods: {
-    onSearch() {
+    onSearch(searchText) {
+      this.searchText = searchText
       this.isResultShow = true
     },
     // 取消搜索
