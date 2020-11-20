@@ -20,7 +20,10 @@
       title-active-color="#007f80"
       color="#007f80"
     >
-      <van-tab v-for="item in channels" :key="item.id" :title="item.name"
+      <van-tab
+        v-for="item in channels"
+        :key="item.id"
+        :title="item.name"
         ><article-list :channel="item"
       /></van-tab>
       <div slot="nav-right" class="wap-nav-placeholder"></div>
