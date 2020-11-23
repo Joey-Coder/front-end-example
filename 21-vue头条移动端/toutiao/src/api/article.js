@@ -8,3 +8,14 @@ export const getArticles = params => {
     params
   })
 }
+
+/**
+ *
+ * @param {String | Number} articleId
+ */
+export const getArticleById = articleId => {
+  return request({
+    method: 'GET',
+    url: `/app/v1_0/articles/${articleId}`
+  })
+}

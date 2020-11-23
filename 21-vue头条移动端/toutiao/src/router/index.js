@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 const routes = [
   // 路由懒加载
   { path: '/login', name: 'login', component: () => import('@/views/login/') },
-  //
+  // 含有底边栏的页面
   {
     path: '/',
     component: () => import('@/views/layout/'),
@@ -34,10 +34,19 @@ const routes = [
       }
     ]
   },
+  // 搜索
   {
     path: '/search',
     name: 'search',
     component: () => import('@/views/search/')
+  },
+  // 文章详情
+  {
+    path: '/article/:articleId',
+    name: 'article',
+    component: () => import('@/views/article/'),
+    // 路由传递参数为组件的属性
+    props: true
   }
 ]
 
