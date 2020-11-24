@@ -15,3 +15,7 @@ dayjs.extend(relativeTime)
 Vue.filter('relativeTime', value => {
   return dayjs(value).from(dayjs())
 })
+// 自定义格式参数
+Vue.filter('datetime', (value, format = 'YYYY-MM-DD HH:mm:ss') => {
+  return dayjs(value).format(format)
+})

@@ -23,7 +23,8 @@ import {
   List,
   PullRefresh,
   Popup,
-  Search
+  Search,
+  Divider
 } from 'vant'
 
 Vue.use(Button)
@@ -54,6 +55,7 @@ Vue.use(PullRefresh)
 Vue.use(Popup)
 Vue.use(Grid)
 Vue.use(GridItem)
+Vue.use(Divider)
 // 属性挂载
 // Vue.prototype.$notify = Notify
 // Vue.prototype.$toast = Toast

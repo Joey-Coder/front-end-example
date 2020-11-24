@@ -7,45 +7,51 @@
       left-arrow
       @click-left="$router.back()"
     ></van-nav-bar>
+    <div class="article-wrap">
+      <!-- article title -->
+      <h1 class="title">{{ article.title }}</h1>
+      <!-- about author -->
+      <van-cell center class="user-info">
+        <!-- author name -->
+        <div slot="title" class="name">{{ article.aut_name }}</div>
+        <!-- avatar -->
+        <van-image
+          slot="icon"
+          :src="article.aut_photo"
+          round
+          fit="cover"
+          class="avatar"
+        ></van-image>
+        <!-- pubdate -->
+        <div slot="label" class="pubdate">
+          {{ article.pubdate | relativeTime }}
+        </div>
+        <van-button
+          slot="right-icon"
+          round
+          size="small"
+          :type="article.is_followed ? 'default' : 'info'"
+          class="follow-btn"
+          :icon="article.is_followed ? '' : 'plus'"
+          @click="onFollow"
+          :loading="buttonLoading"
+          >{{ article.is_followed ? '已关注' : '未关注' }}</van-button
+        >
+      </van-cell>
 
-    <!-- article title -->
-    <h1 class="title">{{ article.title }}</h1>
-    <!-- about author -->
-    <van-cell center class="user-info">
-      <!-- author name -->
-      <div slot="title" class="name">{{ article.aut_name }}</div>
-      <!-- avatar -->
-      <van-image
-        slot="icon"
-        :src="article.aut_photo"
-        round
-        fit="cover"
-        class="avatar"
-      ></van-image>
-      <!-- pubdate -->
-      <div slot="label" class="pubdate">
-        {{ article.pubdate | relativeTime }}
-      </div>
-      <van-button
-        slot="right-icon"
-        round
-        size="small"
-        :type="article.is_followed ? 'default' : 'info'"
-        class="follow-btn"
-        :icon="article.is_followed ? '' : 'plus'"
-        @click="onFollow"
-        :loading="buttonLoading"
-        >{{ article.is_followed ? '已关注' : '未关注' }}</van-button
-      >
-    </van-cell>
+      <!-- article content -->
+      <div
+        class="markdown-body"
+        v-html="article.content"
+        ref="articleBodyRef"
+      ></div>
+      <!-- 分割线 -->
+      <van-divider>正文结束</van-divider>
+      <!-- 评论列表 -->
+      <comment-list :source="articleId" />
+    </div>
 
-    <!-- article content -->
-    <div
-      class="markdown-body"
-      v-html="article.content"
-      ref="articleBodyRef"
-    ></div>
-
+    <!-- 底部栏  -->
     <div class="article-bottom">
       <van-button type="default" class="comment-btn">写评论</van-button>
       <van-icon name="comment-o"></van-icon>
@@ -53,7 +59,6 @@
         :name="article.is_collected ? 'star' : 'star-o'"
         :color="article.is_collected ? 'orange' : ''"
         @click="onCollect"
-        :loading="isCollectLoading"
       ></van-icon>
       <van-icon
         :name="article.attitude === 1 ? 'good-job' : 'good-job-o'"
@@ -76,6 +81,7 @@ import {
 } from '@/api/article'
 import { ImagePreview } from 'vant'
 import { addFollow, deleteFollow } from '@/api/user'
+import CommentList from './components/comment-list'
 
 export default {
   name: 'ArticleIndex',
@@ -85,7 +91,7 @@ export default {
       buttonLoading: false
     }
   },
-  components: {},
+  components: { CommentList },
   props: {
     articleId: {
       type: [String, Number, Object],
@@ -185,38 +191,46 @@ export default {
 </script>
 <style scoped lang="less">
 .article-container {
-  .title {
-    font-size: 20px;
-    color: #333;
-    padding: 14px;
-    background-color: #fff;
-    margin: 0;
-  }
-  .user-info {
-    .name {
-      font-size: 12px;
+  .article-wrap {
+    position: fixed;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    top: 46px;
+    overflow-y: auto;
+    .title {
+      font-size: 20px;
       color: #333;
+      padding: 14px;
+      background-color: #fff;
+      margin: 0;
     }
-    .pubdate {
-      font-size: 11px;
-      color: #b4b4b4;
+    .user-info {
+      .name {
+        font-size: 12px;
+        color: #333;
+      }
+      .pubdate {
+        font-size: 11px;
+        color: #b4b4b4;
+      }
+      .avatar {
+        width: 35px;
+        height: 35px;
+        margin-right: 8px;
+      }
+      .follow-btn {
+        width: 85px;
+        height: 29px;
+      }
+      /deep/ .van-cell__label {
+        margin-top: 0;
+      }
     }
-    .avatar {
-      width: 35px;
-      height: 35px;
-      margin-right: 8px;
+    .markdown-body {
+      padding: 14px;
+      background-color: #fff;
     }
-    .follow-btn {
-      width: 85px;
-      height: 29px;
-    }
-    /deep/ .van-cell__label {
-      margin-top: 0;
-    }
-  }
-  .markdown-body {
-    padding: 14px;
-    background-color: #fff;
   }
   .article-bottom {
     position: fixed;
