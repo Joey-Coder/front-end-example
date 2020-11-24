@@ -49,7 +49,12 @@
     <div class="article-bottom">
       <van-button type="default" class="comment-btn">写评论</van-button>
       <van-icon name="comment-o"></van-icon>
-      <van-icon name="star-o"></van-icon>
+      <van-icon
+        :name="article.is_collected ? 'star' : 'star-o'"
+        :color="article.is_collected ? 'orange' : ''"
+        @click="onCollect"
+        :loading="isCollectLoading"
+      ></van-icon>
       <van-icon name="good-job-o"></van-icon>
       <van-icon name="share-o"></van-icon>
     </div>
@@ -58,7 +63,7 @@
 
 <script>
 import './github-markdown.css'
-import { getArticleById } from '@/api/article'
+import { getArticleById, addCollect, deleteCollect } from '@/api/article'
 import { ImagePreview } from 'vant'
 import { addFollow, deleteFollow } from '@/api/user'
 
@@ -103,7 +108,7 @@ export default {
         // console.log(imgs)
       })
     },
-    //
+    // 关注作者事件
     async onFollow() {
       // 已关注，取消关注
       this.buttonLoading = true
@@ -114,6 +119,27 @@ export default {
       }
       this.buttonLoading = false
       this.article.is_followed = !this.article.is_followed
+    },
+    /**
+     * 收藏文章事件
+     */
+    async onCollect() {
+      const t = this.$toast.loading({
+        // 持续时间
+        duration: 3000,
+        message: '操作中',
+        forbidClick: true
+      })
+      this.isCollectLoading = true
+      if (this.article.is_collected) {
+        await deleteCollect(this.article.art_id)
+      } else {
+        await addCollect(this.article.art_id)
+      }
+      this.article.is_collected = !this.article.is_collected
+      // 关闭toast
+      t.clear()
+      this.$toast.success(`${this.article.is_collected ? '' : '取消'}收藏成功`)
     }
   },
 
@@ -174,6 +200,7 @@ export default {
       width: 140px;
       height: 30px;
       margin: 10px 0;
+      border-radius: 10px;
     }
   }
 }

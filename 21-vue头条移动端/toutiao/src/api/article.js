@@ -19,3 +19,26 @@ export const getArticleById = articleId => {
     url: `/app/v1_0/articles/${articleId}`
   })
 }
+
+/**
+ *
+ * @param {String | Number} articleId
+ */
+export const addCollect = articleId => {
+  return request({
+    method: 'POST',
+    url: '/app/v1_0/article/collections',
+    data: { target: articleId }
+  })
+}
+
+/**
+ *
+ * @param {String | Number} articleId
+ */
+export const deleteCollect = articleId => {
+  return request({
+    method: 'DELETE',
+    url: `/app/v1_0/article/collections/${articleId}`
+  })
+}
