@@ -56,6 +56,7 @@ Vue.use(Popup)
 Vue.use(Grid)
 Vue.use(GridItem)
 Vue.use(Divider)
+Vue.use(Popup)
 // 属性挂载
 // Vue.prototype.$notify = Notify
 // Vue.prototype.$toast = Toast

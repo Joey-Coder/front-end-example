@@ -48,13 +48,20 @@
       <!-- 分割线 -->
       <van-divider>正文结束</van-divider>
       <!-- 评论列表 -->
-      <comment-list :source="articleId" />
+      <comment-list
+        :source="articleId"
+        :list="commentList"
+        @update-total-count="totalCommentCount = $event"
+        @reply-click="onReplyClick"
+      />
     </div>
 
     <!-- 底部栏  -->
     <div class="article-bottom">
-      <van-button type="default" class="comment-btn">写评论</van-button>
-      <van-icon name="comment-o"></van-icon>
+      <van-button type="default" class="comment-btn" @click="isPostShow = true"
+        >写评论</van-button
+      >
+      <van-icon name="comment-o" :badge="totalCommentCount"></van-icon>
       <van-icon
         :name="article.is_collected ? 'star' : 'star-o'"
         :color="article.is_collected ? 'orange' : ''"
@@ -67,11 +74,25 @@
       ></van-icon>
       <van-icon name="share-o"></van-icon>
     </div>
+    <!-- 发布评论 -->
+    <van-popup v-model="isPostShow" position="bottom">
+      <post-comment :target="articleId" @post-success="onPostSuccess" />
+    </van-popup>
+    <!-- 评论回复 -->
+    <van-popup v-model="isReplyShow" position="bottom">
+      <comment-reply
+        v-if="isReplyShow"
+        :comment="replyComment"
+        @close-reply="isReplyShow = false"
+      />
+    </van-popup>
   </div>
 </template>
 
 <script>
 import './github-markdown.css'
+import PostComment from './components/post-comment'
+import CommentReply from './components/comment-reply'
 import {
   getArticleById,
   addCollect,
@@ -88,10 +109,15 @@ export default {
   data() {
     return {
       article: {},
-      buttonLoading: false
+      buttonLoading: false,
+      isPostShow: false,
+      commentList: [],
+      totalCommentCount: 0, // 评论总数
+      isReplyShow: false,
+      replyComment: {}
     }
   },
-  components: { CommentList },
+  components: { CommentList, PostComment, CommentReply },
   props: {
     articleId: {
       type: [String, Number, Object],
@@ -178,6 +204,18 @@ export default {
       this.$toast.success(
         `${this.article.attitude === 1 ? '' : '取消'}点赞成功`
       )
+    },
+    // 子组件post-comment调用，往评论列表中追加最新的评论内容
+    onPostSuccess(comment) {
+      this.commentList.unshift(comment)
+      this.totalCommentCount++
+      this.isPostShow = false
+    },
+    //
+    onReplyClick(comment) {
+      console.log(comment)
+      this.replyComment = comment
+      this.isReplyShow = true
     }
   },
 
