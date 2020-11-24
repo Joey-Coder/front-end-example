@@ -55,7 +55,11 @@
         @click="onCollect"
         :loading="isCollectLoading"
       ></van-icon>
-      <van-icon name="good-job-o"></van-icon>
+      <van-icon
+        :name="article.attitude === 1 ? 'good-job' : 'good-job-o'"
+        :color="article.attitude === 1 ? 'orange' : ''"
+        @click="onLike"
+      ></van-icon>
       <van-icon name="share-o"></van-icon>
     </div>
   </div>
@@ -63,7 +67,13 @@
 
 <script>
 import './github-markdown.css'
-import { getArticleById, addCollect, deleteCollect } from '@/api/article'
+import {
+  getArticleById,
+  addCollect,
+  deleteCollect,
+  addLike,
+  deleteLike
+} from '@/api/article'
 import { ImagePreview } from 'vant'
 import { addFollow, deleteFollow } from '@/api/user'
 
@@ -130,7 +140,6 @@ export default {
         message: '操作中',
         forbidClick: true
       })
-      this.isCollectLoading = true
       if (this.article.is_collected) {
         await deleteCollect(this.article.art_id)
       } else {
@@ -140,6 +149,29 @@ export default {
       // 关闭toast
       t.clear()
       this.$toast.success(`${this.article.is_collected ? '' : '取消'}收藏成功`)
+    },
+    /**
+     * 点赞文章事件
+     */
+    async onLike() {
+      const t = this.$toast.loading({
+        // 持续时间
+        duration: 3000,
+        message: '操作中',
+        forbidClick: true
+      })
+      if (this.article.attitude === 1) {
+        await deleteLike(this.article.art_id)
+        this.article.attitude = -1
+      } else {
+        await addLike(this.article.art_id)
+        this.article.attitude = 1
+      }
+      // 关闭toast
+      t.clear()
+      this.$toast.success(
+        `${this.article.attitude === 1 ? '' : '取消'}点赞成功`
+      )
     }
   },
 
