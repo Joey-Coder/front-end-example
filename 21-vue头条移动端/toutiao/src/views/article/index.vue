@@ -84,6 +84,7 @@
         v-if="isReplyShow"
         :comment="replyComment"
         @close-reply="isReplyShow = false"
+        :articleId="articleId"
       />
     </van-popup>
   </div>
