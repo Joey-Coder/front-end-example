@@ -47,6 +47,12 @@ const routes = [
     component: () => import('@/views/article/'),
     // 路由传递参数为组件的属性
     props: true
+  },
+  // 编辑个人信息
+  {
+    path: '/user/profile',
+    name: 'user-profile',
+    component: () => import('@/views/user-profile')
   }
 ]
 
