@@ -7,7 +7,9 @@
       @click-left="$router.back()"
     />
     <!-- 导航栏 -->
-    <van-cell title="头像" is-link>
+    <!-- 上传文件的input标签，默认隐藏 -->
+    <input type="file" hidden ref="fileRef" @change="onConfirmImg" />
+    <van-cell title="头像" is-link @click="$refs.fileRef.click()">
       <van-image
         width="30"
         height="30"
@@ -16,18 +18,21 @@
         fit="cover"
       ></van-image>
     </van-cell>
+    <!-- 显示昵称 -->
     <van-cell
       title="昵称"
       is-link
       :value="user.name"
       @click="isUpdateNameShow = true"
     />
+    <!-- 显示性别 -->
     <van-cell
       title="性别"
       is-link
       :value="user.gender === 1 ? '男' : '女'"
       @click="isUpdateGenderShow = true"
     />
+    <!-- 显示生日 -->
     <van-cell
       title="生日"
       is-link
@@ -41,11 +46,16 @@
       position="bottom"
       :style="{ height: '100%' }"
     >
-      <update-name v-model="user.name" @close="isUpdateNameShow = false" />
+      <update-name
+        v-if="isUpdateNameShow"
+        v-model="user.name"
+        @close="isUpdateNameShow = false"
+      />
     </van-popup>
     <!-- 修改性别弹出框 -->
     <van-popup v-model="isUpdateGenderShow" position="bottom">
       <update-gender
+        v-if="isUpdateGenderShow"
         v-model="user.gender"
         @close="isUpdateGenderShow = false"
       />
@@ -58,6 +68,19 @@
         @close="isUpdateBirthdayShow = false"
       />
     </van-popup>
+    <!-- 修改头像弹出框 -->
+    <van-popup
+      v-model="isUpdateAvatarShow"
+      position="bottom"
+      :style="{ height: '100%' }"
+    >
+      <update-avatar
+        v-if="isUpdateAvatarShow"
+        :file="imagePreview"
+        @close="isUpdateAvatarShow = false"
+        @update-avatar="user.photo = $event"
+      />
+    </van-popup>
   </div>
 </template>
 
@@ -65,6 +88,7 @@
 import UpdateName from './components/update-name'
 import UpdateBirthday from './components/update-birthday'
 import UpdateGender from './components/update-gender'
+import UpdateAvatar from './components/update-avatar'
 import { getUserProfile } from '@/api/user'
 export default {
   name: 'UserProfile',
@@ -73,7 +97,9 @@ export default {
       isUpdateNameShow: false,
       isUpdateGenderShow: false,
       isUpdateBirthdayShow: false,
-      user: {}
+      isUpdateAvatarShow: false,
+      user: {},
+      imagePreview: null
     }
   },
   props: {},
@@ -83,12 +109,21 @@ export default {
       const { data } = await getUserProfile()
       //   console.log(data)
       this.user = data.data
+    },
+    onConfirmImg() {
+      console.log(this.$refs.fileRef.files[0])
+      //   console.log(this.$refs.fileRef.value)
+      // 清除已选图片的文件，以免选定两次选择同一张图片不生效
+      this.isUpdateAvatarShow = true
+      this.imagePreview = this.$refs.fileRef.files[0]
+      this.$refs.fileRef.value = ''
     }
   },
   components: {
     UpdateName,
     UpdateGender,
-    UpdateBirthday
+    UpdateBirthday,
+    UpdateAvatar
   },
   created() {
     this.getUserInfo()

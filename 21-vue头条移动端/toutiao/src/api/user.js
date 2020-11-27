@@ -77,3 +77,15 @@ export const updateUserInfo = data => {
     data
   })
 }
+
+/**
+ * 修改用户头像
+ * @param {Object} data
+ */
+export const updateAvatar = data => {
+  return request({
+    method: 'PATCH',
+    url: 'app/v1_0/user/photo',
+    data
+  })
+}
