@@ -40,7 +40,7 @@ export default {
       // 发送请求
       const { data } = await updateAvatar(imageFile)
       t.clear()
-      console.log(data)
+      //   console.log(data)
       this.$toast(`修改${data.message === 'OK' ? '成功' : '失败'}`)
       // 更新父组件图片
       this.$emit('close')
