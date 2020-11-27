@@ -25,7 +25,8 @@ import {
   Popup,
   Search,
   Divider,
-  Picker
+  Picker,
+  DatetimePicker
 } from 'vant'
 
 Vue.use(Button)
@@ -59,6 +60,7 @@ Vue.use(GridItem)
 Vue.use(Divider)
 Vue.use(Popup)
 Vue.use(Picker)
+Vue.use(DatetimePicker)
 // 属性挂载
 // Vue.prototype.$notify = Notify
 // Vue.prototype.$toast = Toast
