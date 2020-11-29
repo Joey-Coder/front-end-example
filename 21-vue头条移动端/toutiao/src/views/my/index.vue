@@ -17,7 +17,9 @@
           :src="currentUser.photo"
         ></van-image>
         <div slot="title" class="name">{{ currentUser.name }}</div>
-        <van-button size="small" round class="edit-btn" to="user/profile">编辑资料</van-button>
+        <van-button size="small" round class="edit-btn" to="user/profile"
+          >编辑资料</van-button
+        >
       </van-cell>
       <van-grid :border="false" class="data-info" center>
         <van-grid-item class="data-info-item">
@@ -47,7 +49,18 @@
       </van-grid>
     </van-cell-group>
     <!-- 未登录界面 -->
-    <div class="not-login" v-else @click="$router.push('/login')">
+    <div
+      class="not-login"
+      v-else
+      @click="
+        $router.push({
+          name: 'login',
+          query: {
+            redirect: '/my'
+          }
+        })
+      "
+    >
       <van-image
         class="not-login-avatar mb-4"
         round
@@ -104,6 +117,8 @@ export default {
           message: '确认退出吗？'
         })
         .then(() => {
+          // 清除缓存数据
+          // this.$store.commit('removeCachePage', 'LayoutIndex')
           this.$store.commit('setUser', null)
         })
         .catch(() => {})

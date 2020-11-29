@@ -110,8 +110,11 @@ export default {
         const { data: res } = await login(this.user)
         console.log(res)
         this.$store.commit('setUser', res.data)
+        // 清除缓存数据
+        this.$store.commit('removeCachePage', 'LayoutIndex')
         this.$toast.success('登录成功')
-        this.$router.push('/')
+        // this.$router.push('/')
+        this.$router.push(this.$router.query.redirect || '/')
       } catch (err) {
         this.$toast.fail('登录失败,手机号或者验证码错误')
       }

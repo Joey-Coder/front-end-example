@@ -1,5 +1,5 @@
 <template>
-  <div class="article-list">
+  <div class="article-list" ref="article-list">
     <van-pull-refresh
       v-model="isPullDownLoading"
       @refresh="onRefresh"
@@ -31,6 +31,7 @@
 import { getArticles } from '@/api/article'
 import ArticleItem from '@/components/article-item'
 import '@/utils/dayjs'
+import { debounce } from 'lodash'
 export default {
   name: 'ArticleList',
   components: {
@@ -51,9 +52,22 @@ export default {
       //
       isPullDownLoading: false,
       //
-      refreshSuccessText: ''
+      refreshSuccessText: '',
+      // 距离列表滚动距离
+      scrollTop: 0
     }
   },
+  mounted() {
+    const articleList = this.$refs['article-list']
+    articleList.onscroll = debounce(() => {
+      this.scrollTop = articleList.scrollTop
+    }, 50)
+  },
+  // 缓存的组件被调用
+  activated() {
+    this.$refs['article-list'].scrollTop = this.scrollTop
+  },
+
   methods: {
     // 加载标签栏
     async onLoad() {

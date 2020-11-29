@@ -60,7 +60,9 @@ export default {
       }
       this.comment.is_liking = !this.comment.is_liking
       t.clear()
+      // if (data.response.status < 300) {
       this.$toast.success(`${this.comment.is_liking ? '' : '取消'}点赞成功`)
+      // }
     }
   },
   components: {},
