@@ -15,7 +15,7 @@ export default class Observer {
       return;
     }
     Object.keys(data).forEach((key) => {
-      console.log(key);
+      //   console.log(key);
       this.defineReactive(data, key, data[key]);
     });
   }

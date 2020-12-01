@@ -8,7 +8,7 @@
   </head>
   <body>
     <div id="app">
-      <p>{{msg}}</p>
+      <p>111{{msg + '---'}}222</p>
       <p v-text="msg"></p>
     </div>
     <script type="text/javascript">
@@ -16,7 +16,9 @@
         el: "#app",
         data: {
           msg: "msg",
-          info: 123,
+          info: {
+            a: "111",
+          },
         },
       });
     </script>

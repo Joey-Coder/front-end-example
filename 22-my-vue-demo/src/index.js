@@ -4,7 +4,7 @@ class Vue {
   constructor(options) {
     // 获取dom对象el
     this.$el = document.querySelector(options.el);
-    console.log(this.$el);
+    // console.log(this.$el);
     // 转存数据data
     this.$data = options.data || {};
 
