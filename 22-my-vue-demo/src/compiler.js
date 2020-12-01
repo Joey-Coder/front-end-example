@@ -1,3 +1,4 @@
+import Watcher from "./watcher";
 export default class Compiler {
   constructor(context) {
     // console.log(context);
@@ -81,14 +82,16 @@ export default class Compiler {
    */
   compilerTextNode(node) {
     let text = node.textContent.trim();
-    console.log(text);
+    // console.log(text);
     if (text) {
       // 把text转换为表达式
 
       let exp = this.parseTextExp(text);
       console.log(exp);
       // 添加订阅者计算表达式的值
-
+      new Watcher(exp, this.context, (newValue) => {
+        node.textContent = newValue;
+      });
       // 当表达式依赖的数据发生变化时
       // 1.重新计算表达式的值
       // 2.node.textContent给最新的值
