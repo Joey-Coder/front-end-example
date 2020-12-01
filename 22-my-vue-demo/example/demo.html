@@ -8,14 +8,14 @@
   </head>
   <body>
     <div id="app">
-      <p>111{{msg + '---'}}222</p>
+      <p>111-{{msg + 'Vue'}}-222</p>
       <p v-text="msg"></p>
     </div>
     <script type="text/javascript">
       var vm = new Vue({
         el: "#app",
         data: {
-          msg: "Hello Vue",
+          msg: "Hello ",
           info: {
             a: "111",
           },

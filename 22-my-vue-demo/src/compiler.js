@@ -87,9 +87,11 @@ export default class Compiler {
       // 把text转换为表达式
 
       let exp = this.parseTextExp(text);
-      console.log(exp);
+      //   console.log(exp);
       // 添加订阅者计算表达式的值
       new Watcher(exp, this.context, (newValue) => {
+        // console.log(node.textContent, newValue);
+        // 将表达式的值更改为真实值
         node.textContent = newValue;
       });
       // 当表达式依赖的数据发生变化时

@@ -1,4 +1,5 @@
 // 数据劫持
+import Dep from "./dep";
 export default class Observer {
   constructor(data) {
     // console.log(data);
@@ -27,6 +28,7 @@ export default class Observer {
    * @param {*} value
    */
   defineReactive(data, key, value) {
+    var dep = new Dep();
     Object.defineProperty(data, key, {
       // 可遍历
       enumerable: true,
@@ -35,6 +37,7 @@ export default class Observer {
       // 获取数据
       get: () => {
         console.log("get");
+        Dep.target && dep.addSub(Dep.target);
         return value;
       },
       // 设置数据
@@ -42,6 +45,7 @@ export default class Observer {
         console.log("set");
         value = newValue;
         // TODO: 触发View页面变化
+        dep.notify();
       },
     });
     // 递归处理value中的对象

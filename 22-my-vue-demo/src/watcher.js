@@ -1,3 +1,5 @@
+import Dep from "./dep";
+
 var $uid = 0;
 export default class Watcher {
   constructor(exp, scope, cb) {
@@ -10,10 +12,12 @@ export default class Watcher {
   }
 
   /**
-   * 获取更新后的数值
+   * 获取更新后的插值表达式
    */
   get() {
+    Dep.target = this;
     let newValue = Watcher.computeExpression(this.exp, this.scope);
+    Dep.target = null;
     return newValue;
   }
 
@@ -22,7 +26,7 @@ export default class Watcher {
    */
   update() {
     let newValue = this.get();
-    console.log(newValue);
+    // console.log(newValue);
     this.cb && this.cb(newValue);
   }
 
@@ -36,6 +40,8 @@ export default class Watcher {
     // 把scope当成作用域
     // 函数内部使用with来指定作用域
     // 执行函数得到表达式的值
+    console.log(exp);
+    // 构造js语句进行替换
     let fn = new Function("scope", "with(scope){return " + exp + "}");
     return fn(scope);
   }
