@@ -36,13 +36,13 @@ export default class Observer {
       configurable: false,
       // 获取数据
       get: () => {
-        console.log("get");
+        // console.log("get");
         Dep.target && dep.addSub(Dep.target);
         return value;
       },
       // 设置数据
       set: (newValue) => {
-        console.log("set");
+        // console.log("set");
         value = newValue;
         // TODO: 触发View页面变化
         dep.notify();

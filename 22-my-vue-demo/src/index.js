@@ -11,6 +11,7 @@ class Vue {
     // 数据和函数代理
     // vm.msg 代理 vm.$data.msg
     this._proxyData(this.$data);
+    this._proxyMethods(options.methods);
 
     // 数据劫持
     new Observer(this.$data);

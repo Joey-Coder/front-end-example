@@ -72,15 +72,45 @@ export default class Compiler {
    * @param {*} node
    */
   compilerElementNode(node) {
-    // TODO: 完成元素的编译
-    // TODO: 指令等
+    // console.log("ELement", node);
+    let attrs = [...node.attributes];
+    // let that = this
+    attrs.forEach((attr) => {
+      let { name: attrName, value: attrValue } = attr;
+      //   console.log(attrName, attrValue);
+      if (attrName.indexOf("v-") === 0) {
+        let dirName = attrName.slice(2);
+        switch (dirName) {
+          case "text":
+            new Watcher(attrValue, this.context, (newValue) => {
+              node.textContent = newValue;
+            });
+            break;
+          case "model":
+            new Watcher(attrValue, this.context, (newValue) => {
+              node.value = newValue;
+            });
+            // input 事件监听
+            node.addEventListener("input", (e) => {
+              this.context[attrValue] = e.target.value;
+            });
+            break;
+        }
+      }
+      if (attrName.indexOf("@") === 0) {
+        this.compilerMethods(this.context, node, attrName, attrValue);
+      }
+    });
+    // console.log(attrs);
     this.compiler(node);
   }
+
   /**
    * 编译文本节点
    * @param {*} node
    */
   compilerTextNode(node) {
+    // console.log("Text: ", node);
     let text = node.textContent.trim();
     // console.log(text);
     if (text) {
@@ -98,6 +128,21 @@ export default class Compiler {
       // 1.重新计算表达式的值
       // 2.node.textContent给最新的值
     }
+  }
+
+  /**
+   * 函数编译
+   * @param {*} scope
+   * @param {*} node
+   * @param {*} attrName
+   * @param {*} attrValue
+   */
+  compilerMethods(scope, node, attrName, attrValue) {
+    // 获取类型
+    // 事件名称
+    let type = attrName.slice(1);
+    let fn = scope[attrValue];
+    node.addEventListener(type, fn.bind(scope));
   }
 
   /**

@@ -40,7 +40,7 @@ export default class Watcher {
     // 把scope当成作用域
     // 函数内部使用with来指定作用域
     // 执行函数得到表达式的值
-    console.log(exp);
+    // console.log(exp);
     // 构造js语句进行替换
     let fn = new Function("scope", "with(scope){return " + exp + "}");
     return fn(scope);
