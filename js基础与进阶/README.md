@@ -11,3 +11,5 @@
 05.js IIFE
 
 06.js this 指向
+
+07.js 分号使用
