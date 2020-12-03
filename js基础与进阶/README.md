@@ -13,3 +13,7 @@
 06.js this 指向
 
 07.js 分号使用
+
+08.js prototype 原型
+
+09.js 原型链
