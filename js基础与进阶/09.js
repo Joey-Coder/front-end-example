@@ -39,3 +39,23 @@ console.log(Object.prototype instanceof Object); // false 函数的显式原型�
 console.log(Function.__proto__ === Function.prototype); // true
 
 console.log(Object.prototype.__proto__); // null Object的原型对象是原型链的尽头
+
+/**
+ * 读取属性会沿着隐性原型链查找，而设置则会在实例对象自身添加一个同名属性
+ */
+
+function Fn1() {}
+
+Fn1.prototype.a = "xxx";
+
+var f1 = new Fn1();
+
+console.log(f1.a);
+
+var f2 = new Fn1();
+
+console.log(f2.a); // 沿着原型链查找
+
+f2.a = "yyy"; // 重新设置
+
+console.log(f1.a, f2.a); // xxx yyy

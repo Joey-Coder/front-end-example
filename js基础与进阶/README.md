@@ -17,3 +17,5 @@
 08.js prototype 原型
 
 09.js 原型链 (\*\*\*)
+
+10.js instanceof 方法 (\*\*\*)
