@@ -40,4 +40,31 @@ function fun1() {
   fun2();
 }
 
-new fun1();  // fun2为直接调用，所以this指向全局global
+new fun1(); // fun2为直接调用，所以this指向全局global
+
+/**
+ * 测试题 01
+ */
+
+var name1 = "The Window";
+var object1 = {
+  name1: "MyObject",
+  getNameFunc: function () {
+    return function () {
+      return name1; // The Window
+    };
+  },
+};
+console.log(object1.getNameFunc()()); // 这里内部function的函数名调用，所有name1会在全局作用域中寻找
+
+var name2 = "The Window";
+var object1 = {
+  name2: "MyObject",
+  getNameFunc: function () {
+    var that = this;
+    return function () {
+      return that.name2; // The Window
+    };
+  },
+};
+console.log(object1.getNameFunc()()); // 使用that指定function在Object的作用域中寻找

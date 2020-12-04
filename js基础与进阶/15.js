@@ -87,7 +87,7 @@ m.doOtherthing();
  * 解决方法：及时释放
  */
 function fn1() {
-  var arr = new Array[100000](); // 闭包导致arr持续存在，导致占用内存
+  var arr = new Array(100000); // 闭包导致arr持续存在，导致占用内存
   function fn2() {
     console.log(arr.Length);
   }
@@ -96,3 +96,27 @@ function fn1() {
 var f = fn1();
 f();
 f = null; // 释放arr
+
+/**
+ * 测试题 01
+ * 挺有趣的
+ */
+function fun(n, o) {
+  console.log(o);
+  return {
+    fun: function (m) {
+      return fun(m, n); // 内部函数引用了外部函数的变量n, 产生闭包
+    },
+  };
+}
+
+var a = fun(0);
+a.fun(1);
+a.fun(2);
+a.fun(3);
+
+var b = fun(0).fun(1).fun(2).fun(3);
+
+var c = fun(0).fun(1);
+c.fun(2);
+c.fun(3);
