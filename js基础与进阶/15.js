@@ -1,35 +1,35 @@
 /**
- * 如何产生闭包？当一个内部子函数引用了嵌套的外部父函数的变量（函数）时，就产生了闭包
- * 如何产生闭包？包含外部函数变量(函数)的内部函数，且外部函数需要被执行
+ * 如何产生闭包？当一个内部子函数引用了嵌套的外部父函数的变量（函数）时，且外部函数需要被执行,就产生了闭包
+ * 如何产生闭包？包含被引用变量（函数）的对象
  * 闭包的作用：让函数的局部变量在函数执行完后，仍然存活，延长函数变量的生命周期，并且使函数变量可以被外部访问
  *
  */
 btns = [{}, {}, {}];
 
-// for (var i = 0, Length = btns.length; i < Length; i++) {
-//   var btn = btns[i];
-//   btn.onclick = function () {
-//     console.log(i);
-//   };
-// }
-// btns.forEach((item) => {
-//   item.onclick(); // 3 3 3
-// });
+for (var i = 0, Length = btns.length; i < Length; i++) {
+  var btn = btns[i];
+  btn.onclick = function () {
+    console.log(i);
+  };
+}
+btns.forEach((item) => {
+  item.onclick(); // 3 3 3
+});
 
-// 匿名函数自调用
-// for (var i = 0, Length = btns.length; i < Length; i++) {
-//   (function (i) {
-//     // 利用闭包
-//     var btn = btns[i];
-//     btn.onclick = function () {
-//       console.log(i);
-//     };
-//   })(i);
-// }
+// 匿名函数自调用;
+for (var i = 0, Length = btns.length; i < Length; i++) {
+  (function (i) {
+    // 利用闭包
+    var btn = btns[i];
+    btn.onclick = function () {
+      console.log(i);
+    };
+  })(i);
+}
 
-// btns.forEach((item) => {
-//   item.onclick(); // 0 1 2
-// });
+btns.forEach((item) => {
+  item.onclick(); // 0 1 2
+});
 
 function fn1() {
   // 外部函数
@@ -110,13 +110,13 @@ function fun(n, o) {
   };
 }
 
-var a = fun(0);
-a.fun(1);
-a.fun(2);
-a.fun(3);
+var a = fun(0); // undefined
+a.fun(1); // 0
+a.fun(2); // 0
+a.fun(3); // 0
 
-var b = fun(0).fun(1).fun(2).fun(3);
+var b = fun(0).fun(1).fun(2).fun(3); // undefined 0 1 2
 
-var c = fun(0).fun(1);
-c.fun(2);
-c.fun(3);
+var c = fun(0).fun(1); // undefined 0
+c.fun(2); // 1
+c.fun(3); // 1
