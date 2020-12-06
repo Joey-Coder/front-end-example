@@ -39,3 +39,5 @@
 19.js 定时器
 
 20.js web worker
+
+21.js 柯里化
