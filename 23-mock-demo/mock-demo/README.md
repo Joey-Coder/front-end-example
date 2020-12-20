@@ -1,24 +1,55 @@
-# mock-demo
+#
 
-## Project setup
-```
-npm install
-```
+## vue 中使用 mockjs
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### 配置 devserver
 
-### Compiles and minifies for production
-```
-npm run build
-```
+在 vue.config.js 中写入
 
-### Lints and fixes files
-```
-npm run lint
+```js
+module.exports = {
+  devServer: {
+    before: require("./mock/index.js"),
+  },
+};
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 编写 index.js
+
+```js
+const fs = require("fs");
+const path = require("path");
+const JSON5 = require("json5");
+const Mock = require("mockjs");
+
+function getJsonFile(filepath) {
+  var json = fs.readFileSync(path.join(__dirname, filepath), "utf-8");
+  return JSON5.parse(json);
+}
+
+module.exports = function(app) {
+  app.get("/user/userinfo", function(req, res) {
+    var json = getJsonFile("./userInfo.json5");
+    res.json(Mock.mock(json));
+  });
+};
+```
+
+### 使用环境变量控制是否启用 MOCK
+
+创建.env.development
+
+```js
+MOCK = true;
+```
+
+修改 mock/index.js
+
+```js
+if (process.env.MOCK == "true") {
+  app.get("/user/userinfo", function(req, res) {
+    var json = getJsonFile("./userInfo.json5");
+    res.json(Mock.mock(json));
+  });
+}
+```
