@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="hHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -12,10 +12,8 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          DEMO-UI
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -27,7 +25,7 @@
     >
       <q-list>
         <q-item-label header class="text-grey-8">
-          Essential Links
+          Components
         </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
@@ -47,17 +45,23 @@
 import EssentialLink from 'components/EssentialLink.vue'
 
 const linksData = [
+  // {
+  //   title: 'Youtube Page',
+  //   caption: 'Youtube Page by quasar',
+  //   icon: 'far',
+  //   link: '/#/youtube'
+  // },
+  // {
+  //   title: 'Whatsapp Page',
+  //   caption: 'Whatsapp Page by quasar',
+  //   icon: 'fab fa-whatsapp',
+  //   link: '/#/whatsapp'
+  // },
   {
-    title: 'Youtube Page',
-    caption: 'Youtube Page by quasar',
-    icon: 'fab fa-youtube',
-    link: '/#/youtube'
-  },
-  {
-    title: 'Whatsapp Page',
-    caption: 'Whatsapp Page by quasar',
-    icon: 'fab fa-whatsapp',
-    link: '/#/whatsapp'
+    title: 'Button',
+    caption: '按钮',
+    icon: 'far fa-dot-circle',
+    link: '/button'
   }
 ]
 

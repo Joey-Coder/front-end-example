@@ -2,7 +2,10 @@ const routes = [
   {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
-    children: [{ path: '', component: () => import('pages/Index.vue') }]
+    children: [
+      { path: '', component: () => import('pages/Index.vue') },
+      { path: '/button', component: () => import('pages/Button.vue') }
+    ]
   },
 
   // Always leave this as last one,
@@ -20,7 +23,8 @@ const routes = [
 
   {
     path: '/whatsapp',
-    component: () => import('pages/whatsapp.vue')
+    component: () => import('pages/whatsapp.vue'),
+    children: [{ path: '', component: () => import('pages/Index.vue') }]
   }
 ]
 
