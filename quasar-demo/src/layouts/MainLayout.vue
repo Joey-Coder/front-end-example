@@ -1,20 +1,40 @@
 <template>
-  <q-layout view="hHh LpR lFf">
-    <q-header elevated class="bg-primary text-white">
+  <q-layout view="lHh Lpr lFf">
+    <q-header elevated>
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="left = !left" />
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="leftDrawerOpen = !leftDrawerOpen"
+        />
 
         <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg" />
-          </q-avatar>
-          Title
+          Quasar App
         </q-toolbar-title>
+
+        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer show-if-above v-model="left" side="left" bordered>
-      <!-- drawer content -->
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      content-class="bg-grey-1"
+    >
+      <q-list>
+        <q-item-label header class="text-grey-8">
+          Essential Links
+        </q-item-label>
+        <EssentialLink
+          v-for="link in essentialLinks"
+          :key="link.title"
+          v-bind="link"
+        />
+      </q-list>
     </q-drawer>
 
     <q-page-container>
@@ -24,10 +44,30 @@
 </template>
 
 <script>
+import EssentialLink from 'components/EssentialLink.vue'
+
+const linksData = [
+  {
+    title: 'Youtube Page',
+    caption: 'Youtube Page by quasar',
+    icon: 'fab fa-youtube',
+    link: '/#/youtube'
+  },
+  {
+    title: 'Whatsapp Page',
+    caption: 'Whatsapp Page by quasar',
+    icon: 'fab fa-whatsapp',
+    link: '/#/whatsapp'
+  }
+]
+
 export default {
+  name: 'MainLayout',
+  components: { EssentialLink },
   data() {
     return {
-      left: false
+      leftDrawerOpen: false,
+      essentialLinks: linksData
     }
   }
 }

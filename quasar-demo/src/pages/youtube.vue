@@ -96,7 +96,13 @@
     >
       <q-scroll-area class="fit">
         <q-list padding>
-          <q-item v-for="link in links1" :key="link.text" v-ripple clickable>
+          <q-item
+            v-for="link in links1"
+            :key="link.text"
+            v-ripple
+            clickable
+            link="http://www.baidu.com"
+          >
             <q-item-section avatar>
               <q-icon color="grey" :name="link.icon" />
             </q-item-section>
@@ -180,8 +186,10 @@
 
 <script>
 import { fabYoutube } from '@quasar/extras/fontawesome-v5'
+
 export default {
   name: 'MyLayout',
+
   data() {
     return {
       leftDrawerOpen: false,
@@ -226,6 +234,7 @@ export default {
       ]
     }
   },
+
   created() {
     this.fabYoutube = fabYoutube
   }
@@ -234,9 +243,11 @@ export default {
 
 <style lang="sass">
 .YL
+
   &__toolbar-input-container
     min-width: 100px
     width: 55%
+
   &__toolbar-input-btn
     border-radius: 0
     border-style: solid
@@ -244,11 +255,13 @@ export default {
     border-color: rgba(0,0,0,.24)
     max-width: 60px
     width: 100%
+
   &__drawer-footer-link
     color: inherit
     text-decoration: none
     font-weight: 500
     font-size: .75rem
+
     &:hover
       color: #000
 </style>

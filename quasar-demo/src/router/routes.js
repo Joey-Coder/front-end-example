@@ -11,17 +11,16 @@ const routes = [
     path: '*',
     component: () => import('pages/Error404.vue')
   },
-
-  // youtube page
+  // youtube
   {
     path: '/youtube',
     component: () => import('pages/youtube.vue')
   },
-  // whatsapp page
+  // whatsapp
+
   {
     path: '/whatsapp',
-    component: () => import('pages/whatsapp.vue'),
-    children: [{ path: '', component: () => import('pages/Index.vue') }]
+    component: () => import('pages/whatsapp.vue')
   }
 ]
 
