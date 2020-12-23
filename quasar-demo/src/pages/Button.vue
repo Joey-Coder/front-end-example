@@ -11,6 +11,8 @@
         <show-demo
           githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
           title="基础用法"
+          :templateCode="templateCode"
+          :scriptCode="scriptCode"
         >
           <template #demo>
             <d-button>默认按钮</d-button>
@@ -30,7 +32,21 @@
 export default {
   name: 'PageButton',
   data() {
-    return {}
+    return {
+      templateCode: `
+      <template>
+        <d-button>默认按钮</d-button>
+        <d-button type="primary">主要按钮</d-button>
+        <d-button type="success">成功按钮</d-button>
+        <d-button type="info">信息按钮</d-button>
+        <d-button type="warning">警告按钮</d-button>
+        <d-button type="danger">危险按钮</d-button>
+      </template>
+      `,
+      scriptCode: `
+      export default {
+          }`
+    }
   },
   methods: {},
   components: {},

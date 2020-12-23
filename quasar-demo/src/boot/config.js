@@ -5,6 +5,9 @@ import DemotUI from 'demot-ui'
 import 'demot-ui/dist/demot-ui.css'
 import ShowDemo from 'components/ShowDemo.vue'
 
+import 'prismjs'
+import 'prismjs/themes/prism.css'
+
 Vue.use(DemotUI)
 Vue.component(ShowDemo.name, ShowDemo)
 

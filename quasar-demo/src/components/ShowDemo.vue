@@ -52,13 +52,11 @@
 
       <q-tab-panels v-model="tab" animated key="tab-panels">
         <q-tab-panel name="template">
-          <div class="text-h6">Mails</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          <Prism language="html">{{ templateCode }}</Prism>
         </q-tab-panel>
 
         <q-tab-panel name="script">
-          <div class="text-h6">Alarms</div>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          <Prism language="javascript">{{ scriptCode }}</Prism>
         </q-tab-panel>
       </q-tab-panels>
       <q-separator key="separator-bottom" />
@@ -73,6 +71,8 @@
 </template>
 
 <script>
+// vue-prism-component插件需要原生prismjs的支持
+import Prism from 'vue-prism-component'
 export default {
   name: 'ShowDemo',
   data() {
@@ -82,7 +82,9 @@ export default {
     }
   },
   methods: {},
-  components: {},
+  components: {
+    Prism
+  },
   props: {
     title: {
       type: String,
@@ -91,6 +93,14 @@ export default {
     githubLink: {
       type: String,
       default: 'http://github.com'
+    },
+    templateCode: {
+      type: String,
+      default: 'code'
+    },
+    scriptCode: {
+      type: String,
+      default: 'code'
     }
   },
   created() {},
@@ -99,4 +109,4 @@ export default {
   watched: {}
 }
 </script>
-<style scoped lang="less"></style>
+<style scoped lang="scss"></style>
