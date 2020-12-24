@@ -165,6 +165,24 @@
         </show-demo>
       </div>
     </div>
+    <div class="attributes-wraper">
+      <h5 class="q-mb-md">Attributes</h5>
+      <q-table
+        :data="attributesData"
+        :columns="attributesColumns"
+        row-key="name"
+        hide-bottom
+      ></q-table>
+    </div>
+    <div class="event-wraper">
+      <h5 class="q-mb-md">Events</h5>
+      <q-table
+        :data="eventsData"
+        :columns="eventsColumns"
+        row-key="name"
+        hide-bottom
+      ></q-table>
+    </div>
   </div>
 </template>
 
@@ -173,6 +191,91 @@ export default {
   name: 'PageButton',
   data() {
     return {
+      attributesColumns: [
+        {
+          name: '属性',
+          required: true,
+          align: 'left',
+          field: 'attribute',
+          label: '属性'
+        },
+        {
+          name: '值',
+          required: true,
+          align: 'left',
+          field: 'value',
+          label: '值'
+        },
+        {
+          name: '描述',
+          required: true,
+          align: 'left',
+          field: 'desc',
+          label: '描述'
+        }
+      ],
+      attributesData: [
+        {
+          attribute: 'type',
+          value: 'String',
+          desc: '按钮类型：primary,info,success,warning,danger'
+        },
+        {
+          attribute: 'plain',
+          value: 'Boolean',
+          desc: '是否为朴素按钮，默认为 false'
+        },
+        {
+          attribute: 'mimicry',
+          value: 'Boolean',
+          desc:
+            '是否为拟态按钮，和 plain 不能同时设置，会被 plain 覆盖。默认为 false'
+        },
+        {
+          attribute: 'disabled',
+          value: 'Boolean',
+          desc: '是否禁用按钮，默认为 false'
+        },
+        {
+          attribute: 'round',
+          value: 'Boolean',
+          desc: '是否为圆角按钮，默认为 false'
+        },
+        {
+          attribute: 'circle',
+          value: 'Boolean',
+          desc: '是否为圆形按钮，默认为 false'
+        },
+        {
+          attribute: 'icon',
+          value: 'Array|Boolean',
+          desc: 'font-awesome 字体数组，默认为 false'
+        }
+      ],
+      eventsColumns: [
+        {
+          name: 'event',
+          required: true,
+          label: '事件',
+          field: 'event',
+          align: 'left'
+        },
+        {
+          name: 'value',
+          required: true,
+          label: '值',
+          field: 'value',
+          align: 'left'
+        },
+        {
+          name: 'desc',
+          required: true,
+          label: '描述',
+          field: 'desc',
+          align: 'left'
+        }
+      ],
+      eventsData: [{ event: 'click', value: 'Function', desc: '点击事件' }],
       templateCode: `
       <template>
         <d-button>默认按钮</d-button>
@@ -191,7 +294,7 @@ export default {
         <d-button type="info" plain>信息按钮</d-button>
         <d-button type="warning" plain>警告按钮</d-button>
         <d-button type="danger" plain>危险按钮</d-button>
-      </template> 
+      </template>
     `,
       MimicryTemplateCode: `
       <template

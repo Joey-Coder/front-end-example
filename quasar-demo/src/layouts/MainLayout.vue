@@ -62,6 +62,12 @@ const linksData = [
     caption: '按钮',
     icon: 'far fa-dot-circle',
     link: '/button'
+  },
+  {
+    title: 'Dialog',
+    caption: '对话框',
+    icon: 'far fa-square',
+    link: '/dialog'
   }
 ]
 

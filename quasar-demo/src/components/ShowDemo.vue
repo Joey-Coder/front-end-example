@@ -1,6 +1,6 @@
 <template>
   <q-card class="show-demo">
-    <q-toolbar class="row no-wrap dense flat ">
+    <q-toolbar class="row no-wrap dense flat bg-blue-1">
       <q-toolbar-title>
         <q-chip color="primary" text-color="white" size="md" outline>{{
           title
@@ -63,7 +63,12 @@
     </transition-group>
 
     <q-card-section>
-      <div class="row q-gutter-md">
+      <div
+        :class="[
+          'row',
+          $q.screen.lt.sm ? 'q-gutter-sm justify-center' : 'q-gutter-lg'
+        ]"
+      >
         <slot name="demo"> </slot>
       </div>
     </q-card-section>
