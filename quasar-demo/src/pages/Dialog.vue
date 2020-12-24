@@ -247,6 +247,16 @@ export default {
           attribute: 'mimicry',
           value: 'Boolean',
           desc: '对话框是否为拟态风格，默认为 false'
+        },
+        {
+          attribute: 'width',
+          value: 'String',
+          desc: '对话框的宽度，默认为60%'
+        },
+        {
+          attribute: 'top',
+          value: 'String',
+          desc: '对话框距离顶部高度，默认为15vh'
         }
       ],
       slotColumns: [
