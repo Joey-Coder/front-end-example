@@ -7,7 +7,8 @@ const routes = [
       { path: '/button', component: () => import('pages/Button.vue') },
       { path: '/dialog', component: () => import('pages/Dialog.vue') },
       { path: '/input', component: () => import('pages/Input.vue') },
-      { path: '/switch', component: () => import('pages/Switch.vue') }
+      { path: '/switch', component: () => import('pages/Switch.vue') },
+      { path: '/radio', component: () => import('pages/Radio.vue') }
     ]
   },
 

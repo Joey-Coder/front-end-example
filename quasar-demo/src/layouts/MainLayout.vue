@@ -60,7 +60,7 @@ const linksData = [
   {
     title: 'Button',
     caption: '按钮',
-    icon: 'far fa-dot-circle',
+    icon: 'fas fa-mouse',
     link: '/button'
   },
   {
@@ -80,6 +80,12 @@ const linksData = [
     caption: '开关',
     icon: 'fas fa-toggle-off',
     link: '/switch'
+  },
+  {
+    title: 'Radio',
+    caption: '单选框',
+    icon: 'far fa-dot-circle',
+    link: '/radio'
   }
 ]
 
