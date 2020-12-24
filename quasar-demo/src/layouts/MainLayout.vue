@@ -68,6 +68,12 @@ const linksData = [
     caption: '对话框',
     icon: 'far fa-square',
     link: '/dialog'
+  },
+  {
+    title: 'Input',
+    caption: '表单',
+    icon: 'fab fa-wpforms',
+    link: '/input'
   }
 ]
 
