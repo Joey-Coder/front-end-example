@@ -13,7 +13,7 @@
           包括各种表单项，比如输入框、选择器、开关、单选框、多选框等。
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/form-item.vue"
           title="基本用法"
           :templateCode="templateCode"
           :scriptCode="scriptCode"

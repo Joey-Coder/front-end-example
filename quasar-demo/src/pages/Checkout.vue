@@ -14,7 +14,7 @@
           按钮后的介绍。
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="基本用法"
           :templateCode="templateCode"
           :scriptCode="scriptCode"
@@ -36,7 +36,7 @@
           自定义复选框颜色。
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="自定义颜色"
           :templateCode="colorTemplateCode"
           :scriptCode="colorScriptCode"
@@ -59,7 +59,7 @@
           拟物风格的复选框
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="拟物样式"
           :templateCode="mimicryTemplateCode"
           :scriptCode="mimicryScriptCode"
@@ -82,7 +82,7 @@
           禁止用户操作复选框
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="禁用状态"
           :templateCode="disabledTemplateCode"
           :scriptCode="disabledScriptCode"
@@ -105,7 +105,7 @@
           用于包裹多个 checkbox，通过 v-model 指定组内所有的 checkout 的 v-model
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="复选框组"
           :templateCode="groupTemplateCode"
           :scriptCode="groupScriptCode"
@@ -143,6 +143,8 @@ export default {
   name: 'PageCheckout',
   data() {
     return {
+      githubLink:
+        'https://github.com/Joey-Coder/demo-ui/blob/master/packages/checkbox.vue',
       checkboxChoice: false,
       checkedArray: ['1', '3'],
       attributesData: [

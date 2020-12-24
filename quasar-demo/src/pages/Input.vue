@@ -13,7 +13,7 @@
           基础输入框
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="基本用法"
           :templateCode="templateCode"
         >
@@ -30,7 +30,7 @@
           允许用户输入大量文字内容。
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="文本域输入框"
           :templateCode="textareaTemplateCode"
         >
@@ -47,7 +47,7 @@
           禁止用户输入。
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="禁用状态"
           :templateCode="disabledTemplateCode"
         >
@@ -64,7 +64,7 @@
           提供清除按钮，方便用户重新输入
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="可清除输入框"
           :templateCode="clearableTemplateCode"
           :scriptCode="clearableScript"
@@ -88,7 +88,7 @@
           方便切换密码可见状态
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="密码输入框"
           :templateCode="passwordTemplateCode"
           :scriptCode="passwordScript"
@@ -122,6 +122,8 @@ export default {
   name: 'PageInput',
   data() {
     return {
+      githubLink:
+        'https://github.com/Joey-Coder/demo-ui/blob/master/packages/input.vue',
       username: 'Joey',
       password: '123456',
       templateCode: '<d-input placeholder="请输入内容"></d-input>',

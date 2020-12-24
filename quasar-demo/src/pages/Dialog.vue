@@ -13,7 +13,7 @@
           Dialog 弹出一个对话框，适合需要定制性更大的场景。
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="基本用法"
           :templateCode="templateCode"
           :scriptCode="scriptCode"
@@ -51,7 +51,7 @@
           和 Form 组件的两个样例。
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="自定义内容"
           :templateCode="templateCode"
           :scriptCode="scriptCode"
@@ -117,6 +117,8 @@ export default {
   name: 'PageDialog',
   data() {
     return {
+      githubLink:
+        'https://github.com/Joey-Coder/demo-ui/blob/master/packages/dialog.vue',
       dialogVisiable: false,
       CustomdialogVisiable: false,
       columns: [

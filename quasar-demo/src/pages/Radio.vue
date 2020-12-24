@@ -13,7 +13,7 @@
           由于选项默认可见，不宜过多，若选项过多，建议使用 Select 选择器。
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="基本用法"
           :templateCode="templateCode"
           :scriptCode="scriptCode"
@@ -32,7 +32,7 @@
           自定义单选框被选中颜色
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="自定义颜色"
           :templateCode="colorTemplateCode"
           :scriptCode="colorScriptCode"
@@ -55,7 +55,7 @@
           拟态风格的单选框
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="拟态样式"
           :templateCode="mimicryTemplateCode"
           :scriptCode="mimicryScriptCode"
@@ -74,7 +74,7 @@
         <h5 class="q-mb-md">Radio组</h5>
         <p class="text-grey-8"></p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="Radio组"
           :templateCode="groupTemplateCode"
           :scriptCode="groupScriptCode"
@@ -99,7 +99,9 @@
     </div>
     <div class="group-wrapper">
       <h5 class="q-mb-md">单选框组(RadioGroup)</h5>
-      <p class="text-grey-8">用于包裹 radio，通过 v-model 指定组内所有的 radio 的 v-model</p>
+      <p class="text-grey-8">
+        用于包裹 radio，通过 v-model 指定组内所有的 radio 的 v-model
+      </p>
     </div>
   </div>
 </template>
@@ -109,6 +111,8 @@ export default {
   name: 'PageRadio',
   data() {
     return {
+      githubLink:
+        'https://github.com/Joey-Coder/demo-ui/blob/master/packages/radio.vue',
       gender: '1',
       templateCode: `
       <d-radio label="1" v-model="gender" name="male">男</d-radio>

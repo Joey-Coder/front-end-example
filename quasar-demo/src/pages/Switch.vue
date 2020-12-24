@@ -13,7 +13,7 @@
           状态切换
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="基本用法"
           :templateCode="templateCode"
         >
@@ -30,7 +30,7 @@
           可自定义开关的颜色样式
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="自定义颜色"
           :templateCode="colorTemplateCode"
         >
@@ -52,7 +52,7 @@
           禁止切换开关
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="禁用开关"
           :templateCode="disabledTemplateCode"
         >
@@ -69,7 +69,7 @@
           拟态风格开关
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="拟态开关"
           :templateCode="mimicryTemplateCode"
         >
@@ -86,7 +86,7 @@
           绑定开关切换事件
         </p>
         <show-demo
-          githubLink="https://github.com/Joey-Coder/demo-ui/blob/master/packages/button.vue"
+          :githubLink="githubLink"
           title="切换事件"
           :templateCode="clickEventCode"
           :scriptCode="clickScript"
@@ -127,6 +127,8 @@ export default {
   name: 'PageSwitch',
   data() {
     return {
+      githubLink:
+        'https://github.com/Joey-Coder/demo-ui/blob/master/packages/switch.vue',
       switchActive: false,
       templateCode: '<d-switch v-model="switchActive"></d-switch>',
       colorTemplateCode: `
