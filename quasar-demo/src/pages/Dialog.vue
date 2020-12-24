@@ -25,7 +25,6 @@
             <d-dialog
               title="tip"
               top="200px"
-              width="60%"
               :visiable.sync="dialogVisiable"
             >
               <template v-slot:title>
@@ -63,7 +62,6 @@
             <d-dialog
               title="tip"
               top="200px"
-              width="60%"
               :visiable.sync="CustomdialogVisiable"
             >
               <template v-slot:title>
