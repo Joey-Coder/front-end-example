@@ -246,9 +246,6 @@ export default {
           value: 'Boolean',
           desc: '对话框是否为拟态风格，默认为 false'
         }
-        //   {
-        //       attribute: 'String'
-        //   }
       ],
       slotColumns: [
         {

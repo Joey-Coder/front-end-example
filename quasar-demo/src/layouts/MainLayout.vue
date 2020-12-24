@@ -74,6 +74,12 @@ const linksData = [
     caption: '表单',
     icon: 'fab fa-wpforms',
     link: '/input'
+  },
+  {
+    title: 'Switch',
+    caption: '开关',
+    icon: 'fas fa-toggle-off',
+    link: '/switch'
   }
 ]
 
