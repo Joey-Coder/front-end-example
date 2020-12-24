@@ -86,6 +86,12 @@ const linksData = [
     caption: '单选框',
     icon: 'far fa-dot-circle',
     link: '/radio'
+  },
+  {
+    title: 'Checkout',
+    caption: '复选框',
+    icon: 'far fa-check-square',
+    link: '/checkout'
   }
 ]
 

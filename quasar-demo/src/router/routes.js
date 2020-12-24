@@ -8,7 +8,8 @@ const routes = [
       { path: '/dialog', component: () => import('pages/Dialog.vue') },
       { path: '/input', component: () => import('pages/Input.vue') },
       { path: '/switch', component: () => import('pages/Switch.vue') },
-      { path: '/radio', component: () => import('pages/Radio.vue') }
+      { path: '/radio', component: () => import('pages/Radio.vue') },
+      { path: '/checkout', component: () => import('pages/Checkout.vue') }
     ]
   },
 
