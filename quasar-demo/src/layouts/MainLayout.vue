@@ -71,8 +71,8 @@ const linksData = [
   },
   {
     title: 'Input',
-    caption: '表单',
-    icon: 'fab fa-wpforms',
+    caption: '输入框',
+    icon: 'fas fa-stream',
     link: '/input'
   },
   {
@@ -92,6 +92,12 @@ const linksData = [
     caption: '复选框',
     icon: 'far fa-check-square',
     link: '/checkout'
+  },
+  {
+    title: 'Form',
+    caption: '表单',
+    icon: 'fab fa-wpforms',
+    link: '/form'
   }
 ]
 
