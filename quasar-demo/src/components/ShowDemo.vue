@@ -9,7 +9,7 @@
       <q-btn-group outline class=" row q-gutter-x-sm no-wrap"
         ><q-btn
           round
-          icon="fab fa-github"
+          icon="iconfont icon-GitHub"
           class=" text-grey-8 "
           type="a"
           clickable
@@ -20,7 +20,7 @@
         </q-btn>
         <q-btn
           round
-          icon="fas fa-code"
+          icon="iconfont icon-code"
           class="text-grey-8"
           @click="sourceOpen = !sourceOpen"
         >
