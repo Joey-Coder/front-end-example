@@ -45,18 +45,12 @@
 import EssentialLink from 'components/EssentialLink.vue'
 
 const linksData = [
-  // {
-  //   title: 'Youtube Page',
-  //   caption: 'Youtube Page by quasar',
-  //   icon: 'far',
-  //   link: '/#/youtube'
-  // },
-  // {
-  //   title: 'Whatsapp Page',
-  //   caption: 'Whatsapp Page by quasar',
-  //   icon: 'fab fa-whatsapp',
-  //   link: '/#/whatsapp'
-  // },
+  {
+    title: 'Install & Use',
+    caption: '安装&使用',
+    icon: 'fas fa-download',
+    link: '/'
+  },
   {
     title: 'Button',
     caption: '按钮',

@@ -13,7 +13,7 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
     "core-js": "^3.6.5",
-    "demot-ui": "^0.1.6",
+    "demot-ui": "^0.1.8",
     "prismjs": "^1.22.0",
     "quasar": "^1.0.0",
     "vue-prism-component": "^1.2.0"
