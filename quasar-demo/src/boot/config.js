@@ -8,6 +8,8 @@ import ShowDemo from 'components/ShowDemo.vue'
 import 'prismjs'
 import 'prismjs/themes/prism.css'
 
+import '../css/font.css'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {

@@ -48,49 +48,49 @@ const linksData = [
   {
     title: 'Install & Use',
     caption: '安装&使用',
-    icon: 'fas fa-download',
-    link: '/'
+    icon: 'iconfont icon-download',
+    link: '/install'
   },
   {
     title: 'Button',
     caption: '按钮',
-    icon: 'fas fa-mouse',
+    icon: 'iconfont icon-button',
     link: '/button'
   },
   {
     title: 'Dialog',
     caption: '对话框',
-    icon: 'far fa-square',
+    icon: 'iconfont icon-dialog',
     link: '/dialog'
   },
   {
     title: 'Input',
     caption: '输入框',
-    icon: 'fas fa-stream',
+    icon: 'iconfont icon-input',
     link: '/input'
   },
   {
     title: 'Switch',
     caption: '开关',
-    icon: 'fas fa-toggle-off',
+    icon: 'iconfont icon-switch',
     link: '/switch'
   },
   {
     title: 'Radio',
     caption: '单选框',
-    icon: 'far fa-dot-circle',
+    icon: 'iconfont icon-radio',
     link: '/radio'
   },
   {
     title: 'Checkout',
     caption: '复选框',
-    icon: 'far fa-check-square',
+    icon: 'iconfont icon-checkout',
     link: '/checkout'
   },
   {
     title: 'Form',
     caption: '表单',
-    icon: 'fab fa-wpforms',
+    icon: 'iconfont icon-form',
     link: '/form'
   }
 ]
