@@ -2,10 +2,7 @@
   <q-item clickable :to="link">
     <q-item-section v-if="icon" avatar>
       <!-- <q-icon :name="icon" /> -->
-      <i
-        :class="icon"
-        style="font-size: 1.69em; font-weight: 400; color: #666"
-      ></i>
+      <i :class="icon" style="font-size: 1.69em; font-weight: 400;"></i>
     </q-item-section>
 
     <q-item-section>
