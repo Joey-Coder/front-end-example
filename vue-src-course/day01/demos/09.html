@@ -126,7 +126,7 @@
       };
 
       /**
-       * 柯里化，返回一个render函数, render函数的作用是将AST(带坑的VNode)和数据进行结合
+       * 柯里化，返回一个render函数, render函数的作用是将AST(带坑的VNode)和数据进行结合, 这里的ast被缓存了
        * 在真正的 Vue 中使用了 二次提交的 设计结构
        * 1. 在 页面中 的 DOM 和 虚拟 DOM 是一一对应的关系
        * 2. 先 有 AST 和 数据 生成 VNode ( 新, render )
@@ -135,6 +135,7 @@
 
       // 这里是生成 render 函数, 目的是缓存 抽象语法树 ( 我们使用 虚拟 DOM 来模拟 )
       JGVue.prototype.createRenderFn = function () {
+        // ast 被缓存
         let ast = getVNode(this._template);
         // Vue: 将 AST + data => VNode
         // 我们: 带有坑的 VNode + data => 含有数据的 VNode
