@@ -103,8 +103,10 @@
       }
 
       function JGVue(options) {
+        // options : {data:{}, el:'#'}
         this._data = options.data;
         this._template = document.querySelector(options.el); // vue 是字符串, 这里是 DOM
+        this._parent = this._template.parentNode;
 
         this.mount(); // 挂载
       }
@@ -124,6 +126,7 @@
       };
 
       /**
+       * 柯里化，返回一个render函数, render函数的作用是将AST(带坑的VNode)和数据进行结合
        * 在真正的 Vue 中使用了 二次提交的 设计结构
        * 1. 在 页面中 的 DOM 和 虚拟 DOM 是一一对应的关系
        * 2. 先 有 AST 和 数据 生成 VNode ( 新, render )
@@ -137,22 +140,51 @@
         // 我们: 带有坑的 VNode + data => 含有数据的 VNode
         return function render() {
           // 将 带有 坑的 VNode 转换为 待数据的 VNode
+          // _tmp 完成data数据替换的VNode
           let _tmp = combine(ast, this._data);
-          debugger;
+          //   debugger;
           return _tmp;
         };
       };
 
-      // 将虚拟 DOM 渲染到页面中: diff 算法就在里
-      JGVue.prototype.update = function () {
+      // 将虚拟 DOM 变成 真实DOM 并渲染到页面中: diff 算法就在里
+      JGVue.prototype.update = function (VNode) {
         // 简化, 直接生成 HTML DOM replaceChild 到页面中
+        let htmlNode = parseVNode(VNode);
+        // console.log(htmlNode);
+        this._parent.replaceChild(htmlNode, this._template);
       };
+
+      // 将 vNode 转换为真正的 DOM ( 作业 )
+      function parseVNode(vnode) {
+        let nodeType = vnode.type;
+        let realNode = null;
+        if (nodeType === 1) {
+          // 元素dom
+          realNode = document.createElement(vnode.tag);
+          // 设置属性
+          for (key in vnode.data) {
+            realNode.setAttribute(key, vnode.data[key]);
+          }
+          // 递归添加孩子节点
+          if (vnode.children.length > 0) {
+            vnode.children.forEach((child) => {
+              realNode.appendChild(parseVNode(child));
+            });
+          }
+        } else if (nodeType === 3) {
+          // 文本dom，直接添加文本节点
+          realNode = document.createTextNode(vnode.value);
+        }
+        return realNode;
+      }
 
       let app = new JGVue({
         el: "#root",
         data: {
           name: "张三",
           age: 19,
+          gender: "male",
         },
       });
 
