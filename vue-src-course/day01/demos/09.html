@@ -34,12 +34,13 @@
           this.children.push(vnode);
         }
       }
+
       /** 由 HTML DOM -> VNode: 将这个函数当做 compiler 函数 */
       function getVNode(node) {
         let nodeType = node.nodeType;
         let _vnode = null;
         if (nodeType === 1) {
-          // 元素
+          // nodeType为1 元素节点
           let nodeName = node.nodeName;
           let attrs = node.attributes;
           let _attrObj = {};
