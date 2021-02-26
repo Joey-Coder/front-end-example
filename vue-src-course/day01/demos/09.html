@@ -138,6 +138,7 @@
       JGVue.prototype.createRenderFn = function () {
         // ast 被缓存
         let ast = getVNode(this._template);
+        console.log("ast带坑的Vnode为:", ast);
         // Vue: 将 AST + data => VNode
         // 我们: 带有坑的 VNode + data => 含有数据的 VNode
         return function render() {
