@@ -7,7 +7,7 @@
  */
 
 import data from "./data.json";
-import "./index.css";
+// import "./index.css";
 
 console.log(data);
 
