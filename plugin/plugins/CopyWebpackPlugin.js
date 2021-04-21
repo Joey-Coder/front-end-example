@@ -24,7 +24,7 @@ class CopyWebpackPlugin {
     this.options = options;
   }
   apply(compiler) {
-    // 初始化compilation
+    // 初始化compilation, 接受一个回调函数的参数为compilation
     compiler.hooks.thisCompilation.tap("CopyWebpackPlugin", (compilation) => {
       // 添加asset输出
       compilation.hooks.additionalAssets.tapAsync(
