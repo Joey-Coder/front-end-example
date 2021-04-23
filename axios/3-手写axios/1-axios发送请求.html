@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>手写axios发送请求</title>
+  </head>
+  <body>
+    <script>
+      // Axios对象的构造函数
+      function Axios(config) {
+        // 默认配置
+        this.defaults = config;
+        // 拦截器
+        this.intercepters = {
+          request: {},
+          response: {},
+        };
+      }
+      // 对象原型添加request方法
+      Axios.prototype.request = function (config) {
+        console.log("发送请求, 请求参数为:" + config);
+      };
+      // 通过request方法构建get方法
+      Axios.prototype.get = function (config) {
+        config.method = "GET";
+        return this.request(config.method);
+      };
+      // 通过request方法构建post方法
+      Axios.prototype.post = function (config) {
+        config.method = "POST";
+        return this.request(config.method);
+      };
+
+      // 创建一个既包含所有Axios原型方法的函数
+      function createInstance(config) {
+        // 创建一个Axios实例
+        let context = new Axios(config);
+        // 创建一个request函数,该函数this绑定在context上
+        let instance = Axios.prototype.request.bind(context);
+        // 将Axios实例的方法绑定到request函数上
+        Object.keys(Axios.prototype).forEach((method) => {
+          instance[method] = Axios.prototype[method].bind(context);
+        });
+        return instance;
+      }
+
+      let axios = createInstance({});
+      console.dir(axios);
+      axios({});
+    </script>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>取消请求</h2>
+    <button id="send">发送请求</button>
+    <button id="cancel">取消发送</button>
+    <script>
+      const CancelToken = axios.CancelToken;
+      var cancel = null;
+      const sendBtn = document.querySelector("#send");
+      const cancelBtn = document.querySelector("#cancel");
+      sendBtn.onclick = function () {
+        console.log("正在发送请求");
+        get();
+      };
+      cancelBtn.onclick = function () {
+        if (cancel !== null) {
+          console.log("正在取消发送");
+          cancel();
+        }
+      };
+      function get() {
+        axios
+          .get("http://localhost:3000/comments", {
+            cancelToken: new CancelToken(function executor(c) {
+              cancel = c;
+            }),
+          })
+          .then((response) => {
+            console.log(response);
+            cancel = null;
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    </script>
+  </body>
+</html>
