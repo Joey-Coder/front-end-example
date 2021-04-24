@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>手写axios</title>
+  </head>
+  <body>
+    <button id="send">发送</button>
+    <button id="cancel">取消</button>
+    <script>
+      let Axios = function (config) {
+        // 请求基本配置
+        this.defaults = config;
+        // 拦截器
+        this.interceptors = {
+          request: new InterceptorManager(),
+          response: new InterceptorManager(),
+        };
+      };
+
+      // 用来收集拦截器,本质是一个数组
+      function InterceptorManager() {
+        this.handlers = [];
+      }
+
+      // use收集拦截器
+      InterceptorManager.prototype.use = function (onResolve, onReject) {
+        this.handlers.push({
+          onResolve,
+          onReject,
+        });
+      };
+
+      // 请求方法
+      Axios.prototype.request = function (config) {
+        // 修改Axios中defaults的值
+        let promise = Promise.resolve(config);
+        // promise调用链
+        // 两两为一对,分别为onResolve, onReject
+        let chains = [dispatchRequest, undefined];
+        // 添加请求拦截器到chains
+        this.interceptors.request.handlers.forEach((interceptor) => {
+          chains.unshift(interceptor.onResolve, interceptor.onReject);
+        });
+        // 添加响应拦截器到chains
+        this.interceptors.response.handlers.forEach((interceptor) => {
+          chains.push(interceptor.onResolve, interceptor.onReject);
+        });
+        // 开始调用chains中的promise
+        // 此时chains中的值为[requestInterceptor2, requestInterceptor1, dispatchRequst, undefined, responseInterceptor1, responseInterceptor2]
+        while (chains.length > 0) {
+          promise = promise.then(chains.shift(), chains.shift());
+        }
+        return promise;
+      };
+
+      // 定义取消请求方法
+      Axios.prototype.cancelToken = function (executor) {
+        var resolvePromise;
+        this.promise = new Promise((resolve) => {
+          resolvePromise = resolve;
+        });
+        executor(function () {
+          resolvePromise();
+        });
+      };
+
+      // dispatchRequest 调用xhrAdapter函数
+      function dispatchRequest(config) {
+        return xhrAdapter(config).then(
+          (response) => {
+            return response;
+          },
+          (error) => {
+            return error;
+          }
+        );
+      }
+      // 封装XMLHttpRequest,用于发送请求,返回一个promise
+      function xhrAdapter(config) {
+        return new Promise((resolve, reject) => {
+          console.log("发送请求");
+          // 初始化xhr
+          let xhr = new XMLHttpRequest();
+          xhr.open(config.method, config.url);
+          // 发送请求
+          xhr.send();
+          // 处理请求结果
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status >= 200 && xhr.status < 300) {
+                // 请求成功,设置promise的data为成功响应
+                resolve({
+                  config: config,
+                  data: xhr.response,
+                  header: xhr.getAllResponseHeaders(),
+                  status: xhr.status,
+                  message: xhr.statusText,
+                });
+              } else {
+                reject(new Error("请求失败: " + xhr.statusText));
+              }
+            }
+          };
+          // 取消请求
+          if (config.cancelToken) {
+            config.cancelToken.promise.then((value) => {
+              xhr.abort();
+              reject(new Error("请求已经取消"));
+            });
+          }
+        });
+      }
+
+      // get方法
+      Axios.prototype.get = function (config) {};
+
+      // post方法
+      Axios.prototype.post = function (config) {};
+
+      // axios的构造函数
+      // axios本质是一个绑定了Axios实例属性和方法的函数
+      function createInstance(config) {
+        // 创建Axios实例
+        let context = new Axios(config);
+        // 创建axios函数
+        let instance = Axios.prototype.request.bind(context);
+        // 将context上的方法绑定到axios上
+        Object.keys(Axios.prototype).forEach((key) => {
+          instance[key] = Axios.prototype[key].bind(context);
+        });
+        // 将context上的属性绑定到axios上
+        Object.keys(context).forEach((key) => {
+          instance[key] = context[key];
+        });
+        return instance;
+      }
+
+      // 测试代码
+
+      let axios = createInstance({});
+      console.dir(axios);
+
+      // 给axios添加请求拦截器
+      axios.interceptors.request.use(
+        function one(config) {
+          console.log("请求拦截器-成功-one");
+          return config;
+        },
+        function one(error) {
+          console.log("请求拦截器-失败-one");
+          return Promise.reject(error);
+        }
+      );
+      axios.interceptors.request.use(
+        function two(config) {
+          console.log("请求拦截器-成功-two");
+          return config;
+        },
+        function two(error) {
+          console.log("请求拦截器-失败-two");
+          return Promise.reject(error);
+        }
+      );
+
+      // 给axios添加响应拦截器
+      axios.interceptors.response.use(
+        function one(config) {
+          console.log("响应拦截器-成功-one");
+          return config;
+        },
+        function one(error) {
+          console.log("响应拦截器-失败-one");
+          return Promise.reject(error);
+        }
+      );
+      axios.interceptors.response.use(
+        function two(config) {
+          console.log("响应拦截器-成功-two");
+          return config;
+        },
+        function two(error) {
+          console.log("响应拦截器-失败-two");
+          return Promise.reject(error);
+        }
+      );
+
+      var cancel = null;
+
+      let sendEl = document.querySelector("#send");
+      let cancelEl = document.querySelector("#cancel");
+
+      // 点击发送请求
+      sendEl.onclick = function () {
+        axios({
+          method: "GET",
+          url: "http://localhost:3000/posts",
+          cancelToken: new axios.cancelToken(function (c) {
+            cancel = c;
+          }),
+        })
+          .then((response) => {
+            console.log(response);
+            cancel = null;
+          })
+          .catch((err) => {
+            console.warn(err);
+          });
+      };
+
+      // 点击取消请求
+      cancelEl.onclick = function () {
+        if (cancel !== null) {
+          cancel();
+        }
+      };
+    </script>
+  </body>
+</html>
