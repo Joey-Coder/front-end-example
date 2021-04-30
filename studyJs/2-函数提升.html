@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>函数提升</title>
+  </head>
+  <body>
+    <script>
+      debugger
+      console.log("f1 is ", f1); // function
+      f1();
+
+      console.log("f2 is ", f2); // undefined
+      f2(); // 报错
+
+      // 函数提升，且定义
+      function f1() {
+        console.log("f1");
+      }
+
+      // 变量提升，但是函数没定义
+      var f2 = function () {
+        console.log("f2");
+      };
+      console.log(a) // 报错
+      a = 1; // window.a 可以访问到，没有加var默认定义全局变量, 不会变量提升
+      // var a = 1; // window.a 可以访问到，没有加var默认定义全局变量
+      // const a = 1; // window.a 访问不到, undefined
+      console.log(window.a);
+    </script>
+  </body>
+</html>

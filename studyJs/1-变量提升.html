@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>变量提升</title>
+  </head>
+  <body>
+    <script>
+      console.log("a is ", a);
+      // const a = 23; // const 定义的常量不会提升
+      var a = 23; // var 定义变量提升到行首
+      // let a = 23 // let 定义的变量不会提升
+    </script>
+  </body>
+</html>
