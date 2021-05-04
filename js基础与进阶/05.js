@@ -1,6 +1,9 @@
 /**
  * IIFE: Immediately-Invoked Function Expression
  *  立即调用函数表达式
+ * 优点：
+ *  1. 不会污染外部命名空间
+ *  2. 用来写js模块
  */
 
 (function () {

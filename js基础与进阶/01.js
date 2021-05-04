@@ -40,7 +40,7 @@ console.log(b1.b3, typeof b1.b3, b1.b3 instanceof Function);
 // 1. null类型使用typeof得到的结果为Object而不是null
 // 2. Array类型使用typeof得到结果为Object而不是Array
 
-// undefined与null区别：undefined代表已经定义但未赋值，null代表定义了且赋值未null
+// undefined与null区别：undefined代表已经定义但未赋值，null代表定义了且赋值为null
 var aa;
 console.log(aa); // undefined
 var aa = null;
