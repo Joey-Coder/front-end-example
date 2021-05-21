@@ -9,7 +9,7 @@ class Store {
    * @param {Object} options
    */
   constructor(options) {
-    // console.log(options)
+    console.log(options)
     const state = options.state
     this._vm = new Vue({
       // 利用vue给state添加双向绑定
@@ -24,7 +24,7 @@ class Store {
 
     this.actions = {} // 收集所有module的actions
 
-    this.modules = new ModuleCollection(options) // 格式化module
+    this.modules = new ModuleCollection(options) // 格式化module, 生成树结构
 
     installModule(this, this.state, [], this.modules.root) // 将格式化后的module收集
   }
