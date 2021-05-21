@@ -8,7 +8,8 @@
  * Object的函数对象的prototype和空对象__proto__共同指向Object的原型对象
  * Object原型对象的__proto__的值为null
  * Object的原型链是隐式原型链，查找属性时顺着__proto__查找
- * 所有函数的隐式原型都相等
+ * 所有构造函数都是由Function产生，都是Function的实例
+ * 所有函数的隐式原型都相等, 指向一个Function对象，Function对象的__proto__指向Object的原型对象
  * 构造函数的实例对象拥有构造函数的原型对象的所有属性
  * 函数的显式原型指向默认的空Object实例对象，但Object()除外
  * Function是所有Funtion的实例
