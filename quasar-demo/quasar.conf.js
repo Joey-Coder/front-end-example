@@ -3,6 +3,8 @@
  * the ES6 features that are supported by your Node version. https://node.green/
  */
 
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
+
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
@@ -49,13 +51,15 @@ module.exports = function(/* ctx */) {
       // transpileDependencies: [],
 
       // rtl: false, // https://quasar.dev/options/rtl-support
-      // preloadChunks: true,
-      // showProgress: false,
-      // gzip: true,
+      preloadChunks: true,
+      showProgress: true,
+      gzip: true,
       // analyze: true,
 
       // Options below are automatically set depending on the env, set them if you want to override
       // extractCSS: false,
+
+      publicPath: process.env.DEV ? '/' : '/demoui/',
 
       // https://quasar.dev/quasar-cli/handling-webpack
       extendWebpack(cfg) {
@@ -65,6 +69,7 @@ module.exports = function(/* ctx */) {
           loader: 'eslint-loader',
           exclude: /node_modules/
         })
+        cfg.plugins.push(new HardSourceWebpackPlugin())
       }
     },
 
