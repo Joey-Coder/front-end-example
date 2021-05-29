@@ -27,4 +27,5 @@ new Watcher(obj, "a.m.n", (val) => {
 obj.a.m.n = 88;
 obj.a.m.n = 43;
 // obj.g.push(66);
+console.log(obj.a.m.n);
 console.log(obj);
