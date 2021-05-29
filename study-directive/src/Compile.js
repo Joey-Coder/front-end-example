@@ -11,9 +11,11 @@ export default class Compile {
       // 调用函数，让节点变为fragment，类似于mustache中的tokens。实际上用的是AST，这里就是轻量级的，fragment
       let $fragment = this.node2Fragment(this.$el);
       // 编译
+      vue.beforeMount();
       this.compile($fragment);
       // 替换好的内容要上树
       this.$el.appendChild($fragment);
+      // 挂载结束，调用vue.mounted()
     }
   }
 
