@@ -27,8 +27,8 @@ export class ModuleCollection {
    */
   register(path, rootModule) {
     const rowModule = {
-      _row: rootModule,
-      state: rootModule.state,
+      _row: rootModule, // 存储所有store信息，包括state，getters， mutation， action
+      state: rootModule.state, // 单独抽离state
       _children: {}
     }
     if (!this.root) {
@@ -64,7 +64,7 @@ export function installModule(store, rootState, path, rowModule) {
       if (getters[getterName]) {
         Object.defineProperty(store.getters, getterName, {
           get: () => {
-            return val(rowModule.state)
+            return val(rowModule.state) // getters里面的val是函数. 参数是当前的state
           }
         })
       }
@@ -96,6 +96,7 @@ export function installModule(store, rootState, path, rowModule) {
 
   const state = rowModule._row.state
   if (state) {
+    // 收集state，不进行扁平化
     if (path.length > 0) {
       const parentState = path.slice(0, -1).reduce((acc, cur) => {
         return acc[cur]
